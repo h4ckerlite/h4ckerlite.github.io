@@ -10,7 +10,7 @@ Hola, soy H4ckerLite,un entusiasta de hacking y ciberseguridad.
 
 A temprana edad tuve acceso a una computadora, siempre desde ahi empece a aprender informatica, a mis 8~9 años empece con Scratch,con el aprendí un poco dde la logica de la programación, por mis 11 años empece a hacer ediciones basicas a juegos, solo cambiaba la splash screen y el cursor; por mis 13 años epece por Python, cuyo lenguaje lo deje por estudios y lo volví a retomar en la pandemia.
 Despues en el 2022 empece con JavaScript, el cual lo deje para dedicarme al hacking ya que me llamaba más la atención.
-Empeze aprenciedo lo basico, la persona que me hizo amar este mundo fue [S4vitar](https://www.youtube.com/s4vitar), gracias a el aprendí mas
+Empeze aprenciedo lo basico, la persona que me hizo amar este mundo fue fue [S4vitar](https://www.youtube.com/c/s4vitar), gracias a el aprendí más.
 
 
 # ¿Para que un Blog?
