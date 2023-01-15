@@ -7,9 +7,12 @@
   type: twitter
   icon: 'fab fa-twitter'
 -
-  type: email
-  icon: 'fas fa-envelope'
-  noblank: true            # open link in current tab
+  type: hackthebox
+  icon: 'fas fab-cube'
+  url: 'https://app.hackthebox.com/profile/824495' 
+  #type: email
+ # icon: 'fas fa-envelope'
+ # noblank: true            # open link in current tab
 -
   type: rss
   icon: 'fas fa-rss'
