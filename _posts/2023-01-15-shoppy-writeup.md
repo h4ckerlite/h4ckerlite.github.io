@@ -10,13 +10,11 @@ image:
   alt: Shoppy WriteUp
 ---
 
-Les explicaré comó comprometer la máquina [Shoppy](https://app.hackthebox.com/machines/496) de HackTheBox. En esta máquina nos enfretaremos a un `NoSQLi` de `MongoDB` y ganare
-mos acceso al sistema gracias a una contraseña filtrada y para la escalada nos vamos a aprovechar del grupo **Docker**.
+Les explicaré comó comprometer la máquina [Shoppy](https://app.hackthebox.com/machines/496) de HackTheBox. En esta máquina nos enfretaremos a un `NoSQLi` de `MongoDB` y ganaremos acceso al sistema gracias a una contraseña filtrada y para la escalada nos vamos a aprovechar del grupo **Docker**.
 
 ## Escaneo NMAP
 
-Antes de empezar les recomiendo hacer un escaneo para saber que puertos estan abiertos y que servicios corren por ellos, ya que esta información nos sera util para continuar c
-on la prueba de penetración.
+Antes de empezar les recomiendo hacer un escaneo para saber que puertos estan abiertos y que servicios corren por ellos, ya que esta información nos sera util para continuar con la prueba de penetración.
 
 ``````bash
 ❯ nmap -p- --open -sS --min-rate 5000 -vvv -n -Pn 10.10.11.180 -oG allPorts
