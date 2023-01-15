@@ -42,8 +42,7 @@ Nmap done: 1 IP address (1 host up) scanned in 15.33 seconds
 ``````
 
 
-Nos percatamos que tiene el **SSH** abierto y el puerto 80 que corresponde al **HTTP**, al entrar a la web no vemos nada, ya que se esta aplicando virtual hosting, para soluci
-onarlo hacemos lo siguiente:
+Nos percatamos que tiene el **SSH** abierto y el puerto 80 que corresponde al **HTTP**, al entrar a la web no vemos nada, ya que se esta aplicando virtual hosting, para solucionarlo hacemos lo siguiente:
 
 ```bash
 echo "10.10.11.180       shoppy.htb" | tee -a /etc/hosts
@@ -73,7 +72,7 @@ ID           Response   Lines    Word       Chars       Payload
 000000291:   301        10 L     16 W       179 Ch      "assets"                                                                                                               
 000000259:   302        0 L      4 W        28 Ch       "admin"   
 ```
-Nos encontramos con **/login** , intentamos accesder pero esta protegido por un login, podemos probar con una injección **SQL** pero la web no usa **SQL**
+Nos encontramos con **/login** , intentamos acceder pero esta protegido por un login, podemos probar con una injección **SQL** pero la web no usa **SQL**
 
 ![Login Shoppy]({{ 'assets/img/commons/shoppy-writeup/login.png' | relative_url }}){: .center-image }
 _Login Shoppy_
@@ -152,7 +151,7 @@ manpath: can't set the locale; make sure $LC_* and $LANG are correct
 jaeger@shoppy:~$ export TERM=xterm
 jaeger@shoppy:~$ 
 ```
-Una vez dentro podemso ver si tenemos un privilegio asignado a sudo, podemos ver podemos ejecutar como el usuario deploy un ejecutable 
+Una vez dentro podemos ver si tenemos un privilegio asignado a sudo,vemos que podemos ejecutar como el usuario `deploy` un ejecutable 
 
 ## Enumeración del sistema
 
@@ -198,7 +197,7 @@ deploy@shoppy:/home/jaeger$
  ```
 
 ## Escalada de privilegios
-Pertenecemos al grupo `docker`  mirando (GtfObins)[https://gtfobins.github.io/gtfobins/docker/#shell] podemos ver que podemos abusar del grupo **docker**
+Pertenecemos al grupo `docker`  mirando [GtfObins](https://gtfobins.github.io/gtfobins/docker/#shell) podemos ver que podemos abusar del grupo **docker**
 Ejecutamos el comando y nos da una shell como root
 
  ```bash
