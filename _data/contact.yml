@@ -8,11 +8,8 @@
   icon: 'fab fa-twitter'
 -
   type: hackthebox
-  icon: 'fas fab-cube'
+  icon: 'fas fa-cube'
   url: 'https://app.hackthebox.com/profile/824495' 
-  #type: email
- # icon: 'fas fa-envelope'
- # noblank: true            # open link in current tab
 -
   type: rss
   icon: 'fas fa-rss'
