@@ -1,7 +1,7 @@
 ---
 title: Shoppy WriteUp
 author: H4ckerLite 
-date: 2022-08-28 00:00:00 +0800
+date: 2023-01-14 00:00:00 +0800
 categories: [hackthebox, machine, writeup]
 tags: [hackthebox, writeup]
 pin: pin
