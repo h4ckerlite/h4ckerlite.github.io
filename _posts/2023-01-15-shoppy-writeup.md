@@ -83,7 +83,7 @@ Podemos probar `admin'||'1==1` y poner cualquier contraseña:
 
 
 ![Login Shoppy]({{ 'assets/img/commons/shoppy-writeup/login1.png' | relative_url }}){: .center-image }
-_Bypass Login _
+_Bypass Login_
 
 Bingo!!! Ganamos acceso como administrador, en el buscador podemos repetir la injección.
 ![Login Shoppy]({{ 'assets/img/commons/shoppy-writeup/login2.png' | relative_url }}){: .center-image }
