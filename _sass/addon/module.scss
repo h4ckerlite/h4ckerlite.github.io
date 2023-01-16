@@ -5,7 +5,8 @@
 /* ---------- scss placeholder --------- */
 
 %heading {
-  color:  color: #e9e861;
+  /*color: var(--heading-color);  */
+  color: #e9e861;
   font-weight: 400;
   font-family: 'Lato', 'Microsoft Yahei', sans-serif;
 }
