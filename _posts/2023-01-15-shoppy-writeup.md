@@ -78,7 +78,7 @@ Nos encontramos con **/login** , intentamos acceder pero esta protegido por un l
 _Login Shoppy_
 
 Introducimos una comilla al final del usuario para ver si la query de la consulta es vulnerable a SQL injection, notamos que el servidor se demora en responder, por lo que confirmamos que es vulnerble.
-
+Podemos seguir probando tipicas SQL injection, pero al final ningina funcionará.
 ![Login Shoppy]({{ 'assets/img/commons/shoppy-writeup/login3.png' | relative_url }}){: .center-image }
 _Login Shoppy_
 
@@ -88,7 +88,7 @@ _Login Shoppy_
 ' or '1'='1
 ' or '1'='1'-- -
 ```
-Pero vemos que ninguna funciona, eso nos da una pista que debemos probar con una injección NoSQL, una base de las bases de datos mas usadas son **MongoDB**, buscando payloads en **Google** encontramos estos blogs [MongoDB SQL injection](https://nullsweep.com/a-nosql-injection-primer-with-mongo/), este [otro](https://nullsweep.com/a-nosql-injection-primer-with-mongo/).
+Pero vemos que ninguna funciona, eso nos da una pista que debemos probar con una injección NoSQL, una base de las bases de datos mas usadas son **MongoDB**, buscando payloads en **Google** encontramos estos blogs [MongoDB SQL injection](https://nullsweep.com/a-nosql-injection-primer-with-mongo/) y  este otro blog [No SQl injection](https://nullsweep.com/a-nosql-injection-primer-with-mongo/).
 
 Podemos probar `admin'||'1==1` y poner cualquier contraseña:
 
