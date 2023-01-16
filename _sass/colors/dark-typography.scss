@@ -109,7 +109,8 @@
   nav[data-toggle=toc] .nav-link.active:hover,
   nav[data-toggle=toc] .nav > li > a:focus,
   nav[data-toggle=toc] .nav > li > a:hover {
-    color: var(--toc-highlight) !important;
+   /* color: var(--toc-highlight) !important;*/
+    color: #e10202 !importamnt;
     border-left-color: var(--toc-highlight) !important;
   }
 
