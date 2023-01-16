@@ -81,7 +81,7 @@ Introducimos una comilla al final del usuario para ver si la query de la consult
 
 ![Login Shoppy]({{ 'assets/img/commons/shoppy-writeup/login3.png' | relative_url }}){: .center-image }
 _Login Shoppy_
-Podemos seguir probando tipicas SQL injection, pero al final ningina funcionará.
+Podemos seguir probando tipicas SQL injection, pero al final ninguna funcionará.
 ```bash
 '
 '-- -
