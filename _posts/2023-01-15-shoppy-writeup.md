@@ -88,7 +88,7 @@ Podemos seguir probando tipicas SQL injection, pero al final ninguna funcionará
 ' or '1'='1
 ' or '1'='1'-- -
 ```
-Pero vemos que ninguna funciona, eso nos da una pista que debemos probar con una injección NoSQL, una base de las bases de datos mas usadas son **MongoDB**, buscando payloads en **Google** encontramos estos blogs [MongoDB SQL injection](https://nullsweep.com/a-nosql-injection-primer-with-mongo/) y  este otro blog [No SQl injection](https://nullsweep.com/a-nosql-injection-primer-with-mongo/).
+Pero vemos que ninguna funciona, eso nos da una pista que debemos probar con una injección NoSQL, una base de las bases de datos mas usadas son **MongoDB**, buscando payloads en **Google** encontramos estos blogs [MongoDB SQL injection](https://nullsweep.com/a-nosql-injection-primer-with-mongo/) y  este otro blog [No SQl injection](https://nullsweep.com/nosql-injection-cheatsheet/).
 
 Podemos probar `admin'||'1==1` y poner cualquier contraseña:
 
