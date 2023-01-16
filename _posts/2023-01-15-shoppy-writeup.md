@@ -78,10 +78,10 @@ Nos encontramos con **/login** , intentamos acceder pero esta protegido por un l
 _Login Shoppy_
 
 Introducimos una comilla al final del usuario para ver si la query de la consulta es vulnerable a SQL injection, notamos que el servidor se demora en responder, por lo que confirmamos que es vulnerble.
-Podemos seguir probando tipicas SQL injection, pero al final ningina funcionará.
+
 ![Login Shoppy]({{ 'assets/img/commons/shoppy-writeup/login3.png' | relative_url }}){: .center-image }
 _Login Shoppy_
-
+Podemos seguir probando tipicas SQL injection, pero al final ningina funcionará.
 ```bash
 '
 '-- -
