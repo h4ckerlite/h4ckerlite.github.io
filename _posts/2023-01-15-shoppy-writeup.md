@@ -88,14 +88,9 @@ _Login Shoppy_
 ' or '1'='1
 ' or '1'='1'-- -
 ```
-![Login Shoppy]({{ 'assets/img/commons/shoppy-writeup/login1.png' | relative_url }}){: .center-image }
-_Bypass Login_
-
-Pero vemos que ninguna funciona, eso nos da una pista que debemos probar con una injección NoSQL, una base de las bases de datos mas usadas son **MongoDB**, 
-
+Pero vemos que ninguna funciona, eso nos da una pista que debemos probar con una injección NoSQL, una base de las bases de datos mas usadas son **MongoDB**, buscando payloads en **Google** encontramos estos blogs [MongoDB SQL injection](https://nullsweep.com/a-nosql-injection-primer-with-mongo/), este [otro](https://nullsweep.com/a-nosql-injection-primer-with-mongo/).
 
 Podemos probar `admin'||'1==1` y poner cualquier contraseña:
-
 
 ![Login Shoppy]({{ 'assets/img/commons/shoppy-writeup/login1.png' | relative_url }}){: .center-image }
 _Bypass Login_
