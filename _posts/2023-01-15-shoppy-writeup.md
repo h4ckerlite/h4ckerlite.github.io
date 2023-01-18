@@ -3,7 +3,7 @@ title: Shoppy WriteUp
 author: H4ckerLite 
 date: 2023-01-14 00:00:00 +0800
 categories: [hackthebox, machine, writeup]
-tags: [hackthebox, writeup]
+tags: [hackthebox, writeup, no sql,]
 pin: pin
 image:
   path: ../../assets/img/commons/shoppy-writeup/Shoppy.png 
