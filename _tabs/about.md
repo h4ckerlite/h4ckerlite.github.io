@@ -17,8 +17,5 @@ Empeze aprenciedo lo basico, la persona que me hizo amar este mundo fue [S4vitar
 
 Este blog ha sido creado para compartir mis conocimientos con la comunidad, creo que es importante crear contenido para que los demás puedan ver lo que haces y puedan aprender de ello.
 
-# ¿Me quedaré con la programación o el hacking?
-
-Personalmente pienso quedarme con el hacking, ya que me llama mas la atención que la programación, pero eso no signica que la abandone, ya que igual en este mundo hace falta la programacion para la creacion de: herramientas, exploits, etc.
 
 

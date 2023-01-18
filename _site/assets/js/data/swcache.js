@@ -15,9 +15,9 @@ const resource = [
   
     '/tags/',
   
-    '/archives/',
-  
     '/about/',
+  
+    '/archives/',
   
 
   /* --- Favicons & compressed JS --- */
