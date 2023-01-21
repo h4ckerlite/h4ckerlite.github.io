@@ -2,9 +2,9 @@
 
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://localhost:4000/</id>
-  <title>H4ckerLite</title>
+  <title>H4ckerLite | Blog</title>
   <subtitle>Blog de ciberseguridad, hacking, writeups, CTFs...</subtitle>
-  <updated>2023-01-18T02:59:42+01:00</updated>
+  <updated>2023-01-21T06:52:16+01:00</updated>
   <author>
     <name>H4ckerLite</name>
     <uri>http://localhost:4000/</uri>
@@ -20,11 +20,88 @@
 
   
   <entry>
+    <title>Precious WriteUp</title>
+    <link href="http://localhost:4000/posts/precious-writeup/" rel="alternate" type="text/html" title="Precious WriteUp" />
+    <published>2023-01-16T17:00:00+01:00</published>
+  
+    <updated>2023-01-16T17:00:00+01:00</updated>
+  
+    <id>http://localhost:4000/posts/precious-writeup/</id>
+    <content src="http://localhost:4000/posts/precious-writeup/" />
+    <author>
+      <name>H4ckerLite</name>
+    </author>
+
+  
+    
+    <category term="hackthebox" />
+    
+    <category term="machine" />
+    
+    <category term="writeup" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Les explicaré comó comprometer la máquina Precious de HackTheBox. En esta máquina nos enfretaremos a una versión vulnerable de pdfkit con la cual ganaremos acceso por una reverse shell y para la escalada cargaremos un archivo para convertir la BASH en SUID.
+
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>Ambassador WriteUp</title>
+    <link href="http://localhost:4000/posts/ambassador-writeup/" rel="alternate" type="text/html" title="Ambassador WriteUp" />
+    <published>2023-01-16T17:00:00+01:00</published>
+  
+    <updated>2023-01-16T17:00:00+01:00</updated>
+  
+    <id>http://localhost:4000/posts/ambassador-writeup/</id>
+    <content src="http://localhost:4000/posts/ambassador-writeup/" />
+    <author>
+      <name>H4ckerLite</name>
+    </author>
+
+  
+    
+    <category term="hackthebox" />
+    
+    <category term="machine" />
+    
+    <category term="writeup" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Les explicare como comprometer la máquina Ambassador de HackTheBox, Nos enfrentaremos a una version de Grafana la cual cuenta con una vulnerabilidad de tipo Directory Transversal y Arbitrary File Read. Para ganar acceso al sistema nos aprovecharemos de aquella vulneravilidad de grafana que nos permitira descargar la base de datos y poder ver la contraseña de un usuario y para la escalada usarem...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
     <title>Shoppy WriteUp</title>
     <link href="http://localhost:4000/posts/shoppy-writeup/" rel="alternate" type="text/html" title="Shoppy WriteUp" />
     <published>2023-01-13T17:00:00+01:00</published>
   
-    <updated>2023-01-17T00:21:21+01:00</updated>
+    <updated>2023-01-18T03:06:32+01:00</updated>
   
     <id>http://localhost:4000/posts/shoppy-writeup/</id>
     <content src="http://localhost:4000/posts/shoppy-writeup/" />

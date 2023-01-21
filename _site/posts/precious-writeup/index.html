@@ -29,32 +29,66 @@
 
   
 
+    
+
+    
+
   
 
+  
+
+  
+    
+
+    
+      
+        <!-- `site.img_cdn` is a local file path -->
+        
+        
+      
+
+      
+
+    
+      
+        <!-- `site.img_cdn` is a local file path -->
+        
+        
+      
+
+      
+
+    
   
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
 <meta name="generator" content="Jekyll v4.3.1" />
-<meta property="og:title" content="Tags" />
+<meta property="og:title" content="Precious WriteUp" />
+<meta name="author" content="H4ckerLite" />
 <meta property="og:locale" content="es_ES" />
-<meta name="description" content="Blog de ciberseguridad, hacking, writeups, CTFs…" />
-<meta property="og:description" content="Blog de ciberseguridad, hacking, writeups, CTFs…" />
-<link rel="canonical" href="http://localhost:4000/tags/" />
-<meta property="og:url" content="http://localhost:4000/tags/" />
+<meta name="description" content="Les explicaré comó comprometer la máquina Precious de HackTheBox. En esta máquina nos enfretaremos a una versión vulnerable de pdfkit con la cual ganaremos acceso por una reverse shell y para la escalada cargaremos un archivo para convertir la BASH en SUID." />
+<meta property="og:description" content="Les explicaré comó comprometer la máquina Precious de HackTheBox. En esta máquina nos enfretaremos a una versión vulnerable de pdfkit con la cual ganaremos acceso por una reverse shell y para la escalada cargaremos un archivo para convertir la BASH en SUID." />
+<link rel="canonical" href="http://localhost:4000/posts/precious-writeup/" />
+<meta property="og:url" content="http://localhost:4000/posts/precious-writeup/" />
 <meta property="og:site_name" content="H4ckerLite Blog" />
+<meta property="og:image" content="http://localhost:4000/assets/img/commons/shoppy-writeup/Shoppy.png" />
+<meta property="og:image:alt" content="Shoppy WriteUp" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2023-01-21T06:52:16+01:00" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Tags" />
+<meta property="article:published_time" content="2023-01-16T17:00:00+01:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/assets/img/commons/shoppy-writeup/Shoppy.png" />
+<meta name="twitter:image:alt" content="Shoppy WriteUp" />
+<meta property="twitter:title" content="Precious WriteUp" />
 <meta name="twitter:site" content="@mortzelo" />
+<meta name="twitter:creator" content="@H4ckerLite" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-01-21T06:52:16+01:00","datePublished":"2023-01-21T06:52:16+01:00","description":"Blog de ciberseguridad, hacking, writeups, CTFs…","headline":"Tags","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/tags/"},"url":"http://localhost:4000/tags/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"H4ckerLite"},"dateModified":"2023-01-16T17:00:00+01:00","datePublished":"2023-01-16T17:00:00+01:00","description":"Les explicaré comó comprometer la máquina Precious de HackTheBox. En esta máquina nos enfretaremos a una versión vulnerable de pdfkit con la cual ganaremos acceso por una reverse shell y para la escalada cargaremos un archivo para convertir la BASH en SUID.","headline":"Precious WriteUp","image":{"alt":"Shoppy WriteUp","url":"http://localhost:4000/assets/img/commons/shoppy-writeup/Shoppy.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/precious-writeup/"},"url":"http://localhost:4000/posts/precious-writeup/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
 
-  <title>Tags | H4ckerLite | Blog
+  <title>Precious WriteUp | H4ckerLite | Blog
   </title>
 
   <!--
@@ -108,7 +142,12 @@
   <link rel="stylesheet" href="/assets/css/style.css">
 
   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.css">
+  
 
+  
+    <!-- Manific Popup -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1/dist/magnific-popup.min.css">
   
 
   <!-- JavaScript -->
@@ -294,7 +333,7 @@
       </a>
     </li> <!-- .nav-item -->
     
-    <li class="nav-item active">
+    <li class="nav-item">
       <a href="/tags/" class="nav-link">
         <i class="fa-fw fas fa-tag ml-xl-3 mr-xl-3 unloaded"></i>
         
@@ -410,8 +449,12 @@
 
         
 
+      
+
+        
+
           
-            <span>Etiquetas</span>
+            <span>Precious WriteUp</span>
           
 
         
@@ -425,7 +468,7 @@
     <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i>
 
     <div id="topbar-title">
-      Etiquetas
+      Entrada
     </div>
 
     <i id="search-trigger" class="fas fa-search fa-fw"></i>
@@ -463,68 +506,372 @@
 
     
       
-      <h1 class="dynamic-title">
-        Tags
-      </h1>
-      <div class="post-content">
-        
       
-        <div id="tags" class="d-flex flex-wrap ml-xl-2 mr-xl-2">
+        <!--
+  Refactor the HTML structure.
+-->
+
+
+
+<!--
+  In order to allow a wide table to scroll horizontally,
+  we suround the markdown table with `<div class="table-wrapper">` and `</div>`
+-->
+
+
+
+<!--
+  Fixed kramdown code highlight rendering:
+  https://github.com/penibelst/jekyll-compress-html/issues/101
+  https://github.com/penibelst/jekyll-compress-html/issues/71#issuecomment-188144901
+-->
+
+
+
+<!-- Add attribute 'hide-bullet' to the checkbox list -->
+
+
+
+<!-- images -->
+
+
+
 
   
   
 
   
+    
+      
+      
+    
 
-  
-    <div>
-      <a class="tag" href="/tags/arbitrary-file-read/">
-        arbitrary file read<span class="text-muted">1</span>
-      </a>
-    </div>
-  
-    <div>
-      <a class="tag" href="/tags/directoty-transversal/">
-        directoty transversal<span class="text-muted">1</span>
-      </a>
-    </div>
-  
-    <div>
-      <a class="tag" href="/tags/grafana/">
-        grafana<span class="text-muted">1</span>
-      </a>
-    </div>
-  
-    <div>
-      <a class="tag" href="/tags/hackthebox/">
-        hackthebox<span class="text-muted">3</span>
-      </a>
-    </div>
-  
-    <div>
-      <a class="tag" href="/tags/no-sql/">
-        no sql<span class="text-muted">1</span>
-      </a>
-    </div>
-  
-    <div>
-      <a class="tag" href="/tags/rce/">
-        rce<span class="text-muted">1</span>
-      </a>
-    </div>
-  
-    <div>
-      <a class="tag" href="/tags/writeup/">
-        writeup<span class="text-muted">3</span>
-      </a>
-    </div>
-  
+    
+    
+    
 
-</div>
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
 
       
     
-      </div>
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+
+  
+
+
+
+<!-- Add header for code snippets -->
+
+
+
+<!-- Create heading anchors -->
+
+
+
+
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+
+
+
+<!-- Wrap prompt element of blockquote with the <div> tag -->
+
+
+
+
+
+
+
+<!-- return -->
+
+
+
+
+
+<h1 data-toc-skip>Precious WriteUp</h1>
+
+<div class="post-meta text-muted">
+    <!-- published date -->
+    <span>
+      Publicado
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em class=""
+    data-ts="1673884800"
+    data-df="YYYY-MM-DD"
+    data-toggle="tooltip" data-placement="bottom">
+  2023-01-16
+</em>
+
+    </span>
+
+    <!-- lastmod date -->
+    
+
+  
+    
+
+    <div class="mt-3 mb-3">
+      <img data-src="../../assets/img/commons/shoppy-writeup/Shoppy.png" class="preview-img bg"
+        alt="Shoppy WriteUp"
+
+      
+
+       data-proofer-ignore>
+
+      
+        <figcaption class="text-center pt-2 pb-2">Shoppy WriteUp</figcaption>
+      
+
+    </div>
+  
+
+  <div class="d-flex justify-content-between">
+    <!-- author -->
+    <span>
+      
+      
+
+      
+
+      Por
+
+      <em>
+        
+        H4ckerLite
+        
+      </em>
+    </span>
+
+    <div>
+      <!-- page views -->
+      
+
+      <!-- read time -->
+      <!--
+  Calculate the post's reading time, and display the word count in tooltip
+ -->
+
+
+
+<!-- words per minute  -->
+
+
+
+
+
+
+
+
+
+
+<!-- return element -->
+<span class="readtime" data-toggle="tooltip" data-placement="bottom"
+  title="42 palabras">
+  <em>1 min</em> de lectura</span>
+
+    </div>
+
+  </div> <!-- .d-flex -->
+
+</div> <!-- .post-meta -->
+
+<div class="post-content">
+  <p>Les explicaré comó comprometer la máquina <a href="https://app.hackthebox.com/machines/513">Precious</a> de HackTheBox. En esta máquina nos enfretaremos a una versión vulnerable de <code class="language-plaintext highlighter-rouge">pdfkit</code> con la cual ganaremos acceso por una reverse shell y para la escalada cargaremos un archivo para convertir la BASH en SUID.</p>
+
+</div>
+
+<div class="post-tail-wrapper text-muted">
+
+  <!-- categories -->
+  
+  <div class="post-meta mb-3">
+    <i class="far fa-folder-open fa-fw mr-1"></i>
+    
+      <a href='/categories/hackthebox/'>hackthebox</a>,
+      <a href='/categories/machine/'>machine</a>,
+      <a href='/categories/writeup/'>writeup</a>
+  </div>
+  
+
+  <!-- tags -->
+  
+  <div class="post-tags">
+    <i class="fa fa-tags fa-fw mr-1"></i>
+      
+      <a href="/tags/hackthebox/"
+          class="post-tag no-text-decoration" >hackthebox</a>
+      
+      <a href="/tags/writeup/"
+          class="post-tag no-text-decoration" >writeup</a>
+      
+      <a href="/tags/rce/"
+          class="post-tag no-text-decoration" >rce</a>
+      
+  </div>
+  
+
+  <div class="post-tail-bottom
+    d-flex justify-content-between align-items-center mt-3 pt-5 pb-2">
+    <div class="license-wrapper">
+
+      
+
+        
+
+        Esta entrada está licenciada bajo 
+        <a href="https://creativecommons.org/licenses/by/4.0/">
+          CC BY 4.0
+        </a>
+         por el autor.
+
+      
+    </div>
+
+    <!--
+ Post sharing snippet
+-->
+
+<div class="share-wrapper">
+  <span class="share-label text-muted mr-1">Compartir</span>
+  <span class="share-icons">
+    
+    
+    
+
+    
+      
+        <a href="https://twitter.com/intent/tweet?text=Precious+WriteUp+-+H4ckerLite+%7C+Blog&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fprecious-writeup%2F" data-toggle="tooltip" data-placement="top"
+          title="Twitter" target="_blank" rel="noopener" aria-label="Twitter">
+          <i class="fa-fw fab fa-twitter"></i>
+        </a>
+    
+      
+        <a href="https://www.facebook.com/sharer/sharer.php?title=Precious+WriteUp+-+H4ckerLite+%7C+Blog&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fprecious-writeup%2F" data-toggle="tooltip" data-placement="top"
+          title="Facebook" target="_blank" rel="noopener" aria-label="Facebook">
+          <i class="fa-fw fab fa-facebook-square"></i>
+        </a>
+    
+      
+        <a href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fprecious-writeup%2F&text=Precious+WriteUp+-+H4ckerLite+%7C+Blog" data-toggle="tooltip" data-placement="top"
+          title="Telegram" target="_blank" rel="noopener" aria-label="Telegram">
+          <i class="fa-fw fab fa-telegram"></i>
+        </a>
+    
+
+    <i id="copy-link" class="fa-fw fas fa-link small"
+        data-toggle="tooltip" data-placement="top"
+        title="Copiar enlace"
+        data-title-succeed="¡Enlace copiado!">
+    </i>
+
+  </span>
+</div>
+
+
+  </div><!-- .post-tail-bottom -->
+
+</div><!-- div.post-tail-wrapper -->
+
+
+      
+    
     
 
     </div>
@@ -806,11 +1153,216 @@
     </div>
 
     
+      
+      
+
+
+
+
+    
   </div>
 
 </div>
 
 <!-- tail -->
+
+<div class="row">
+  <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 pl-3 pr-3 pr-xl-4">
+    
+      
+      <!--
+ Recommend the other 3 posts according to the tags and categories of the current post,
+ if the number is not enough, use the other latest posts to supplement.
+-->
+
+<!-- The total size of related posts  -->
+
+
+<!-- An random integer that bigger than 0  -->
+
+
+<!-- Equals to TAG_SCORE / {max_categories_hierarchy}  -->
+
+
+
+
+
+
+
+
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+
+
+<!-- Fill with the other newlest posts  -->
+
+
+
+  
+    
+    
+  
+    
+    
+      
+      
+    
+  
+    
+    
+      
+      
+    
+  
+
+
+
+  <div id="related-posts" class="mb-2 mb-sm-4">
+    <h3 class="pt-2 mb-4 ml-1"
+      data-toc-skip>Lecturas adicionales</h3>
+    <div class="card-deck mb-4">
+    
+      
+      
+      <div class="card">
+        <a href="/posts/shoppy-writeup/">
+          <div class="card-body">
+            <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em class="small"
+    data-ts="1673625600"
+    data-df="YYYY-MM-DD"
+    >
+  2023-01-13
+</em>
+
+            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>Shoppy WriteUp</h3>
+            <div class="text-muted small">
+              <p>
+                
+
+
+
+
+
+                Les explicaré comó comprometer la máquina Shoppy de HackTheBox. En esta máquina nos enfretaremos a un NoSQLi de MongoDB y ganaremos acceso al sistema gracias a una contraseña filtrada y para la esc...
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    
+      
+      
+      <div class="card">
+        <a href="/posts/ambassador-writeup/">
+          <div class="card-body">
+            <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em class="small"
+    data-ts="1673884800"
+    data-df="YYYY-MM-DD"
+    >
+  2023-01-16
+</em>
+
+            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>Ambassador WriteUp</h3>
+            <div class="text-muted small">
+              <p>
+                
+
+
+
+
+
+                Les explicare como comprometer la máquina Ambassador de HackTheBox, Nos enfrentaremos a una version de Grafana la cual cuenta con una vulnerabilidad de tipo Directory Transversal y Arbitrary File R...
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    
+    </div> <!-- .card-deck -->
+  </div> <!-- #related-posts -->
+
+
+    
+      
+      <!--
+  Navigation buttons at the bottom of the post.
+-->
+
+<div class="post-navigation d-flex justify-content-between">
+  
+  <a href="/posts/ambassador-writeup/" class="btn btn-outline-primary"
+    prompt="Anterior">
+    <p>Ambassador WriteUp</p>
+  </a>
+  
+
+  
+  <div class="btn btn-outline-primary disabled"
+    prompt="Nuevo">
+    <p>-</p>
+  </div>
+  
+
+</div>
+
+    
+      
+      <!--  The comments switcher -->
+
+
+    
+  </div>
+</div>
 
 
 
@@ -1175,6 +1727,107 @@ SimpleJekyllSearch({
 <!-- layout specified -->
 
 
+  
+
+
+
+  <!-- image lazy-loading & popup & clipboard -->
+  
+
+  
+
+
+
+
+
+
+
+  
+    
+
+    
+
+  
+
+
+
+  
+    
+
+    
+
+  
+
+
+
+  
+    
+
+    
+
+  
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/combine/npm/magnific-popup@1/dist/jquery.magnific-popup.min.js,npm/lozad/dist/lozad.min.js,npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+
+
+
+
+
+  
+    
+
+    
+
+  
+
+
+
+  
+    
+
+    
+
+  
+
+
+
+  
+    
+
+    
+
+  
+
+
+
+  
+    
+
+    
+
+  
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/combine/npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/es.min.js,npm/dayjs@1/plugin/relativeTime.min.js,npm/dayjs@1/plugin/localizedFormat.min.js"></script>
 
 
 
@@ -1183,7 +1836,7 @@ SimpleJekyllSearch({
 
 
 
-<script defer src="/assets/js/dist/commons.min.js"></script>
+<script defer src="/assets/js/dist/post.min.js"></script>
 
 
 
