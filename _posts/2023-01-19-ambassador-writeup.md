@@ -253,7 +253,7 @@ developer@ambassador:~$ cat user.txt
 developer@ambassador:~$ 
 ```
 ## Enumeración del sistema
-En la carpeta home buscamos por carpetas/archivos ocultos y encontramos un archi de configuración de github.
+En la carpeta home buscamos por carpetas/archivos ocultos y encontramos un archivo de configuración de github.
 
 ```bash
 developer@ambassador:~$ ls -a
@@ -261,7 +261,7 @@ developer@ambassador:~$ ls -a
 .gitconfig  .gnupg  .lesshst  .local  .profile  .ssh  snap  user.txt
 developer@ambassador:~$ 
 ```
-Si leemos el archivo nos dice la ruta donde se encuentra.
+Si lo leemos nos dice la ruta donde se encuentra.
 
 ```bash
 developer@ambassador:~$ cat .gitconfig 
