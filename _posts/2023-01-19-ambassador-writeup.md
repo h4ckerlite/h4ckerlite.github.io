@@ -11,8 +11,7 @@ image:
 ---
 
 Les explicare como comprometer la máquina [Ambassador](https://app.hackthebox.com/machines/499) de HackTheBox, Nos enfrentaremos a una version de Grafana la cual cuenta con un
-a vulnerabilidad de tipo `Directory Transversal` y `Arbitrary File Read`. Para ganar acceso al sistema nos aprovecharemos de aquella vulneravilidad de grafana que nos permitir
-a descargar la base de datos y poder ver la contraseña de un usuario y para la escalada usaremos nos aprovecharemos de en exploit de `Consul` con un token que nos lanzará la s
+a vulnerabilidad de tipo `Directory Transversal` y `Arbitrary File Read`. Para ganar acceso al sistema nos aprovecharemos de aquella vulneravilidad de grafana que nos aprovecharemos de en exploit de `Consul` con un token que nos lanzará la s
 hell como root.
 
 
