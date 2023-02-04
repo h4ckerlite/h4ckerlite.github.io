@@ -83,7 +83,7 @@
 <meta name="twitter:site" content="@mortzelo" />
 <meta name="twitter:creator" content="@H4ckerLite" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"H4ckerLite"},"dateModified":"2023-01-16T17:00:00+01:00","datePublished":"2023-01-16T17:00:00+01:00","description":"Les explicaré comó comprometer la máquina Precious de HackTheBox. En esta máquina nos enfretaremos a una versión vulnerable de pdfkit con la cual ganaremos acceso por una reverse shell y para la escalada cargaremos un archivo para convertir la BASH en SUID.","headline":"Precious WriteUp","image":{"alt":"Shoppy WriteUp","url":"http://localhost:4000/assets/img/commons/shoppy-writeup/Shoppy.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/precious-writeup/"},"url":"http://localhost:4000/posts/precious-writeup/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"H4ckerLite"},"dateModified":"2023-01-21T06:54:34+01:00","datePublished":"2023-01-16T17:00:00+01:00","description":"Les explicaré comó comprometer la máquina Precious de HackTheBox. En esta máquina nos enfretaremos a una versión vulnerable de pdfkit con la cual ganaremos acceso por una reverse shell y para la escalada cargaremos un archivo para convertir la BASH en SUID.","headline":"Precious WriteUp","image":{"alt":"Shoppy WriteUp","url":"http://localhost:4000/assets/img/commons/shoppy-writeup/Shoppy.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/precious-writeup/"},"url":"http://localhost:4000/posts/precious-writeup/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -703,6 +703,26 @@
 
     <!-- lastmod date -->
     
+    <span>
+      Actualizado
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em class=""
+    data-ts="1674280474"
+    data-df="YYYY-MM-DD"
+    data-toggle="tooltip" data-placement="bottom">
+  2023-01-21
+</em>
+
+    </span>
+    
 
   
     
@@ -906,6 +926,16 @@
         
       <li><a href="/posts/shoppy-writeup/">Shoppy WriteUp</a></li>
       
+        
+        
+        
+      <li><a href="/posts/ambassador-writeup/">Ambassador WriteUp</a></li>
+      
+        
+        
+        
+      <li><a href="/posts/precious-writeup/">Precious WriteUp</a></li>
+      
     </ul>
   </div> <!-- #access-lastmod -->
 
@@ -947,37 +977,6 @@
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
   
     
     
@@ -997,6 +996,58 @@
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -1007,13 +1058,6 @@
     
     
       
-    
-  
-    
-    
-    
-    
-      
         
         
 
@@ -1023,48 +1067,6 @@
     
     
       
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
     
   
     
@@ -1095,11 +1097,227 @@
     
     
       
+        
+        
+
+  
+    
+    
+    
+    
+      
     
   
     
     
     
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
     
   
     
@@ -1134,13 +1352,22 @@
       <a class="post-tag" href="/tags/arbitrary-file-read/">arbitrary file read</a>
     
       
+      <a class="post-tag" href="/tags/command-injection/">command injection</a>
+    
+      
       <a class="post-tag" href="/tags/directoty-transversal/">directoty transversal</a>
+    
+      
+      <a class="post-tag" href="/tags/easy/">easy</a>
     
       
       <a class="post-tag" href="/tags/grafana/">grafana</a>
     
       
       <a class="post-tag" href="/tags/no-sql/">no sql</a>
+    
+      
+      <a class="post-tag" href="/tags/path-hijacking/">path hijacking</a>
     
       
       <a class="post-tag" href="/tags/rce/">rce</a>
@@ -1193,7 +1420,33 @@
   
 
   
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
     
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
   
 
   
@@ -1229,23 +1482,6 @@
 <!-- Fill with the other newlest posts  -->
 
 
-
-  
-    
-    
-  
-    
-    
-      
-      
-    
-  
-    
-    
-      
-      
-    
-  
 
 
 
@@ -1321,7 +1557,49 @@
 
 
 
-                Les explicare como comprometer la máquina Ambassador de HackTheBox, Nos enfrentaremos a una version de Grafana la cual cuenta con una vulnerabilidad de tipo Directory Transversal y Arbitrary File R...
+                Les explicare como comprometer la máquina Ambassador de HackTheBox, Nos enfrentaremos a una version de Grafana la cual cuenta con un
+a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    
+      
+      
+      <div class="card">
+        <a href="/posts/photobomb-writeup/">
+          <div class="card-body">
+            <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em class="small"
+    data-ts="1675440000"
+    data-df="YYYY-MM-DD"
+    >
+  2023-02-03
+</em>
+
+            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>Photobomb WriteUp</h3>
+            <div class="text-muted small">
+              <p>
+                
+
+
+
+
+
+                Hoy tocará explotar la máquina Photobomb de HackTheBox, es de dificultad fácil. Haremos un command injection y para la escalada haremos un Path Hijacking
+
+Escaneo NMAP
+
+Antes de empezar les recomie...
               </p>
             </div>
           </div>
@@ -1347,10 +1625,10 @@
   
 
   
-  <div class="btn btn-outline-primary disabled"
+  <a href="/posts/photobomb-writeup/" class="btn btn-outline-primary"
     prompt="Nuevo">
-    <p>-</p>
-  </div>
+    <p>Photobomb WriteUp</p>
+  </a>
   
 
 </div>
@@ -1445,37 +1723,6 @@
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
   
     
     
@@ -1495,6 +1742,58 @@
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -1505,13 +1804,6 @@
     
     
       
-    
-  
-    
-    
-    
-    
-      
         
         
 
@@ -1521,48 +1813,6 @@
     
     
       
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
     
   
     
@@ -1593,11 +1843,227 @@
     
     
       
+        
+        
+
+  
+    
+    
+    
+    
+      
     
   
     
     
     
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
     
   
     
@@ -1632,13 +2098,22 @@
       <a class="post-tag" href="/tags/arbitrary-file-read/">arbitrary file read</a>
     
       
+      <a class="post-tag" href="/tags/command-injection/">command injection</a>
+    
+      
       <a class="post-tag" href="/tags/directoty-transversal/">directoty transversal</a>
+    
+      
+      <a class="post-tag" href="/tags/easy/">easy</a>
     
       
       <a class="post-tag" href="/tags/grafana/">grafana</a>
     
       
       <a class="post-tag" href="/tags/no-sql/">no sql</a>
+    
+      
+      <a class="post-tag" href="/tags/path-hijacking/">path hijacking</a>
     
       
       <a class="post-tag" href="/tags/rce/">rce</a>

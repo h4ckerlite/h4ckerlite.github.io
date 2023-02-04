@@ -4,7 +4,7 @@ author: H4ckerLite
 date: 2023-01-17 00:00:00 +0800
 categories: [hackthebox, machine, writeup]
 tags: [hackthebox, writeup, grafana, directoty transversal, arbitrary file read]
-pin: true
+pin: false
 image:
   path: ../../assets/img/commons/ambassador-writeup/Ambassador.png 
   alt: Ambassador WriteUp
