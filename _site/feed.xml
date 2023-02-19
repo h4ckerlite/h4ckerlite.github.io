@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>H4ckerLite | Blog</title>
   <subtitle>Blog de ciberseguridad, hacking, writeups, CTFs...</subtitle>
-  <updated>2023-02-19T19:29:42+01:00</updated>
+  <updated>2023-02-19T19:36:54+01:00</updated>
   <author>
     <name>H4ckerLite</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/photobomb-writeup/" rel="alternate" type="text/html" title="Photobomb WriteUp" />
     <published>2023-02-03T17:00:00+01:00</published>
   
-    <updated>2023-02-03T17:00:00+01:00</updated>
+    <updated>2023-02-19T19:29:59+01:00</updated>
   
     <id>http://localhost:4000/posts/photobomb-writeup/</id>
     <content src="http://localhost:4000/posts/photobomb-writeup/" />
@@ -68,7 +68,7 @@ Antes de empezar les recomiendo hacer un escaneo para saber que puertos estan ab
     <link href="http://localhost:4000/posts/precious-writeup/" rel="alternate" type="text/html" title="Precious WriteUp" />
     <published>2023-01-16T17:00:00+01:00</published>
   
-    <updated>2023-02-19T19:20:14+01:00</updated>
+    <updated>2023-02-19T19:29:59+01:00</updated>
   
     <id>http://localhost:4000/posts/precious-writeup/</id>
     <content src="http://localhost:4000/posts/precious-writeup/" />
@@ -110,7 +110,7 @@ Para ello debemos enviar una traza ICMP(Internet Control Message Protocol), esta
     <link href="http://localhost:4000/posts/ambassador-writeup/" rel="alternate" type="text/html" title="Ambassador WriteUp" />
     <published>2023-01-16T17:00:00+01:00</published>
   
-    <updated>2023-02-04T21:12:54+01:00</updated>
+    <updated>2023-02-19T19:29:59+01:00</updated>
   
     <id>http://localhost:4000/posts/ambassador-writeup/</id>
     <content src="http://localhost:4000/posts/ambassador-writeup/" />
@@ -152,7 +152,7 @@ Escaneo NMA...
     <link href="http://localhost:4000/posts/shoppy-writeup/" rel="alternate" type="text/html" title="Shoppy WriteUp" />
     <published>2023-01-13T17:00:00+01:00</published>
   
-    <updated>2023-01-29T16:22:14+01:00</updated>
+    <updated>2023-02-19T19:29:59+01:00</updated>
   
     <id>http://localhost:4000/posts/shoppy-writeup/</id>
     <content src="http://localhost:4000/posts/shoppy-writeup/" />
@@ -206,7 +206,7 @@ Antes de empezar les recomiendo hacer un escaneo para saber que puertos estan ab
     
     <category term="pentesting" />
     
-    <category term="machines" />
+    <category term="machine" />
     
   
 
