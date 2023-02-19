@@ -4,7 +4,7 @@ author: H4ckerLite
 date: 2023-01-17 00:00:00 +0800
 categories: [hackthebox, machine, writeup]
 tags: [hackthebox, writeup,virtual hosting, command injection, pdfkit, easy]
-pin: true
+pin: 
 image:
   path: ../../assets/img/commons/precious-writeup/Precious.png 
   alt: Precious WriteUp
@@ -27,7 +27,7 @@ rtt min/avg/max/mdev = 146.342/146.342/146.342/0.000 ms
 
 Vemos lo siguiente:
 * TTL 
-	* El TTL es 63, esto indica que es una máquina Linux, ya que dichas mæquinas cuentan con un TTL igual a 64, pero.....porqué aparece como 63 e infiero que es Linux. bueno nuestra conexión no es directa, pasa por un nodo intermedario y eso hace que el TTL disminuya en una unidad.
+	* El TTL es 63, esto indica que es una máquina Linux, ya que dichas máquinas cuentan con un TTL igual a 64, pero.....porqué aparece como 63 e infiero que es Linux. bueno nuestra conexión no es directa, pasa por un nodo intermedario y eso hace que el TTL disminuya en una unidad.
 
 ## Primeros pasos
 Si le aplicamos un curl con modo silent y para ver por las cabeceras y filtrando por `location` vemos un dominio
@@ -196,7 +196,7 @@ henry@precious:~$ cat user.txt
 henry@precious:~$ 
 ```
 ## Escalada de Privilegios
-Viendo por permisos *SUDO* nos encontramos con este
+Viendo por permisos **SUDO** nos encontramos con este
 
 
 ```bash
@@ -231,9 +231,10 @@ Si leemos ese archivo vemos que intenta cargar el archivo "dependencies.yml", si
          method_id: :resolve
 ```
 
-Cambiamos el *id* por: 
+Cambiamos el **id** por: 
 > chmod +s /bin/bash
-Con esto nuestra BASH sera *SUID*
+
+Con esto nuestra BASH sera **SUID**
 
 
 ```bash
