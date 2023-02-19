@@ -4,7 +4,7 @@
     "title": "Photobomb WriteUp",
     "url": "/posts/photobomb-writeup/",
     "categories": "hackthebox, machine, writeup",
-    "tags": "hackthebox, writeup, easy, command injection, path hijacking",
+    "tags": "hackthebox, writeup, easy, command injection, path hijacking, easy",
     "date": "2023-02-03 17:00:00 +0100",
     
 
@@ -34,7 +34,7 @@
     "title": "Ambassador WriteUp",
     "url": "/posts/ambassador-writeup/",
     "categories": "hackthebox, machine, writeup",
-    "tags": "hackthebox, writeup, grafana, directoty transversal, arbitrary file read",
+    "tags": "hackthebox, writeup, grafana, directoty transversal, arbitrary file read, medium",
     "date": "2023-01-16 17:00:00 +0100",
     
 
@@ -49,7 +49,7 @@
     "title": "Shoppy WriteUp",
     "url": "/posts/shoppy-writeup/",
     "categories": "hackthebox, machine, writeup",
-    "tags": "hackthebox, writeup, no sql",
+    "tags": "hackthebox, writeup, no sql, docker, easy",
     "date": "2023-01-13 17:00:00 +0100",
     
 

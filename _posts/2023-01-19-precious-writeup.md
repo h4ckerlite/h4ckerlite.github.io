@@ -4,9 +4,9 @@ author: H4ckerLite
 date: 2023-01-17 00:00:00 +0800
 categories: [hackthebox, machine, writeup]
 tags: [hackthebox, writeup,virtual hosting, command injection, pdfkit, easy]
-pin: false
+pin: true
 image:
-  path: ../../assets/img/commons/shoppy-writeup/Precious.png 
+  path: ../../assets/img/commons/precious-writeup/Precious.png 
   alt: Precious WriteUp
 ---
 

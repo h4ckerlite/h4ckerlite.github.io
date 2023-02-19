@@ -3,8 +3,8 @@ title: Photobomb WriteUp
 author: H4ckerLite 
 date: 2023-02-04 00:00:00 +0800
 categories: [hackthebox, machine, writeup]
-tags: [hackthebox, writeup, easy, command injection, path hijacking]
-pin: true
+tags: [hackthebox, writeup, easy, command injection, path hijacking, easy]
+pin: false
 image:
   path: ../../assets/img/commons/photoBomb-writeup/Photobomb.png 
   alt: Photobomb WriteUp
