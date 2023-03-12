@@ -3,7 +3,7 @@ title: Ambassador WriteUp
 author: H4ckerLite 
 date: 2023-01-17 00:00:00 +0800
 categories: [hackthebox, machine, writeup]
-tags: [hackthebox, writeup, grafana, directoty transversal, arbitrary file read, medium]
+tags: [hackthebox, writeup, grafana, directory transversal, arbitrary file read, medium]
 pin: false
 image:
   path: ../../assets/img/commons/ambassador-writeup/Ambassador.png 
