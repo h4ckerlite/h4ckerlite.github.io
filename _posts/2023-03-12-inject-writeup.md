@@ -11,9 +11,9 @@ image:
 ---
 
 ## Imortante
-<mark style="background: #003060;">Está máquina esta en Release Arena(actualmemte **Open Beta Season**), por lo que la IP es de una instancia privada.</mark>
+**<mark style="background: #FF0000;">Está máquina esta en Release Arena(actualmemte Open Beta Season*), por lo que la IP es de una instancia privada.</mark>**
 
-Está máquina esta en Release Arena(actualmemte **Open Beta Season**), por lo que la IP es de una instancia privada.
+Está máquina esta en Release Arena(actualmemte Open Beta Season), por lo que la IP será distinta después de que salga de la Realese Arena.
 Les explicaré cómo compremeter la máquina [Inject](https://app.hackthebox.com/machines/533) de hackTheBox. Nos enfretaremos con una página que cuenta con una vulneravilidad de tipo **Directory Transversal**, usando dicha vulnerabilidad veremos una version vulnerable de Spring que cuenta con una vulnerabilidad de tipo **RCE**. Para migrar de usuario nos aprovecharemos de una contrasena filtrada. Para escalar nuestros privilegios usaremos playbook.
 
 ## Identificando el O.S
