@@ -11,7 +11,7 @@ image:
 ---
 
 ## Imortante
-<mark style="background: #ff0000;">Está máquina esta en Release Arena(actualmemte **Open Beta Season**), por lo que la IP es de una instancia privada.</mark>
+<mark style="background: #003060;">Está máquina esta en Release Arena(actualmemte **Open Beta Season**), por lo que la IP es de una instancia privada.</mark>
 
 Está máquina esta en Release Arena(actualmemte **Open Beta Season**), por lo que la IP es de una instancia privada.
 Les explicaré cómo compremeter la máquina [Inject](https://app.hackthebox.com/machines/533) de hackTheBox. Nos enfretaremos con una página que cuenta con una vulneravilidad de tipo **Directory Transversal**, usando dicha vulnerabilidad veremos una version vulnerable de Spring que cuenta con una vulnerabilidad de tipo **RCE**. Para migrar de usuario nos aprovecharemos de una contrasena filtrada. Para escalar nuestros privilegios usaremos playbook.
@@ -39,7 +39,7 @@ Vemos lo siguiente:
 _Web Error_
 Si entramos veremos un mensaje de que no se puede acceder, así que sabemos que el puerto HTTP está corriendo en otro puerto, realizamos un escaneo NMAP.
 
-##Escaneo NMAP
+## Escaneo NMAP
 
 realizaremos el escaneo para saber que purtos están abierto y además para ver por donde corre el HTTP.
 
