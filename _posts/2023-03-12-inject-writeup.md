@@ -15,10 +15,10 @@ image:
 **<mark style="background: #FF0000;">Está máquina esta en Release Arena(actualmemte Open Beta Season), por lo que la IP es distinta y a la que se le designará después de que salga de Release Arena.</mark>**
 
 
-Les explicaré cómo compremeter la máquina [Inject](https://app.hackthebox.com/machines/533) de hackTheBox. Nos enfretaremos con una página que cuenta con una vulneravilidad de tipo `Directory Transversal`, usando dicha vulnerabilidad veremos una version vulnerable de Spring que cuenta con una vulnerabilidad de tipo `command injection`. Para migrar de usuario nos aprovecharemos de una contraseña filtrada. Y para escalar nuestros privilegios usaremos `Ansibe playbook`.
+Les explicaré cómo compremeter la máquina [Inject](https://app.hackthebox.com/machines/533) de hackTheBox. Nos enfretaremos con una página que cuenta con una vulneravilidad de tipo `Directory Transversal`, usando dicha vulnerabilidad veremos una version vulnerable de Spring que cuenta con una vulnerabilidad de tipo `command injection`. Para migrar de usuario nos aprovecharemos de una contraseña filtrada. Y para escalar nuestros privilegios usaremos un archivo `Ansibe playbook`.
 
-## Identificando el O.S
-Enviando trazas **ICMP(Internet Control Message Protocol)** y usando el **TTL(Time to Live)** podemos ver e identificar el OS.
+## Identificando el OS
+Enviando trazas **ICMP**A`(Internet Control Message Protocol)` y usando el **TTL**`(Time to Live)` podemos identificar el OS.
 
 ```bash
 ❯ ping -c1 10.129.178.241
