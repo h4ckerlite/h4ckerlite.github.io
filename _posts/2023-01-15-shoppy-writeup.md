@@ -10,7 +10,7 @@ image:
   alt: Shoppy WriteUp
 ---
 
-Les explicaré comó comprometer la máquina [Shoppy](https://app.hackthebox.com/machines/496) de HackTheBox. En esta máquina nos enfretaremos a un `NoSQLi` de `MongoDB` y ganaremos acceso al sistema gracias a una contraseña filtrada y para la escalada nos vamos a aprovechar del grupo **Docker**.
+Les explicaré cómo comprometer la máquina [Shoppy](https://app.hackthebox.com/machines/496) de HackTheBox. En esta máquina nos enfretaremos a un `NoSQLi` de `MongoDB` y ganaremos acceso al sistema gracias a una contraseña filtrada y para la escalada nos vamos a aprovechar del grupo **Docker**.
 
 ## Escaneo NMAP
 

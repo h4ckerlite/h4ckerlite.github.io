@@ -10,7 +10,7 @@ image:
   alt: Precious WriteUp
 ---
 
-Les explicaré comó comprometer la máquina [Precious](https://app.hackthebox.com/machines/513) de HackTheBox. En esta máquina nos enfretaremos a una versión vulnerable de `pdfkit` con la cual ganaremos acceso por una reverse shell y para la escalada cargaremos un archivo para convertir la BASH en SUID.
+Les explicaré cómo comprometer la máquina [Precious](https://app.hackthebox.com/machines/513) de HackTheBox. En esta máquina nos enfretaremos a una versión vulnerable de `pdfkit` con la cual ganaremos acceso por una reverse shell y para la escalada cargaremos un archivo para convertir la BASH en SUID.
 
 ## Identificando el OS
 

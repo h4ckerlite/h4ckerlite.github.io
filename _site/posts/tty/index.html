@@ -83,7 +83,7 @@
 <meta name="twitter:site" content="@mortzelo" />
 <meta name="twitter:creator" content="@H4ckerLite" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"H4ckerLite"},"dateModified":"2022-02-03T17:00:00+01:00","datePublished":"2022-02-03T17:00:00+01:00","description":"Una vez que ganamos acceso a un servidor por medio de una reverse shell no será interactiva al 100%, para solucionar estó debemos aplicar un tratamiento a la TTY, al aplicar este tratamiento podemos hacer Ctrl + C sin miedo a perder la Shell y tambien limpiar la pantalla y tabular para el autocompletado. Tratamiento 1 2 3 4 5 root@f5fd61010b2d:~$ script /dev/null -c bash script /dev/null -c bash Script started, file is /dev/null root@f5fd61010b2d:~$ Presionamos Ctrl + Z para suspender la shell 1 2 root@f5fd61010b2d:~$ ^Z zsh: suspended nc -lvnp 444 Reiniciamos la shell y configuramos el tipo de terminal 1 ❯ stty raw -echo; fg 1 2 3 4 ❯ stty raw -echo; fg [1] + continued nc -lvnp 444 reset xterm Ya podemos aplicar Ctrl + C y no perderemos la conexión, pero el Ctrl + L no funciona, para ello cambiamos la variable de entorno TERM a xterm 1 root@f5fd61010b2d:~$ export TERM=xterm A veces la variable SHELL vale nologin, hacemos lo siguiente para que sea una shell 1 root@f5fd61010b2d:~$ export SHELL=/bin/bash Ya tenemos una consola semi-interactiva, para que sea full-interactiva debemos cambiar las filas y columnas, en la mæquina victima hacemos un: 1 2 3 root@f5fd61010b2d:~$ stty size 24 80 root@f5fd61010b2d:~$ Y en nuestra máquina hacemos lo mismo y confirmamos que los valores no coinciden. 1 2 ❯ stty size 48 184 Regresamos a la máquina victima y cambiamos los valores 1 2 root@f5fd61010b2d:~$ stty rows 48 columns 184 root@f5fd61010b2d:~$ Una vez hecho esto nuestra TTY ya sera 100% interactiva.","headline":"Tratamiento de la TTY","image":{"alt":"TTY","url":"http://localhost:4000/assets/img/commons/tty/img_header.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/tty/"},"url":"http://localhost:4000/posts/tty/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"H4ckerLite"},"dateModified":"2023-02-19T19:38:14+01:00","datePublished":"2022-02-03T17:00:00+01:00","description":"Una vez que ganamos acceso a un servidor por medio de una reverse shell no será interactiva al 100%, para solucionar estó debemos aplicar un tratamiento a la TTY, al aplicar este tratamiento podemos hacer Ctrl + C sin miedo a perder la Shell y tambien limpiar la pantalla y tabular para el autocompletado. Tratamiento 1 2 3 4 5 root@f5fd61010b2d:~$ script /dev/null -c bash script /dev/null -c bash Script started, file is /dev/null root@f5fd61010b2d:~$ Presionamos Ctrl + Z para suspender la shell 1 2 root@f5fd61010b2d:~$ ^Z zsh: suspended nc -lvnp 444 Reiniciamos la shell y configuramos el tipo de terminal 1 ❯ stty raw -echo; fg 1 2 3 4 ❯ stty raw -echo; fg [1] + continued nc -lvnp 444 reset xterm Ya podemos aplicar Ctrl + C y no perderemos la conexión, pero el Ctrl + L no funciona, para ello cambiamos la variable de entorno TERM a xterm 1 root@f5fd61010b2d:~$ export TERM=xterm A veces la variable SHELL vale nologin, hacemos lo siguiente para que sea una shell 1 root@f5fd61010b2d:~$ export SHELL=/bin/bash Ya tenemos una consola semi-interactiva, para que sea full-interactiva debemos cambiar las filas y columnas, en la mæquina victima hacemos un: 1 2 3 root@f5fd61010b2d:~$ stty size 24 80 root@f5fd61010b2d:~$ Y en nuestra máquina hacemos lo mismo y confirmamos que los valores no coinciden. 1 2 ❯ stty size 48 184 Regresamos a la máquina victima y cambiamos los valores 1 2 root@f5fd61010b2d:~$ stty rows 48 columns 184 root@f5fd61010b2d:~$ Una vez hecho esto nuestra TTY ya sera 100% interactiva.","headline":"Tratamiento de la TTY","image":{"alt":"TTY","url":"http://localhost:4000/assets/img/commons/tty/img_header.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/tty/"},"url":"http://localhost:4000/posts/tty/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -723,6 +723,26 @@
 
     <!-- lastmod date -->
     
+    <span>
+      Actualizado
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em class=""
+    data-ts="1676831894"
+    data-df="YYYY-MM-DD"
+    data-toggle="tooltip" data-placement="bottom">
+  2023-02-19
+</em>
+
+    </span>
+    
 
   
     
@@ -1010,17 +1030,22 @@ root@f5fd61010b2d:~<span class="nv">$ </span>
         
         
         
-      <li><a href="/posts/shoppy-writeup/">Shoppy WriteUp</a></li>
-      
-        
-        
-        
       <li><a href="/posts/ambassador-writeup/">Ambassador WriteUp</a></li>
       
         
         
         
       <li><a href="/posts/precious-writeup/">Precious WriteUp</a></li>
+      
+        
+        
+        
+      <li><a href="/posts/tty/">Tratamiento de la TTY</a></li>
+      
+        
+        
+        
+      <li><a href="/posts/shoppy-writeup/">Shoppy WriteUp</a></li>
       
         
         
@@ -1192,10 +1217,6 @@ root@f5fd61010b2d:~<span class="nv">$ </span>
     
     
     
-      
-        
-        
-
   
     
     
@@ -1215,22 +1236,6 @@ root@f5fd61010b2d:~<span class="nv">$ </span>
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
   
     
     
@@ -1240,13 +1245,6 @@ root@f5fd61010b2d:~<span class="nv">$ </span>
         
         
 
-  
-    
-    
-    
-    
-      
-    
   
     
     
@@ -1274,25 +1272,20 @@ root@f5fd61010b2d:~<span class="nv">$ </span>
     
     
       
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
+        
+        
+
   
     
     
     
     
       
+    
+  
+    
+    
+    
     
   
     
@@ -1319,20 +1312,6 @@ root@f5fd61010b2d:~<span class="nv">$ </span>
     
     
     
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -1377,7 +1356,55 @@ root@f5fd61010b2d:~<span class="nv">$ </span>
     
     
     
+  
+    
+    
+    
+    
       
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
     
   
     
@@ -1439,10 +1466,10 @@ root@f5fd61010b2d:~<span class="nv">$ </span>
       <a class="post-tag" href="/tags/command-injection/">command injection</a>
     
       
-      <a class="post-tag" href="/tags/arbitrary-file-read/">arbitrary file read</a>
+      <a class="post-tag" href="/tags/directory-transversal/">directory transversal</a>
     
       
-      <a class="post-tag" href="/tags/directoty-transversal/">directoty transversal</a>
+      <a class="post-tag" href="/tags/arbitrary-file-read/">arbitrary file read</a>
     
       
       <a class="post-tag" href="/tags/docker/">docker</a>
@@ -1564,6 +1591,19 @@ root@f5fd61010b2d:~<span class="nv">$ </span>
   
 
   
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
     
 
 
@@ -1612,7 +1652,7 @@ root@f5fd61010b2d:~<span class="nv">$ </span>
 
 
 
-                Les explicaré comó comprometer la máquina Shoppy de HackTheBox. En esta máquina nos enfretaremos a un NoSQLi de MongoDB y ganaremos acceso al sistema gracias a una contraseña filtrada y para la esc...
+                Les explicaré cómo comprometer la máquina Shoppy de HackTheBox. En esta máquina nos enfretaremos a un NoSQLi de MongoDB y ganaremos acceso al sistema gracias a una contraseña filtrada y para la esc...
               </p>
             </div>
           </div>
@@ -1649,7 +1689,7 @@ root@f5fd61010b2d:~<span class="nv">$ </span>
 
 
 
-                Les explicare como comprometer la máquina Ambassador de HackTheBox, Nos enfrentaremos a una version de Grafana la cual cuenta con un
+                Les explicare cómo comprometer la máquina Ambassador de HackTheBox, Nos enfrentaremos a una version de Grafana la cual cuenta con un
 a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
               </p>
             </div>
@@ -1687,7 +1727,7 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
 
 
 
-                Les explicaré comó comprometer la máquina Precious de HackTheBox. En esta máquina nos enfretaremos a una versión vulnerable de pdfkit con la cual ganaremos acceso por una reverse shell y para la es...
+                Les explicaré cómo comprometer la máquina Precious de HackTheBox. En esta máquina nos enfretaremos a una versión vulnerable de pdfkit con la cual ganaremos acceso por una reverse shell y para la es...
               </p>
             </div>
           </div>
@@ -1935,10 +1975,6 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
     
-      
-        
-        
-
   
     
     
@@ -1958,22 +1994,6 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
   
     
     
@@ -1983,13 +2003,6 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
         
         
 
-  
-    
-    
-    
-    
-      
-    
   
     
     
@@ -2017,25 +2030,20 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
       
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
+        
+        
+
   
     
     
     
     
       
+    
+  
+    
+    
+    
     
   
     
@@ -2062,20 +2070,6 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
     
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -2120,7 +2114,55 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
     
+  
+    
+    
+    
+    
       
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
     
   
     
@@ -2182,10 +2224,10 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
       <a class="post-tag" href="/tags/command-injection/">command injection</a>
     
       
-      <a class="post-tag" href="/tags/arbitrary-file-read/">arbitrary file read</a>
+      <a class="post-tag" href="/tags/directory-transversal/">directory transversal</a>
     
       
-      <a class="post-tag" href="/tags/directoty-transversal/">directoty transversal</a>
+      <a class="post-tag" href="/tags/arbitrary-file-read/">arbitrary file read</a>
     
       
       <a class="post-tag" href="/tags/docker/">docker</a>
