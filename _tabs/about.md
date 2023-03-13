@@ -3,19 +3,17 @@ title: Sobre mí
 icon: fas fa-info-circle
 order: 4
 ---
+# ¿Quien soy yo?
+Soy H4ckerLite, un entusiasta del hacking y de la ciberseguridad. 
 
-Hola, soy H4ckerLite,un entusiasta de hacking y ciberseguridad.
+# ¿Por qué el hacking? 
+Siempre me a llamado la atención la computación, me fascina las computadoras y todo lo relacionado a la tecnología. Siempre me ha dado la curiosidad de como se compone un sistema informatico. Por eso empece en el mundo de la ciberseguridad, me gusta mas el area del `hacking` ya que es lo que me gustaría especificarme.
+Este es un maravilloso mundo, una vez que empieces comprenderas que todo no es seguro y eres propenso a sufrir ataque.
 
-# ¿Por qué el hacking?
-
-A temprana edad tuve acceso a una computadora, desde ahí empece a aprender informatica, a mis 8~9 años empece con Scratch, con el aprendí un poco dde la logica de la programación, por mis 11 años empece a hacer ediciones basicas a juegos, solo cambiaba el splash screen y el cursor; por mis 13 años epece por Python, cuyo lenguaje lo deje por estudios y lo volví a retomar en la pandemia.
-Después en el 2022 empece con JavaScript, el cual lo deje para finalmente dedicarme al hacking ya que me llamaba más la atención.
-Empeze aprenciedo lo basico, la persona que me hizo amar este mundo fue [S4vitar](https://www.youtube.com/c/s4vitar), gracias a él aprendí más.
-
+# Agradecimientos
+Empecé aprendiendo lo básico, la persona que me hizo amar este mundo fue [S4vitar](https://www.youtube.com/c/s4vitar), gracias a el aprendí más.
 
 # ¿Para que un Blog?
-
-Este blog ha sido creado para compartir mis conocimientos con la comunidad, creo que es importante crear contenido para que los demás puedan ver lo que haces y puedan aprender de ello.
-
-
+Este blog ha sido creado para compartir mis conocimientos con la comunidad, es importante crear este contenido para que los demás puedan ver lo que haces y puedan aprender de ello. Ya que gracias a otras que hace este contenido he aprendido todo lo que se hasta ahora. Y por esa razón he decidido crear este blog para ayudar a los principiantes.
+Trataré de escribir cada máquina que resuelva y no dejar morir este blog.
 
