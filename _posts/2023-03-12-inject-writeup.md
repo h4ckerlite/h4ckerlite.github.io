@@ -10,9 +10,10 @@ image:
   alt: Inject WriteUp
 ---
 
-# Imortante
-Está máquina esta en Release Arena(actualmemte **Open Beta Season**), por lo que la IP es de una instancia privada.
+## Imortante
+<mark style="background: #ff0000;">Está máquina esta en Release Arena(actualmemte **Open Beta Season**), por lo que la IP es de una instancia privada.</mark>
 
+Está máquina esta en Release Arena(actualmemte **Open Beta Season**), por lo que la IP es de una instancia privada.
 Les explicaré cómo compremeter la máquina [Inject](https://app.hackthebox.com/machines/533) de hackTheBox. Nos enfretaremos con una página que cuenta con una vulneravilidad de tipo **Directory Transversal**, usando dicha vulnerabilidad veremos una version vulnerable de Spring que cuenta con una vulnerabilidad de tipo **RCE**. Para migrar de usuario nos aprovecharemos de una contrasena filtrada. Para escalar nuestros privilegios usaremos playbook.
 
 ## Identificando el O.S
@@ -210,7 +211,7 @@ Un archivo .xml, lo leemos.
 
 </project>
 ```
-Viendo algunas versiones nos encontranos con **Spring Cloud Function Web**, buscando CVE nos encontramos que es vulnerable a SpEL
+Viendo algunas versiones nos encontranos con **Spring Cloud Function Web**, buscando CVE nos encontramos que es vulnerable a SpEL injection.
 
 ## Explotación
 
