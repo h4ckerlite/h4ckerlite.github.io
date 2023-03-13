@@ -335,7 +335,8 @@ phil@inject:~$ find / -group staff -print 2>/dev/null
 ```
 La ruta **/opt/automation/tasks** nos llama la atención.
 
-```phil@inject:~$ ls /opt/automation/tasks/
+```bash
+phil@inject:~$ ls /opt/automation/tasks/
 playbook_1.yml
 phil@inject:~$
 ```
@@ -350,7 +351,7 @@ phil@inject:/opt/automation/tasks$
 ```
 Un archivo .YML buscamos en internet el nombre del arvhivo "playbook". Buscando en internet nos encotramos con este [blog](https://iamnasef.com/projects/ansible-privilege-escalation/) que nos lleva a un archivo de [github](https://github.com/iamnasef/ansible-privilege-escalation/blob/main/shell.yml). Creamos un archivo shell.yml con el siguiente contenido.
 
-Esto copiara la bash en y la convertirá en SUID y podemos spawnear una shell como root.
+Esto copiara la bash en la carpeta actual y la convertirá en SUID y podemos spawnear una shell como root.
 ```bash
 ---                                                                                                               
 - name: shell                                                                                                  
