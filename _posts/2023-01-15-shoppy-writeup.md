@@ -3,7 +3,7 @@ title: Shoppy WriteUp
 author: H4ckerLite 
 date: 2023-01-14 00:00:00 +0800
 categories: [hackthebox, machine, writeup]
-tags: [hackthebox, writeup, no sql, docker, easy]
+tags: [linux, hackthebox, writeup, no sql, docker, easy, virtual hosting]
 pin: false
 image:
   path: ../../assets/img/commons/shoppy-writeup/Shoppy.png 

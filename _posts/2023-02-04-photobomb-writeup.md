@@ -3,7 +3,7 @@ title: Photobomb WriteUp
 author: H4ckerLite 
 date: 2023-02-04 00:00:00 +0800
 categories: [hackthebox, machine, writeup]
-tags: [hackthebox, writeup, easy, command injection, path hijacking, easy]
+tags: [linux, hackthebox, writeup, easy, command injection, path hijacking, easy, virtual hosting]
 pin: false
 image:
   path: ../../assets/img/commons/photoBomb-writeup/Photobomb.png 
@@ -16,9 +16,6 @@ Hoy tocará explotar la máquina **Photobomb** de [HackTheBox](https://app.hackt
 ## Escaneo NMAP
 
 Antes de empezar les recomiendo hacer un escaneo para saber que puertos estan abiertos y que servicios corren por ellos, ya que esta información nos sera util para continuar con la prueba de penetración.
-
-
-
 
 
 ```bash

@@ -1,8 +1,11 @@
 ---
-title: Primera publiacion
+title: MetaTwo WriteUp
 author: H4ckerLite 
-date: 2022-08-28 00:00:00 +0800
-categories: [Tryhackme, machine, writeup]
-tags: [tryhackme, writeup]
+date: 2023-03-21 00:00:00 +0800
+categories: [hackthebox, machine, writeup]
+tags: [linux, hackthebox, writeup, easy]
+image:
+  path: ../../assets/img/commons/inject-writeup/Inject.png 
+  alt: Inject WriteUp
 pin: true
 ---

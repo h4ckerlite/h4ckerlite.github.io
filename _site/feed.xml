@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>H4ckerLite | Blog</title>
   <subtitle>Blog de ciberseguridad, hacking, writeups, CTFs...</subtitle>
-  <updated>2023-03-13T03:20:44+01:00</updated>
+  <updated>2023-03-24T19:48:24+01:00</updated>
   <author>
     <name>H4ckerLite</name>
     <uri>http://localhost:4000/</uri>
@@ -20,11 +20,54 @@
 
   
   <entry>
+    <title>MetaTwo WriteUp</title>
+    <link href="http://localhost:4000/posts/metatwo-writeup/" rel="alternate" type="text/html" title="MetaTwo WriteUp" />
+    <published>2023-03-20T17:00:00+01:00</published>
+  
+    <updated>2023-03-20T17:00:00+01:00</updated>
+  
+    <id>http://localhost:4000/posts/metatwo-writeup/</id>
+    <content src="http://localhost:4000/posts/metatwo-writeup/" />
+    <author>
+      <name>H4ckerLite</name>
+    </author>
+
+  
+    
+    <category term="hackthebox" />
+    
+    <category term="machine" />
+    
+    <category term="writeup" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Hoy toca compremeter la máquina MetaTwo de HackTheBox. Nos enfretaremos con una página que cuenta con una vulneravilidad de de un plugin de  Word Press, usando dicha vulnerabilidad podemos dumpear la base de datos y obtener el Usuario y la contraseña del usuario de Word Press,
+
+Enumeración
+
+Identificando el OS
+Enviando trazas ICMP  (Internet Control Message Protocol) y usando el TTL(Time to Liv...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
     <title>Inject WriteUp</title>
     <link href="http://localhost:4000/posts/inject-writeup/" rel="alternate" type="text/html" title="Inject WriteUp" />
     <published>2023-03-11T17:00:00+01:00</published>
   
-    <updated>2023-03-11T17:00:00+01:00</updated>
+    <updated>2023-03-13T19:41:53+01:00</updated>
   
     <id>http://localhost:4000/posts/inject-writeup/</id>
     <content src="http://localhost:4000/posts/inject-writeup/" />
@@ -50,10 +93,7 @@
 
 
 
-      Imortante
-Está máquina esta en Release Arena(actualmemte Open Beta Season), por lo que la IP es de una instancia privada.
-
-Les explicaré cómo compremeter la máquina Inject de hackTheBox. Nos enfretaremos con una página que cuenta con una vulneravilidad de tipo Directory Transversal*, usando dicha vulnerabilidad veremos una version vulnerable de Spring que cuenta con una vulnerabilidad de tipo *...
+      Les explicaré cómo compremeter la máquina Inject de HackTheBox. Nos enfretaremos con una página que cuenta con una vulneravilidad de tipo Directory Transversal, usando dicha vulnerabilidad veremos una version vulnerable de Spring que cuenta con una vulnerabilidad de tipo command injection. Para migrar de usuario nos aprovecharemos de una contraseña filtrada. Y para escalar nuestros privilegios ...
     </summary>
   
 
@@ -109,7 +149,7 @@ Antes de empezar les recomiendo hacer un escaneo para saber que puertos estan ab
     <link href="http://localhost:4000/posts/precious-writeup/" rel="alternate" type="text/html" title="Precious WriteUp" />
     <published>2023-01-16T17:00:00+01:00</published>
   
-    <updated>2023-02-19T23:43:16+01:00</updated>
+    <updated>2023-03-13T03:22:20+01:00</updated>
   
     <id>http://localhost:4000/posts/precious-writeup/</id>
     <content src="http://localhost:4000/posts/precious-writeup/" />
@@ -151,7 +191,7 @@ Para ello debemos enviar una traza ICMP(Internet Control Message Protocol), esta
     <link href="http://localhost:4000/posts/ambassador-writeup/" rel="alternate" type="text/html" title="Ambassador WriteUp" />
     <published>2023-01-16T17:00:00+01:00</published>
   
-    <updated>2023-03-12T17:15:24+01:00</updated>
+    <updated>2023-03-13T03:22:20+01:00</updated>
   
     <id>http://localhost:4000/posts/ambassador-writeup/</id>
     <content src="http://localhost:4000/posts/ambassador-writeup/" />
@@ -182,48 +222,6 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File Read. Para ganar
 hell como root.
 
 Escaneo NMA...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Shoppy WriteUp</title>
-    <link href="http://localhost:4000/posts/shoppy-writeup/" rel="alternate" type="text/html" title="Shoppy WriteUp" />
-    <published>2023-01-13T17:00:00+01:00</published>
-  
-    <updated>2023-02-19T19:29:59+01:00</updated>
-  
-    <id>http://localhost:4000/posts/shoppy-writeup/</id>
-    <content src="http://localhost:4000/posts/shoppy-writeup/" />
-    <author>
-      <name>H4ckerLite</name>
-    </author>
-
-  
-    
-    <category term="hackthebox" />
-    
-    <category term="machine" />
-    
-    <category term="writeup" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      Les explicaré cómo comprometer la máquina Shoppy de HackTheBox. En esta máquina nos enfretaremos a un NoSQLi de MongoDB y ganaremos acceso al sistema gracias a una contraseña filtrada y para la escalada nos vamos a aprovechar del grupo Docker.
-
-Escaneo NMAP
-
-Antes de empezar les recomiendo hacer un escaneo para saber que puertos estan abiertos y que servicios corren por ellos, ya que esta infor...
     </summary>
   
 
