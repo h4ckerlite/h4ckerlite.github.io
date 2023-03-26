@@ -6,7 +6,7 @@ categories: [hackthebox, machine, writeup]
 tags: [linux, hackthebox, writeup, easy, wordpress, sql injection, virtual hosting]
 image:
   path: ../../assets/img/commons/metatwo-writeup/MetaTwo.png 
-  alt: Inject WriteUp
+  alt: MetaTWo WriteUp
 pin: true
 ---
 

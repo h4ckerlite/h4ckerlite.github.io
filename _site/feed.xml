@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>H4ckerLite | Blog</title>
   <subtitle>Blog de ciberseguridad, hacking, writeups, CTFs...</subtitle>
-  <updated>2023-03-24T19:48:24+01:00</updated>
+  <updated>2023-03-26T18:31:50+02:00</updated>
   <author>
     <name>H4ckerLite</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,123 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Flight WriteUp</title>
+    <link href="http://localhost:4000/posts/fligth-writeup/" rel="alternate" type="text/html" title="Flight WriteUp" />
+    <published>2023-03-23T17:00:00+01:00</published>
+  
+    <updated>2023-03-23T17:00:00+01:00</updated>
+  
+    <id>http://localhost:4000/posts/fligth-writeup/</id>
+    <content src="http://localhost:4000/posts/fligth-writeup/" />
+    <author>
+      <name>H4ckerLite</name>
+    </author>
+
+  
+    
+    <category term="hackthebox" />
+    
+    <category term="machine" />
+    
+    <category term="writeup" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Proximamente…
+
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>Investigation WriteUp</title>
+    <link href="http://localhost:4000/posts/investigation-writeup/" rel="alternate" type="text/html" title="Investigation WriteUp" />
+    <published>2023-03-22T17:00:00+01:00</published>
+  
+    <updated>2023-03-22T17:00:00+01:00</updated>
+  
+    <id>http://localhost:4000/posts/investigation-writeup/</id>
+    <content src="http://localhost:4000/posts/investigation-writeup/" />
+    <author>
+      <name>H4ckerLite</name>
+    </author>
+
+  
+    
+    <category term="hackthebox" />
+    
+    <category term="machine" />
+    
+    <category term="writeup" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Proximamente…
+
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>BroScience WriteUp</title>
+    <link href="http://localhost:4000/posts/broscience-writeup/" rel="alternate" type="text/html" title="BroScience WriteUp" />
+    <published>2023-03-21T17:00:00+01:00</published>
+  
+    <updated>2023-03-21T17:00:00+01:00</updated>
+  
+    <id>http://localhost:4000/posts/broscience-writeup/</id>
+    <content src="http://localhost:4000/posts/broscience-writeup/" />
+    <author>
+      <name>H4ckerLite</name>
+    </author>
+
+  
+    
+    <category term="hackthebox" />
+    
+    <category term="machine" />
+    
+    <category term="writeup" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Proximamente…
+
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -63,14 +180,14 @@ Enviando trazas ICMP  (Internet Control Message Protocol) y usando el TTL(Time t
 
   
   <entry>
-    <title>Inject WriteUp</title>
-    <link href="http://localhost:4000/posts/inject-writeup/" rel="alternate" type="text/html" title="Inject WriteUp" />
-    <published>2023-03-11T17:00:00+01:00</published>
+    <title>Encoding WriteUp</title>
+    <link href="http://localhost:4000/posts/encoding-writeup/" rel="alternate" type="text/html" title="Encoding WriteUp" />
+    <published>2023-03-19T17:00:00+01:00</published>
   
-    <updated>2023-03-13T19:41:53+01:00</updated>
+    <updated>2023-03-19T17:00:00+01:00</updated>
   
-    <id>http://localhost:4000/posts/inject-writeup/</id>
-    <content src="http://localhost:4000/posts/inject-writeup/" />
+    <id>http://localhost:4000/posts/encoding-writeup/</id>
+    <content src="http://localhost:4000/posts/encoding-writeup/" />
     <author>
       <name>H4ckerLite</name>
     </author>
@@ -93,135 +210,8 @@ Enviando trazas ICMP  (Internet Control Message Protocol) y usando el TTL(Time t
 
 
 
-      Les explicaré cómo compremeter la máquina Inject de HackTheBox. Nos enfretaremos con una página que cuenta con una vulneravilidad de tipo Directory Transversal, usando dicha vulnerabilidad veremos una version vulnerable de Spring que cuenta con una vulnerabilidad de tipo command injection. Para migrar de usuario nos aprovecharemos de una contraseña filtrada. Y para escalar nuestros privilegios ...
-    </summary>
-  
+      Proximamente…
 
-  </entry>
-
-  
-  <entry>
-    <title>Photobomb WriteUp</title>
-    <link href="http://localhost:4000/posts/photobomb-writeup/" rel="alternate" type="text/html" title="Photobomb WriteUp" />
-    <published>2023-02-03T17:00:00+01:00</published>
-  
-    <updated>2023-02-19T19:29:59+01:00</updated>
-  
-    <id>http://localhost:4000/posts/photobomb-writeup/</id>
-    <content src="http://localhost:4000/posts/photobomb-writeup/" />
-    <author>
-      <name>H4ckerLite</name>
-    </author>
-
-  
-    
-    <category term="hackthebox" />
-    
-    <category term="machine" />
-    
-    <category term="writeup" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      Hoy tocará explotar la máquina Photobomb de HackTheBox, es de dificultad fácil. Haremos un command injection y para la escalada haremos un Path Hijacking
-
-Escaneo NMAP
-
-Antes de empezar les recomiendo hacer un escaneo para saber que puertos estan abiertos y que servicios corren por ellos, ya que esta información nos sera util para continuar con la prueba de penetración.
-
-❯ nmap -p- --open -sS -...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Precious WriteUp</title>
-    <link href="http://localhost:4000/posts/precious-writeup/" rel="alternate" type="text/html" title="Precious WriteUp" />
-    <published>2023-01-16T17:00:00+01:00</published>
-  
-    <updated>2023-03-13T03:22:20+01:00</updated>
-  
-    <id>http://localhost:4000/posts/precious-writeup/</id>
-    <content src="http://localhost:4000/posts/precious-writeup/" />
-    <author>
-      <name>H4ckerLite</name>
-    </author>
-
-  
-    
-    <category term="hackthebox" />
-    
-    <category term="machine" />
-    
-    <category term="writeup" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      Les explicaré cómo comprometer la máquina Precious de HackTheBox. En esta máquina nos enfretaremos a una versión vulnerable de pdfkit con la cual ganaremos acceso por una reverse shell y para la escalada cargaremos un archivo para convertir la BASH en SUID.
-
-Identificando el OS
-
-Para ello debemos enviar una traza ICMP(Internet Control Message Protocol), estas siglas sinifican Protocolo de Mensa...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Ambassador WriteUp</title>
-    <link href="http://localhost:4000/posts/ambassador-writeup/" rel="alternate" type="text/html" title="Ambassador WriteUp" />
-    <published>2023-01-16T17:00:00+01:00</published>
-  
-    <updated>2023-03-13T03:22:20+01:00</updated>
-  
-    <id>http://localhost:4000/posts/ambassador-writeup/</id>
-    <content src="http://localhost:4000/posts/ambassador-writeup/" />
-    <author>
-      <name>H4ckerLite</name>
-    </author>
-
-  
-    
-    <category term="hackthebox" />
-    
-    <category term="machine" />
-    
-    <category term="writeup" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      Les explicare cómo comprometer la máquina Ambassador de HackTheBox, Nos enfrentaremos a una version de Grafana la cual cuenta con un
-a vulnerabilidad de tipo Directory Transversal y Arbitrary File Read. Para ganar acceso al sistema nos aprovecharemos de aquella vulneravilidad de grafana que nos aprovecharemos de en exploit de Consul con un token que nos lanzará la s
-hell como root.
-
-Escaneo NMA...
     </summary>
   
 
