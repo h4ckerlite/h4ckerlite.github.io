@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>H4ckerLite | Blog</title>
   <subtitle>Blog de ciberseguridad, hacking, writeups, CTFs...</subtitle>
-  <updated>2023-03-26T18:31:50+02:00</updated>
+  <updated>2023-04-01T04:04:38+02:00</updated>
   <author>
     <name>H4ckerLite</name>
     <uri>http://localhost:4000/</uri>
@@ -128,8 +128,7 @@
 
 
 
-      Proximamente…
-
+      Tocaremos una máquina media de HackTheBox. Cuando creemos una cuenta nos pedirá una clave de activación, gracias a una vulnerabilidad de directory transversal podremos ver una manera de conseguir elcodigo con una funcion de tiempo a crear la cuenta. Para la escalada nos aprovecharemos de un vulnerabilidad en una clase de PHP que nos lanzará la shell como www-data. Con una base de datos de Postg...
     </summary>
   
 
@@ -141,7 +140,7 @@
     <link href="http://localhost:4000/posts/metatwo-writeup/" rel="alternate" type="text/html" title="MetaTwo WriteUp" />
     <published>2023-03-20T17:00:00+01:00</published>
   
-    <updated>2023-03-20T17:00:00+01:00</updated>
+    <updated>2023-03-29T23:27:02+02:00</updated>
   
     <id>http://localhost:4000/posts/metatwo-writeup/</id>
     <content src="http://localhost:4000/posts/metatwo-writeup/" />
