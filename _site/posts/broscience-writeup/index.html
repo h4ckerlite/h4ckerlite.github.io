@@ -67,8 +67,8 @@
 <meta property="og:title" content="BroScience WriteUp" />
 <meta name="author" content="H4ckerLite" />
 <meta property="og:locale" content="es_ES" />
-<meta name="description" content="Tocaremos una máquina media de HackTheBox. Cuando creemos una cuenta nos pedirá una clave de activación, gracias a una vulnerabilidad de directory transversal podremos ver una manera de conseguir elcodigo con una funcion de tiempo a crear la cuenta. Para la escalada nos aprovecharemos de un vulnerabilidad en una clase de PHP que nos lanzará la shell como www-data. Con una base de datos de Postgresql podremos sacar la contraseña del usuario Bill y para la escalada nos aprovecharemos de una tarea cron que verifica el estado del certificado SSL. Escaneo NMAP Realizamos un escaneo NMAP." />
-<meta property="og:description" content="Tocaremos una máquina media de HackTheBox. Cuando creemos una cuenta nos pedirá una clave de activación, gracias a una vulnerabilidad de directory transversal podremos ver una manera de conseguir elcodigo con una funcion de tiempo a crear la cuenta. Para la escalada nos aprovecharemos de un vulnerabilidad en una clase de PHP que nos lanzará la shell como www-data. Con una base de datos de Postgresql podremos sacar la contraseña del usuario Bill y para la escalada nos aprovecharemos de una tarea cron que verifica el estado del certificado SSL. Escaneo NMAP Realizamos un escaneo NMAP." />
+<meta name="description" content="Tocaremos una máquina media de HackTheBox. Cuando creemos una cuenta nos pedirá una clave de activación, gracias a una vulnerabilidad de directory transversal podremos ver una manera de conseguir el código para activar la cuenta con una función de tiempo al momento crear la cuenta. Para ganar acceso al sistema nos aprovecharemos de un vulnerabilidad en una clase de PHP que nos lanzará la shell como www-data. Con una base de datos de Postgresql podremos sacar la contraseña del usuario Bill y para la escalada nos aprovecharemos de una tarea cron que verifica el estado del certificado SSL. Escaneo NMAP Realizamos un escaneo NMAP." />
+<meta property="og:description" content="Tocaremos una máquina media de HackTheBox. Cuando creemos una cuenta nos pedirá una clave de activación, gracias a una vulnerabilidad de directory transversal podremos ver una manera de conseguir el código para activar la cuenta con una función de tiempo al momento crear la cuenta. Para ganar acceso al sistema nos aprovecharemos de un vulnerabilidad en una clase de PHP que nos lanzará la shell como www-data. Con una base de datos de Postgresql podremos sacar la contraseña del usuario Bill y para la escalada nos aprovecharemos de una tarea cron que verifica el estado del certificado SSL. Escaneo NMAP Realizamos un escaneo NMAP." />
 <link rel="canonical" href="http://localhost:4000/posts/broscience-writeup/" />
 <meta property="og:url" content="http://localhost:4000/posts/broscience-writeup/" />
 <meta property="og:site_name" content="H4ckerLite Blog" />
@@ -83,7 +83,7 @@
 <meta name="twitter:site" content="@mortzelo" />
 <meta name="twitter:creator" content="@H4ckerLite" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"H4ckerLite"},"dateModified":"2023-03-21T17:00:00+01:00","datePublished":"2023-03-21T17:00:00+01:00","description":"Tocaremos una máquina media de HackTheBox. Cuando creemos una cuenta nos pedirá una clave de activación, gracias a una vulnerabilidad de directory transversal podremos ver una manera de conseguir elcodigo con una funcion de tiempo a crear la cuenta. Para la escalada nos aprovecharemos de un vulnerabilidad en una clase de PHP que nos lanzará la shell como www-data. Con una base de datos de Postgresql podremos sacar la contraseña del usuario Bill y para la escalada nos aprovecharemos de una tarea cron que verifica el estado del certificado SSL. Escaneo NMAP Realizamos un escaneo NMAP.","headline":"BroScience WriteUp","image":{"alt":"BroScience WriteUp","url":"http://localhost:4000/assets/img/commons/broScience-writeup/BroScience.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/broscience-writeup/"},"url":"http://localhost:4000/posts/broscience-writeup/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"H4ckerLite"},"dateModified":"2023-04-01T04:05:18+02:00","datePublished":"2023-03-21T17:00:00+01:00","description":"Tocaremos una máquina media de HackTheBox. Cuando creemos una cuenta nos pedirá una clave de activación, gracias a una vulnerabilidad de directory transversal podremos ver una manera de conseguir el código para activar la cuenta con una función de tiempo al momento crear la cuenta. Para ganar acceso al sistema nos aprovecharemos de un vulnerabilidad en una clase de PHP que nos lanzará la shell como www-data. Con una base de datos de Postgresql podremos sacar la contraseña del usuario Bill y para la escalada nos aprovecharemos de una tarea cron que verifica el estado del certificado SSL. Escaneo NMAP Realizamos un escaneo NMAP.","headline":"BroScience WriteUp","image":{"alt":"BroScience WriteUp","url":"http://localhost:4000/assets/img/commons/broScience-writeup/BroScience.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/broscience-writeup/"},"url":"http://localhost:4000/posts/broscience-writeup/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -2448,6 +2448,26 @@
 
     <!-- lastmod date -->
     
+    <span>
+      Actualizado
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em class=""
+    data-ts="1680314718"
+    data-df="YYYY-MM-DD"
+    data-toggle="tooltip" data-placement="bottom">
+  2023-03-31
+</em>
+
+    </span>
+    
 
   
     
@@ -2508,7 +2528,7 @@
 
 <!-- return element -->
 <span class="readtime" data-toggle="tooltip" data-placement="bottom"
-  title="2678 palabras">
+  title="2693 palabras">
   <em>14 min</em> de lectura</span>
 
     </div>
@@ -2518,7 +2538,7 @@
 </div> <!-- .post-meta -->
 
 <div class="post-content">
-  <p>Tocaremos una máquina media de <a href="">HackTheBox</a>. Cuando creemos una cuenta nos pedirá una clave de activación, gracias a una vulnerabilidad de <strong>directory transversal</strong> podremos ver una manera de conseguir elcodigo con una funcion de tiempo a crear la cuenta. Para la escalada nos aprovecharemos de un vulnerabilidad en una clase de PHP que nos lanzará la shell como <strong>www-data</strong>. Con una base de datos de <strong>Postgresql</strong> podremos sacar la contraseña del usuario <strong>Bill</strong> y para la escalada nos aprovecharemos de una tarea cron que verifica el estado del certificado <strong>SSL</strong>.</p>
+  <p>Tocaremos una máquina media de <a href="">HackTheBox</a>. Cuando creemos una cuenta nos pedirá una clave de activación, gracias a una vulnerabilidad de <strong>directory transversal</strong> podremos ver una manera de conseguir el código para activar la cuenta con una función de tiempo al momento crear la cuenta. Para ganar acceso al sistema nos aprovecharemos de un vulnerabilidad en una clase de PHP que nos lanzará la shell como <strong>www-data</strong>. Con una base de datos de <strong>Postgresql</strong> podremos sacar la contraseña del usuario <strong>Bill</strong> y para la escalada nos aprovecharemos de una tarea cron que verifica el estado del certificado <strong>SSL</strong>.</p>
 <h2 id="escaneo-nmap"><span class="mr-2">Escaneo NMAP</span><a href="#escaneo-nmap" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 <p>Realizamos un escaneo NMAP.</p>
 
@@ -2561,12 +2581,12 @@ Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up
   </tbody>
 </table></div>
 
-<p>Si miramos vemos que podemos logearnios y crear una cuenta.</p>
+<p>Si miramos vemos que podemos logearnos y crear una cuenta.</p>
 
 <p><img data-src="/assets/img/commons/broScience-writeup/2.png" alt="Events " class="center-image" data-proofer-ignore>
 <em>Crear Cuenta</em></p>
 
-<p>Una vez creada  emos esto:</p>
+<p>Una vez creada  vemos esto:</p>
 
 <p><img data-src="/assets/img/commons/broScience-writeup/3.png" alt="Events " class="center-image" data-proofer-ignore>
 <em>Confrim Code</em></p>
@@ -2641,7 +2661,7 @@ Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up
 <p><img data-src="/assets/img/commons/broScience-writeup/7.png" alt="Events " class="center-image" data-proofer-ignore>
 <em>img.php</em></p>
 <h2 id="bypassyng-con-doble-url-encode"><span class="mr-2">BYPASSYNG: Con doble URL ENCODE</span><a href="#bypassyng-con-doble-url-encode" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
-<p>Probando varios metos de ofuscacion me di cuenta que la baarra entra en conflicto, ¿Cómo se soluciona?, bueno podemos aplicar doble URL encode</p>
+<p>Probando varios metodos de ofuscación me di cuenta que la barra entra en conflicto, ¿Cómo se soluciona?, bueno podemos aplicar doble URL encode</p>
 
 <p>Exelente pregunta, les daré una breve explicacíon: 
 <strong>By ChatGPT</strong></p>
@@ -2912,12 +2932,12 @@ _laurel:x:998:998::/var/log/laurel:/bin/false
 <span class="nt">&lt;/html&gt;</span>
 </pre></td></tr></tbody></table></code></div></div>
 
-<p>Viendo el codigo, intentamos ver el <code class="language-plaintext highlighter-rouge">register.php</code> viendo que no hay una ruta sabemos que se encuentra en en el mismo directorio, procedemos a leerlo.</p>
+<p>Viendo el código, intentamos ver el <code class="language-plaintext highlighter-rouge">register.php</code> viendo que no hay una ruta sabemos que se encuentra en en el mismo directorio, procedemos a leerlo sin problemas.</p>
 
 <p><img data-src="/assets/img/commons/broScience-writeup/10.png" alt="Events " class="center-image" data-proofer-ignore>
 <em>Registrer</em></p>
 
-<p>Vemos como activar la cuenta</p>
+<p>Vemos como activar la cuenta.</p>
 
 <p><img data-src="/assets/img/commons/broScience-writeup/13.png" alt="Events " class="center-image" data-proofer-ignore>
 <em>Activation Code</em></p>
@@ -3059,7 +3079,7 @@ La interfaz de avatar tiene un nombre de método/función __wakeup()que crea una
 <p><img data-src="/assets/img/commons/broScience-writeup/17.png" alt="Hacker " class="center-image" data-proofer-ignore>
 <em>Cookie</em></p>
 
-<p>Nos creamos una shell.php con ese nombre y abrimos un servidor python.</p>
+<p>Nos creamos una una reverse-shell.php con ese nombre y abrimos un servidor python.</p>
 <div class="language-bash highlighter-rouge"><div class="code-header">
         <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
       <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
@@ -3253,11 +3273,16 @@ a7eed23a7be6fe0d765197b1027453fe:NaCl
 <div class="language-bash highlighter-rouge"><div class="code-header">
         <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
       <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
 </pre></td><td class="rouge-code"><pre>su bill
+
+bill@broscience:~<span class="nv">$ </span><span class="nb">cat </span>user.txt 
+be<span class="k">****************************</span>50
+bill@broscience:~<span class="nv">$ </span>
 </pre></td></tr></tbody></table></code></div></div>
-<p>bill@broscience:~$ cat user.txt 
-be<strong>**</strong><strong>**</strong><strong>**</strong><strong>**</strong><em>**</em>50
-bill@broscience:~$</p>
 
 <p>Tenemos la priemra flag!</p>
 <h2 id="escalada-de-privilegios"><span class="mr-2">Escalada de privilegios</span><a href="#escalada-de-privilegios" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
@@ -3449,7 +3474,7 @@ Organizational Unit Name <span class="o">(</span>eg, section<span class="o">)</s
 Common Name <span class="o">(</span>e.g. server FQDN or YOUR name<span class="o">)</span> <span class="o">[]</span>:<span class="si">$(</span><span class="nb">chmod</span> +x /bin/bash<span class="si">)</span>
 </pre></td></tr></tbody></table></code></div></div>
 
-<p>En unos minutos nuestra bash sera SUID.</p>
+<p>En unos minutos nuestra bash será SUID.</p>
 
 <div class="language-bash highlighter-rouge"><div class="code-header">
         <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
@@ -3631,6 +3656,11 @@ bash-5.1#
         
         
         
+      <li><a href="/posts/broscience-writeup/">BroScience WriteUp</a></li>
+      
+        
+        
+        
       <li><a href="/posts/metatwo-writeup/">MetaTwo WriteUp</a></li>
       
         
@@ -3647,11 +3677,6 @@ bash-5.1#
         
         
       <li><a href="/posts/ambassador-writeup/">Ambassador WriteUp</a></li>
-      
-        
-        
-        
-      <li><a href="/posts/precious-writeup/">Precious WriteUp</a></li>
       
     </ul>
   </div> <!-- #access-lastmod -->
@@ -3780,214 +3805,6 @@ bash-5.1#
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
   
     
     
@@ -4082,6 +3899,268 @@ bash-5.1#
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -4102,18 +4181,6 @@ bash-5.1#
     
     
       
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
         
         
 
@@ -4132,40 +4199,7 @@ bash-5.1#
     
     
     
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
+      
     
   
     
@@ -4217,10 +4251,10 @@ bash-5.1#
       <a class="post-tag" href="/tags/hackthebox/">hackthebox</a>
     
       
-      <a class="post-tag" href="/tags/linux/">linux</a>
+      <a class="post-tag" href="/tags/writeup/">writeup</a>
     
       
-      <a class="post-tag" href="/tags/writeup/">writeup</a>
+      <a class="post-tag" href="/tags/linux/">linux</a>
     
       
       <a class="post-tag" href="/tags/easy/">easy</a>
@@ -4229,13 +4263,13 @@ bash-5.1#
       <a class="post-tag" href="/tags/virtual-hosting/">virtual hosting</a>
     
       
+      <a class="post-tag" href="/tags/medium/">medium</a>
+    
+      
       <a class="post-tag" href="/tags/command-injection/">command injection</a>
     
       
       <a class="post-tag" href="/tags/directory-transversal/">directory transversal</a>
-    
-      
-      <a class="post-tag" href="/tags/medium/">medium</a>
     
       
       <a class="post-tag" href="/tags/ansible-playbook/">Ansible playbook</a>
@@ -4325,7 +4359,72 @@ bash-5.1#
   
 
   
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
     
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
   
 
   
@@ -4525,7 +4624,7 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
       
       
       <div class="card">
-        <a href="/posts/shoppy-writeup/">
+        <a href="/posts/interface-writeup/">
           <div class="card-body">
             <!--
   Date format snippet
@@ -4537,13 +4636,13 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
 
 
 <em class="small"
-    data-ts="1673625600"
+    data-ts="1680278400"
     data-df="YYYY-MM-DD"
     >
-  2023-01-13
+  2023-03-31
 </em>
 
-            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>Shoppy WriteUp</h3>
+            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>Interface WriteUp</h3>
             <div class="text-muted small">
               <p>
                 
@@ -4552,7 +4651,7 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
 
 
 
-                Les explicaré cómo comprometer la máquina Shoppy de HackTheBox. En esta máquina nos enfretaremos a un NoSQLi de MongoDB y ganaremos acceso al sistema gracias a una contraseña filtrada y para la esc...
+                Interface es una máquina de HackTheBox con una dificultad media. Para acceder usaremos una CVE de  la herramienta dompdf  que cuenta con un RCE y para la escalada nos aprovecharemos de una tarea cr...
               </p>
             </div>
           </div>
@@ -4571,9 +4670,9 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
 
 <div class="post-navigation d-flex justify-content-between">
   
-  <a href="/posts/metatwo-writeup/" class="btn btn-outline-primary"
+  <a href="/posts/escape-writeup/" class="btn btn-outline-primary"
     prompt="Anterior">
-    <p>MetaTwo WriteUp</p>
+    <p>EscapeWriteUp</p>
   </a>
   
 
@@ -4762,214 +4861,6 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
   
     
     
@@ -5064,6 +4955,268 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -5084,18 +5237,6 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
       
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
         
         
 
@@ -5114,40 +5255,7 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
     
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
+      
     
   
     
@@ -5199,10 +5307,10 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
       <a class="post-tag" href="/tags/hackthebox/">hackthebox</a>
     
       
-      <a class="post-tag" href="/tags/linux/">linux</a>
+      <a class="post-tag" href="/tags/writeup/">writeup</a>
     
       
-      <a class="post-tag" href="/tags/writeup/">writeup</a>
+      <a class="post-tag" href="/tags/linux/">linux</a>
     
       
       <a class="post-tag" href="/tags/easy/">easy</a>
@@ -5211,13 +5319,13 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
       <a class="post-tag" href="/tags/virtual-hosting/">virtual hosting</a>
     
       
+      <a class="post-tag" href="/tags/medium/">medium</a>
+    
+      
       <a class="post-tag" href="/tags/command-injection/">command injection</a>
     
       
       <a class="post-tag" href="/tags/directory-transversal/">directory transversal</a>
-    
-      
-      <a class="post-tag" href="/tags/medium/">medium</a>
     
       
       <a class="post-tag" href="/tags/ansible-playbook/">Ansible playbook</a>

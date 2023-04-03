@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>H4ckerLite | Blog</title>
   <subtitle>Blog de ciberseguridad, hacking, writeups, CTFs...</subtitle>
-  <updated>2023-04-01T04:04:38+02:00</updated>
+  <updated>2023-04-04T01:53:55+02:00</updated>
   <author>
     <name>H4ckerLite</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,91 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Interface WriteUp</title>
+    <link href="http://localhost:4000/posts/interface-writeup/" rel="alternate" type="text/html" title="Interface WriteUp" />
+    <published>2023-03-31T18:00:00+02:00</published>
+  
+    <updated>2023-03-31T18:00:00+02:00</updated>
+  
+    <id>http://localhost:4000/posts/interface-writeup/</id>
+    <content src="http://localhost:4000/posts/interface-writeup/" />
+    <author>
+      <name>H4ckerLite</name>
+    </author>
+
+  
+    
+    <category term="hackthebox" />
+    
+    <category term="machine" />
+    
+    <category term="writeup" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Interface es una máquina de HackTheBox con una dificultad media. Para acceder usaremos una CVE de  la herramienta dompdf  que cuenta con un RCE y para la escalada nos aprovecharemos de una tarea cron que nos permite poner la bash con permiso SUID.
+
+Enumeración
+Escaneo de puertos
+Empezamos con un escaneo nmap.
+
+❯ nmap 10.10.11.200
+Starting Nmap 7.93 ( https://nmap.org ) at 2023-04-01 00:29 -04
+N...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>Agile WriteUp</title>
+    <link href="http://localhost:4000/posts/agile-writeup/" rel="alternate" type="text/html" title="Agile WriteUp" />
+    <published>2023-03-31T18:00:00+02:00</published>
+  
+    <updated>2023-03-31T18:00:00+02:00</updated>
+  
+    <id>http://localhost:4000/posts/agile-writeup/</id>
+    <content src="http://localhost:4000/posts/agile-writeup/" />
+    <author>
+      <name>H4ckerLite</name>
+    </author>
+
+  
+    
+    <category term="hackthebox" />
+    
+    <category term="machine" />
+    
+    <category term="writeup" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      
+
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -59,14 +144,14 @@
 
   
   <entry>
-    <title>Investigation WriteUp</title>
-    <link href="http://localhost:4000/posts/investigation-writeup/" rel="alternate" type="text/html" title="Investigation WriteUp" />
-    <published>2023-03-22T17:00:00+01:00</published>
+    <title>Stocker WriteUp</title>
+    <link href="http://localhost:4000/posts/stocker-writeup/" rel="alternate" type="text/html" title="Stocker WriteUp" />
+    <published>2023-03-23T17:00:00+01:00</published>
   
-    <updated>2023-03-22T17:00:00+01:00</updated>
+    <updated>2023-03-23T17:00:00+01:00</updated>
   
-    <id>http://localhost:4000/posts/investigation-writeup/</id>
-    <content src="http://localhost:4000/posts/investigation-writeup/" />
+    <id>http://localhost:4000/posts/stocker-writeup/</id>
+    <content src="http://localhost:4000/posts/stocker-writeup/" />
     <author>
       <name>H4ckerLite</name>
     </author>
@@ -91,6 +176,8 @@
 
       Proximamente…
 
+Sale muy pronto
+
     </summary>
   
 
@@ -98,95 +185,14 @@
 
   
   <entry>
-    <title>BroScience WriteUp</title>
-    <link href="http://localhost:4000/posts/broscience-writeup/" rel="alternate" type="text/html" title="BroScience WriteUp" />
-    <published>2023-03-21T17:00:00+01:00</published>
+    <title>Soccer WriteUp</title>
+    <link href="http://localhost:4000/posts/soccer-writeup/" rel="alternate" type="text/html" title="Soccer WriteUp" />
+    <published>2023-03-23T17:00:00+01:00</published>
   
-    <updated>2023-03-21T17:00:00+01:00</updated>
+    <updated>2023-03-23T17:00:00+01:00</updated>
   
-    <id>http://localhost:4000/posts/broscience-writeup/</id>
-    <content src="http://localhost:4000/posts/broscience-writeup/" />
-    <author>
-      <name>H4ckerLite</name>
-    </author>
-
-  
-    
-    <category term="hackthebox" />
-    
-    <category term="machine" />
-    
-    <category term="writeup" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      Tocaremos una máquina media de HackTheBox. Cuando creemos una cuenta nos pedirá una clave de activación, gracias a una vulnerabilidad de directory transversal podremos ver una manera de conseguir elcodigo con una funcion de tiempo a crear la cuenta. Para la escalada nos aprovecharemos de un vulnerabilidad en una clase de PHP que nos lanzará la shell como www-data. Con una base de datos de Postg...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>MetaTwo WriteUp</title>
-    <link href="http://localhost:4000/posts/metatwo-writeup/" rel="alternate" type="text/html" title="MetaTwo WriteUp" />
-    <published>2023-03-20T17:00:00+01:00</published>
-  
-    <updated>2023-03-29T23:27:02+02:00</updated>
-  
-    <id>http://localhost:4000/posts/metatwo-writeup/</id>
-    <content src="http://localhost:4000/posts/metatwo-writeup/" />
-    <author>
-      <name>H4ckerLite</name>
-    </author>
-
-  
-    
-    <category term="hackthebox" />
-    
-    <category term="machine" />
-    
-    <category term="writeup" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      Hoy toca compremeter la máquina MetaTwo de HackTheBox. Nos enfretaremos con una página que cuenta con una vulneravilidad de de un plugin de  Word Press, usando dicha vulnerabilidad podemos dumpear la base de datos y obtener el Usuario y la contraseña del usuario de Word Press,
-
-Enumeración
-
-Identificando el OS
-Enviando trazas ICMP  (Internet Control Message Protocol) y usando el TTL(Time to Liv...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Encoding WriteUp</title>
-    <link href="http://localhost:4000/posts/encoding-writeup/" rel="alternate" type="text/html" title="Encoding WriteUp" />
-    <published>2023-03-19T17:00:00+01:00</published>
-  
-    <updated>2023-03-19T17:00:00+01:00</updated>
-  
-    <id>http://localhost:4000/posts/encoding-writeup/</id>
-    <content src="http://localhost:4000/posts/encoding-writeup/" />
+    <id>http://localhost:4000/posts/soccer-writeup/</id>
+    <content src="http://localhost:4000/posts/soccer-writeup/" />
     <author>
       <name>H4ckerLite</name>
     </author>
@@ -210,6 +216,8 @@ Enviando trazas ICMP  (Internet Control Message Protocol) y usando el TTL(Time t
 
 
       Proximamente…
+
+Sale proximante por el 12 -30 de abril…
 
     </summary>
   

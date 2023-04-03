@@ -9,7 +9,7 @@ image:
   alt: BroScience WriteUp
 pin: true
 ---
-Tocaremos una máquina media de [HackTheBox](). Cuando creemos una cuenta nos pedirá una clave de activación, gracias a una vulnerabilidad de **directory transversal** podremos ver una manera de conseguir elcodigo con una funcion de tiempo a crear la cuenta. Para la escalada nos aprovecharemos de un vulnerabilidad en una clase de PHP que nos lanzará la shell como **www-data**. Con una base de datos de **Postgresql** podremos sacar la contraseña del usuario **Bill** y para la escalada nos aprovecharemos de una tarea cron que verifica el estado del certificado **SSL**.
+Tocaremos una máquina media de [HackTheBox](). Cuando creemos una cuenta nos pedirá una clave de activación, gracias a una vulnerabilidad de **directory transversal** podremos ver una manera de conseguir el código para activar la cuenta con una función de tiempo al momento crear la cuenta. Para ganar acceso al sistema nos aprovecharemos de un vulnerabilidad en una clase de PHP que nos lanzará la shell como **www-data**. Con una base de datos de **Postgresql** podremos sacar la contraseña del usuario **Bill** y para la escalada nos aprovecharemos de una tarea cron que verifica el estado del certificado **SSL**.
 ## Escaneo NMAP
 Realizamos un escaneo NMAP.
 
@@ -35,12 +35,12 @@ En el sertificado **SSL** encontramos un correo.
 | administratror@broscience.htb
 
 
-Si miramos vemos que podemos logearnios y crear una cuenta.
+Si miramos vemos que podemos logearnos y crear una cuenta.
 
 ![Events ]({{ 'assets/img/commons/broScience-writeup/2.png' | relative_url }}){: .center-image }
 _Crear Cuenta_
 
-Una vez creada  emos esto:
+Una vez creada  vemos esto:
 
 ![Events ]({{ 'assets/img/commons/broScience-writeup/3.png' | relative_url }}){: .center-image }
 _Confrim Code_
@@ -92,7 +92,7 @@ Si intentamos un directory transversal veremos esto:
 ![Events ]({{ 'assets/img/commons/broScience-writeup/7.png' | relative_url }}){: .center-image }
 _img.php_
 ##  BYPASSYNG: Con doble URL ENCODE
-Probando varios metos de ofuscacion me di cuenta que la baarra entra en conflicto, ¿Cómo se soluciona?, bueno podemos aplicar doble URL encode
+Probando varios metodos de ofuscación me di cuenta que la barra entra en conflicto, ¿Cómo se soluciona?, bueno podemos aplicar doble URL encode
 
 Exelente pregunta, les daré una breve explicacíon: 
 **By ChatGPT**
@@ -239,12 +239,12 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 </html>
 ```
 
-Viendo el codigo, intentamos ver el `register.php` viendo que no hay una ruta sabemos que se encuentra en en el mismo directorio, procedemos a leerlo.
+Viendo el código, intentamos ver el `register.php` viendo que no hay una ruta sabemos que se encuentra en en el mismo directorio, procedemos a leerlo sin problemas.
 
 ![Events ]({{ 'assets/img/commons/broScience-writeup/10.png' | relative_url }}){: .center-image }
 _Registrer_
 
-Vemos como activar la cuenta
+Vemos como activar la cuenta.
 
 ![Events ]({{ 'assets/img/commons/broScience-writeup/13.png' | relative_url }}){: .center-image }
 _Activation Code_
@@ -290,7 +290,6 @@ Copiamos el código y lo ingresamos en:
 >https://broscience.htb/activate.php?code=
 
 Iniciamos sesión y estamos adentro.
-
 
 
 
@@ -345,7 +344,7 @@ Usando un CookieEditor lo copiamos y lo introducimos en donde dice  `user-prefs`
 ![Hacker ]({{ 'assets/img/commons/broScience-writeup/17.png' | relative_url }}){: .center-image }
 _Cookie_
 
-Nos creamos una shell.php con ese nombre y abrimos un servidor python.
+Nos creamos una una reverse-shell.php con ese nombre y abrimos un servidor python.
 ```bash
 python -m http.server 80
 ```
@@ -464,10 +463,11 @@ _PWNED!!!_
 Migramos...
 ```bash
 su bill
-```
+
 bill@broscience:~$ cat user.txt 
 be****************************50
 bill@broscience:~$ 
+```
 
 
 Tenemos la priemra flag!
@@ -577,7 +577,7 @@ Organizational Unit Name (eg, section) []:
 Common Name (e.g. server FQDN or YOUR name) []:$(chmod +x /bin/bash)
 ```
 
-En unos minutos nuestra bash sera SUID.
+En unos minutos nuestra bash será SUID.
 
 ```bash
 bill@broscience:~/Certs$ ls -la /bin/bash
