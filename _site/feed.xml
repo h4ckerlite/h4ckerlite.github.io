@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>H4ckerLite | Blog</title>
   <subtitle>Blog de ciberseguridad, hacking, writeups, CTFs...</subtitle>
-  <updated>2023-04-04T01:53:55+02:00</updated>
+  <updated>2023-04-04T21:54:21+02:00</updated>
   <author>
     <name>H4ckerLite</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,54 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Escape WriteUp</title>
+    <link href="http://localhost:4000/posts/escape-writeup/" rel="alternate" type="text/html" title="Escape WriteUp" />
+    <published>2023-04-02T18:00:00+02:00</published>
+  
+    <updated>2023-04-02T18:00:00+02:00</updated>
+  
+    <id>http://localhost:4000/posts/escape-writeup/</id>
+    <content src="http://localhost:4000/posts/escape-writeup/" />
+    <author>
+      <name>H4ckerLite</name>
+    </author>
+
+  
+    
+    <category term="hackthebox" />
+    
+    <category term="machine" />
+    
+    <category term="writeup" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Máquinita Windows de hackTheBox, es de dificultad media. Ganarameos acceso al servicio MSSQL tramitando una petición a un servidor nuestro SMB obtendremos el hash NTLMv2
+
+Enumeración
+Escaneo de puertos
+
+Si realizamos un NMAO Scan, veremos los siguientes puertos.
+
+❯❯ nmap 10.10.11.202
+Starting Nmap 7.93 ( https://nmap.org ) at 2023-04-03 20:37 -04
+Nmap scan report for sequel.htb (10.10.11.202)
+H...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -177,47 +225,6 @@ N...
       Proximamente…
 
 Sale muy pronto
-
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Soccer WriteUp</title>
-    <link href="http://localhost:4000/posts/soccer-writeup/" rel="alternate" type="text/html" title="Soccer WriteUp" />
-    <published>2023-03-23T17:00:00+01:00</published>
-  
-    <updated>2023-03-23T17:00:00+01:00</updated>
-  
-    <id>http://localhost:4000/posts/soccer-writeup/</id>
-    <content src="http://localhost:4000/posts/soccer-writeup/" />
-    <author>
-      <name>H4ckerLite</name>
-    </author>
-
-  
-    
-    <category term="hackthebox" />
-    
-    <category term="machine" />
-    
-    <category term="writeup" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      Proximamente…
-
-Sale proximante por el 12 -30 de abril…
 
     </summary>
   

