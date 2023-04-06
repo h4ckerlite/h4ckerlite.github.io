@@ -38,7 +38,7 @@ Si entramos veremos un mensaje de que no se puede acceder, así que sabemos que 
 
 ## Escaneo NMAP
 
-realizaremos el escaneo para saber que purtos están abierto y además para ver por donde corre el HTTP.
+Realizaremos el escaneo para saber que purtos están abierto y además para ver por donde corre el HTTP.
 
 ```
 ❯ nmap 10.129.178.241

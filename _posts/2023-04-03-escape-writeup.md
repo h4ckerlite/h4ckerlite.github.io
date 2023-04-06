@@ -500,7 +500,7 @@ GcaAgmGkMVGWaw90STHR07EW6q5vfg==
 Certify completed in 00:00:12.8384593
 *Evil-WinRM* PS C:\Users\Ryan.Cooper\Documents> 
 ```
-En nuestro Linux guardamos la información en un archivo llamado `cert.prem` y hacemos lo siguiente.
+En nuestro Linux guardamos la información en un archivo llamado `cert.perm` y hacemos lo siguiente.
 ```bash
 ❯ openssl pkcs12 -in cert.pem -keyex -CSP "Microsoft Enhanced Cryptographic Provider v1.0" -export -out cert.pfx
 
