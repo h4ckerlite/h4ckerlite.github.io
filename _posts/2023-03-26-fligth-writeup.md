@@ -3,14 +3,13 @@ title: Flight WriteUp
 author: H4ckerLite 
 date: 2023-03-24 00:00:00 +0800
 categories: [hackthebox, machine, writeup]  
-tags: [windows, hard, lfi, rfi, DC, virtual hosting, user pivoting, RunasCs.exe, JuicePotatoNG, web shell, Doma]
+tags: [windows, hard, lfi, rfi, DC, virtual hosting, user pivoting, RunasCs.exe, JuicePotatoNG, web shell, Active Directory, port forwarding]
 image:
   path: ../../assets/img/commons/Flight-writeup/Flight.png 
   alt: Flight WriteUp
 pin: true
 ---
-Bio
-
+Máquina Windows de [HackTheBox](), mediante un parametro mal configurado podemos hacer un `RFI` y nos dio el hash **NTLMv2** del uusario `svc_apache`, por una contraseña reutilizada migramos al usuario **S.Moon** con un archivo malicioso `destop.ini` nos da el hash del usuario **C.Bum**. Con ayuda de un webshell ganamos acceso a la máquina. Para la escala nos aprovecharemos del permiso `SeImpersonatePrivilege`
 ## Enumeración
 ### NMAP Scan
 
