@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>H4ckerLite | Blog</title>
   <subtitle>Blog de ciberseguridad, hacking, writeups, CTFs...</subtitle>
-  <updated>2023-04-05T19:28:36+02:00</updated>
+  <updated>2023-04-07T05:06:09+02:00</updated>
   <author>
     <name>H4ckerLite</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/escape-writeup/" rel="alternate" type="text/html" title="Escape WriteUp" />
     <published>2023-04-02T18:00:00+02:00</published>
   
-    <updated>2023-04-04T22:05:28+02:00</updated>
+    <updated>2023-04-07T00:40:52+02:00</updated>
   
     <id>http://localhost:4000/posts/escape-writeup/</id>
     <content src="http://localhost:4000/posts/escape-writeup/" />
@@ -50,17 +50,7 @@
 
 
 
-      Máquinita Windows de hackTheBox, es de dificultad media. Ganarameos acceso al servicio MSSQL tramitando una petición a un servidor nuestro SMB obtendremos el hash NTLMv2
-
-Enumeración
-Escaneo de puertos
-
-Si realizamos un NMAO Scan, veremos los siguientes puertos.
-
-❯❯ nmap 10.10.11.202
-Starting Nmap 7.93 ( https://nmap.org ) at 2023-04-03 20:37 -04
-Nmap scan report for sequel.htb (10.10.11.202)
-H...
+      Máquinita Windows de HackTheBox, es de dificultad media. Ganarameos acceso al servicio MSSQL tramitando una petición a un servidor nuestro SMB obtendremos el hash NTLMv2 de un usuario, nos conectamos por Evil-Winrm y mediante una contraseña lekeada vemos la contraseña de otro usuario, Para la esclada nos apovecharemos de un certificado vulnerable que nos dará el hash NTLMdel usuario Administrat...
     </summary>
   
 
@@ -183,8 +173,20 @@ N...
 
 
 
-      Proximamente…
+      Bio
 
+Enumeración
+NMAP Scan
+
+Realizando un NMAP Scan vemos.
+❯ nmap 10.10.11.187
+Starting Nmap 7.93 ( https://nmap.org ) at 2023-04-06 18:55 -04
+Stats: 0:00:01 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 0.80% done
+Nmap scan report for 10.10.11.187
+Host is up (0.15s latency).
+Not shown: 988 filtered tcp ports (no-response)
+PORT     STATE SERVICE...
     </summary>
   
 

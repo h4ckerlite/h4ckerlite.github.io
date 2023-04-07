@@ -3,7 +3,7 @@ title: Precious WriteUp
 author: H4ckerLite 
 date: 2023-01-17 00:00:00 +0800
 categories: [hackthebox, machine, writeup]
-tags: [linux, hackthebox, writeup,virtual hosting, command injection, pdfkit, easy, virtual hosting]
+tags: [linux, hackthebox, writeup, command injection, pdfkit, easy, virtual hosting]
 pin: false
 image:
   path: ../../assets/img/commons/precious-writeup/Precious.png 

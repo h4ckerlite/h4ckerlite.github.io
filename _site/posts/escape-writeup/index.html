@@ -67,8 +67,8 @@
 <meta property="og:title" content="Escape WriteUp" />
 <meta name="author" content="H4ckerLite" />
 <meta property="og:locale" content="es_ES" />
-<meta name="description" content="Máquinita Windows de hackTheBox, es de dificultad media. Ganarameos acceso al servicio MSSQL tramitando una petición a un servidor nuestro SMB obtendremos el hash NTLMv2" />
-<meta property="og:description" content="Máquinita Windows de hackTheBox, es de dificultad media. Ganarameos acceso al servicio MSSQL tramitando una petición a un servidor nuestro SMB obtendremos el hash NTLMv2" />
+<meta name="description" content="Máquinita Windows de HackTheBox, es de dificultad media. Ganarameos acceso al servicio MSSQL tramitando una petición a un servidor nuestro SMB obtendremos el hash NTLMv2 de un usuario, nos conectamos por Evil-Winrm y mediante una contraseña lekeada vemos la contraseña de otro usuario, Para la esclada nos apovecharemos de un certificado vulnerable que nos dará el hash NTLMdel usuario Administrator." />
+<meta property="og:description" content="Máquinita Windows de HackTheBox, es de dificultad media. Ganarameos acceso al servicio MSSQL tramitando una petición a un servidor nuestro SMB obtendremos el hash NTLMv2 de un usuario, nos conectamos por Evil-Winrm y mediante una contraseña lekeada vemos la contraseña de otro usuario, Para la esclada nos apovecharemos de un certificado vulnerable que nos dará el hash NTLMdel usuario Administrator." />
 <link rel="canonical" href="http://localhost:4000/posts/escape-writeup/" />
 <meta property="og:url" content="http://localhost:4000/posts/escape-writeup/" />
 <meta property="og:site_name" content="H4ckerLite Blog" />
@@ -83,7 +83,7 @@
 <meta name="twitter:site" content="@mortzelo" />
 <meta name="twitter:creator" content="@H4ckerLite" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"H4ckerLite"},"dateModified":"2023-04-04T22:05:28+02:00","datePublished":"2023-04-02T18:00:00+02:00","description":"Máquinita Windows de hackTheBox, es de dificultad media. Ganarameos acceso al servicio MSSQL tramitando una petición a un servidor nuestro SMB obtendremos el hash NTLMv2","headline":"Escape WriteUp","image":{"alt":"Inject WriteUp","url":"http://localhost:4000/assets/img/commons/escape-writeup/Escape.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/escape-writeup/"},"url":"http://localhost:4000/posts/escape-writeup/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"H4ckerLite"},"dateModified":"2023-04-07T00:40:52+02:00","datePublished":"2023-04-02T18:00:00+02:00","description":"Máquinita Windows de HackTheBox, es de dificultad media. Ganarameos acceso al servicio MSSQL tramitando una petición a un servidor nuestro SMB obtendremos el hash NTLMv2 de un usuario, nos conectamos por Evil-Winrm y mediante una contraseña lekeada vemos la contraseña de otro usuario, Para la esclada nos apovecharemos de un certificado vulnerable que nos dará el hash NTLMdel usuario Administrator.","headline":"Escape WriteUp","image":{"alt":"Inject WriteUp","url":"http://localhost:4000/assets/img/commons/escape-writeup/Escape.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/escape-writeup/"},"url":"http://localhost:4000/posts/escape-writeup/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -1175,10 +1175,10 @@
 
 
 <em class=""
-    data-ts="1680638728"
+    data-ts="1680820852"
     data-df="YYYY-MM-DD"
     data-toggle="tooltip" data-placement="bottom">
-  2023-04-04
+  2023-04-06
 </em>
 
     </span>
@@ -1243,7 +1243,7 @@
 
 <!-- return element -->
 <span class="readtime" data-toggle="tooltip" data-placement="bottom"
-  title="2461 palabras">
+  title="2495 palabras">
   <em>13 min</em> de lectura</span>
 
     </div>
@@ -1253,12 +1253,12 @@
 </div> <!-- .post-meta -->
 
 <div class="post-content">
-  <p>Máquinita Windows de <a href="">hackTheBox</a>, es de dificultad media. Ganarameos acceso al servicio <code class="language-plaintext highlighter-rouge">MSSQL</code> tramitando una petición a un servidor nuestro <code class="language-plaintext highlighter-rouge">SMB</code> obtendremos el hash <code class="language-plaintext highlighter-rouge">NTLMv2</code></p>
+  <p>Máquinita Windows de <a href="https://app.hackthebox.com/machines/531">HackTheBox</a>, es de dificultad media. Ganarameos acceso al servicio <code class="language-plaintext highlighter-rouge">MSSQL</code> tramitando una petición a un servidor nuestro <code class="language-plaintext highlighter-rouge">SMB</code> obtendremos el hash <code class="language-plaintext highlighter-rouge">NTLMv2</code> de un usuario, nos conectamos por <code class="language-plaintext highlighter-rouge">Evil-Winrm</code> y mediante una contraseña lekeada vemos la contraseña de otro usuario, Para la esclada nos apovecharemos de un certificado vulnerable que nos dará el hash <code class="language-plaintext highlighter-rouge">NTLM</code>del usuario <code class="language-plaintext highlighter-rouge">Administrator</code>.</p>
 
 <h2 id="enumeración"><span class="mr-2">Enumeración</span><a href="#enumeración" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 <h3 id="escaneo-de-puertos"><span class="mr-2">Escaneo de puertos</span><a href="#escaneo-de-puertos" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>Si realizamos un NMAO Scan, veremos los siguientes puertos.</p>
+<p>Si realizamos un NMAP Scan, veremos los siguientes puertos.</p>
 
 <div class="language-bash highlighter-rouge"><div class="code-header">
         <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
@@ -1306,7 +1306,7 @@ Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up
 
 <p>Los puertos <strong>53</strong> y <strong>88</strong>  los que nos da a entender que es un dominio.</p>
 
-<p>Si realizamos un escanoe más profundo vemos.</p>
+<p>Si realizamos un escaneo más profundo vemos.</p>
 
 <div class="language-bash highlighter-rouge"><div class="code-header">
         <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
@@ -1495,7 +1495,7 @@ smb: <span class="se">\&gt;</span>
 
 </pre></td></tr></tbody></table></code></div></div>
 
-<p>Si lo abrimos en nuestro navegador, v eremos lo siguiente:</p>
+<p>Si lo abrimos en nuestro navegador, veremos lo siguiente:</p>
 
 <p><img data-src="/assets/img/commons/escape-writeup/2.png" alt="Hacker " class="center-image" data-proofer-ignore>
 <em>PDF</em></p>
@@ -1503,7 +1503,7 @@ smb: <span class="se">\&gt;</span>
 <p><img data-src="/assets/img/commons/escape-writeup/3.png" alt="Hacker " class="center-image" data-proofer-ignore>
 <em>PDF</em></p>
 
-<p>Si observamos se lekea un Uuuario y su contraseña del servicio MSSQL. Nos podemos conectar.</p>
+<p>Si observamos se lekea un usuario y su contraseña del servicio MSSQL. Nos podemos conectar.</p>
 <div class="language-bash highlighter-rouge"><div class="code-header">
         <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
       <button aria-label="copy" data-title-succeed="¡Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
@@ -2057,7 +2057,7 @@ GcaAgmGkMVGWaw90STHR07EW6q5vfg==
 4
 5
 6
-</pre></td><td class="rouge-code"><pre>En nuestro Linux guardamos la información en un archivo llamado `cert.prem` y hacemos lo siguiente.
+</pre></td><td class="rouge-code"><pre>En nuestro Linux guardamos la información en un archivo llamado `cert.perm` y hacemos lo siguiente.
 ```bash
 ❯ openssl pkcs12 -in cert.pem -keyex -CSP "Microsoft Enhanced Cryptographic Provider v1.0" -export -out cert.pfx
 
@@ -2282,6 +2282,21 @@ Info: Establishing connection to remote endpoint
       <a href="/tags/medium/"
           class="post-tag no-text-decoration" >medium</a>
       
+      <a href="/tags/certify/"
+          class="post-tag no-text-decoration" >certify</a>
+      
+      <a href="/tags/rubeus/"
+          class="post-tag no-text-decoration" >rubeus</a>
+      
+      <a href="/tags/dc/"
+          class="post-tag no-text-decoration" >DC</a>
+      
+      <a href="/tags/smbclient/"
+          class="post-tag no-text-decoration" >smbclient</a>
+      
+      <a href="/tags/evil-winrm/"
+          class="post-tag no-text-decoration" >evil-winrm</a>
+      
   </div>
   
 
@@ -2470,122 +2485,6 @@ Info: Establishing connection to remote endpoint
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -2665,35 +2564,6 @@ Info: Establishing connection to remote endpoint
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -2705,9 +2575,22 @@ Info: Establishing connection to remote endpoint
     
     
       
-        
-        
-
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
   
     
     
@@ -2887,10 +2770,21 @@ Info: Establishing connection to remote endpoint
     
     
     
-      
-        
-        
-
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
   
     
     
@@ -2925,7 +2819,30 @@ Info: Establishing connection to remote endpoint
     
     
     
-      
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
     
   
     
@@ -2946,6 +2863,176 @@ Info: Establishing connection to remote endpoint
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -2955,7 +3042,380 @@ Info: Establishing connection to remote endpoint
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
     
   
     
@@ -2998,10 +3458,10 @@ Info: Establishing connection to remote endpoint
       <a class="post-tag" href="/tags/directory-transversal/">directory transversal</a>
     
       
-      <a class="post-tag" href="/tags/ansible-playbook/">Ansible playbook</a>
+      <a class="post-tag" href="/tags/dc/">DC</a>
     
       
-      <a class="post-tag" href="/tags/arbitrary-file-read/">arbitrary file read</a>
+      <a class="post-tag" href="/tags/windows/">windows</a>
     
 
     </div>
@@ -3526,122 +3986,6 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -3721,35 +4065,6 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -3761,9 +4076,22 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
       
-        
-        
-
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
   
     
     
@@ -3943,10 +4271,21 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
     
-      
-        
-        
-
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
   
     
     
@@ -3981,7 +4320,30 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
     
-      
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
     
   
     
@@ -4002,6 +4364,176 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -4011,7 +4543,380 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
     
   
     
@@ -4054,10 +4959,10 @@ a vulnerabilidad de tipo Directory Transversal y Arbitrary File ...
       <a class="post-tag" href="/tags/directory-transversal/">directory transversal</a>
     
       
-      <a class="post-tag" href="/tags/ansible-playbook/">Ansible playbook</a>
+      <a class="post-tag" href="/tags/dc/">DC</a>
     
       
-      <a class="post-tag" href="/tags/arbitrary-file-read/">arbitrary file read</a>
+      <a class="post-tag" href="/tags/windows/">windows</a>
     
 
     </div>

